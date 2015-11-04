@@ -1,0 +1,63 @@
+*{
+  -webkit-user-select: none;
+  font-family: AlrightSans, 'Helvetica Neue', Helvetica, Arial, 'Source Han Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Microsoft JhengHei', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+@-webkit-keyframes hand-guide{
+  to {
+
+    -webkit-transform: rotate(0deg)
+    translateY(-100px)
+    rotate(0deg);
+    transform: rotate(0deg)
+    translateY(-100px)
+    rotate(0deg);
+  }
+
+  from {
+
+    -webkit-transform: rotate(180deg)
+    translateY(-30px)
+    rotate(-180deg);
+    transform: rotate(180deg)
+    translateY(-30px)
+    rotate(-180deg);
+  }
+}
+
+.section {
+  position: relative;
+}
+
+.warpper{
+  width: 100vw;
+  height: 133.3vw;
+  max-height: 100vh;
+  max-width: 75vh;
+
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  /* vertical center */
+  left: 0;
+  right: 0;
+  /* horizontal center */
+}
+.background {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-image: url(../images/bg.png);
+  background-repeat: no-repeat;
+}
+
+.container {
+  position: fixed;
+  width: 150%;
+  height: 150%;
+  left: -10%;
+  top: -10%;
+  z-index: 1;
+}
