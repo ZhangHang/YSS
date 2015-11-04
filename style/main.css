@@ -33,9 +33,9 @@
 
 .warpper{
   width: 100vw;
-  height: 133.3vw;
+  height: 177.8vw;
   max-height: 100vh;
-  max-width: 75vh;
+  max-width: 56.3vh;
 
   margin: auto;
   top: 0;
@@ -44,20 +44,207 @@
   left: 0;
   right: 0;
   /* horizontal center */
+
+  overflow: hidden;
 }
-.background {
-  width: 100%;
-  height: 100%;
+
+/*.background {
+  position: fixed;
+  width: 110%;
+  height: 110%;
+  left: -10%;
+  top: -10%;
   z-index: 0;
   background-image: url(../images/bg.png);
   background-repeat: no-repeat;
 }
+*/
+
+.background {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  /*background-image: url(../images/bg.png);*/
+  background-repeat: no-repeat;
+}
 
 .container {
-  position: fixed;
-  width: 150%;
-  height: 150%;
-  left: -10%;
-  top: -10%;
-  z-index: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-image: url(../images/bg.png);
+}
+
+.fs{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#page-1 #logo{
+  background-image: url(../images/1/logo.png);
+}
+#page-1 #seperator_top{
+  background-image: url(../images/1/seperator_top.png);
+}
+#page-1 #seperator_bottom{
+  background-image: url(../images/1/seperator_bottom.png);
+}
+#page-1 #text_left{
+  background-image: url(../images/1/text_left.png);
+}
+#page-1 #text_righ{
+  background-image: url(../images/1/text_righ.png);
+}
+#page-1 #text_bottom{
+  background-image: url(../images/1/text_bottom.png);
+}
+#page-1 #drop{
+  background-image: url(../images/1/drop.png);
+}
+
+
+#page-2 #drop{
+  background-image: url(../images/2/drop.png);
+}
+#page-2 #hand{
+  background-image: url(../images/2/hand.png);
+}
+#page-2 #inner_circle{
+  background-image: url(../images/2/inner_circle.png);
+}
+#page-2 #outter_circle{
+  background-image: url(../images/2/outter_circle.png);
+}
+#page-2 #text{
+  background-image: url(../images/2/text.png);
+}
+
+#page-3 #arrow{
+  background-image: url(../images/3/arrow.png);
+}
+#page-3 #info_container{
+  background-image: url(../images/3/info_container.png);
+}
+#page-3 #info_text{
+  background-image: url(../images/3/info_text.png);
+}
+#page-3 #step_1{
+  background-image: url(../images/3/step_1.png);
+}
+#page-3 #step_1_text{
+  background-image: url(../images/3/step_1_text.png);
+}
+#page-3 #step_2{
+  background-image: url(../images/3/step_2.png);
+}
+#page-3 #step_2_text{
+  background-image: url(../images/3/step_2_text.png);
+}
+#page-3 #step_3{
+  background-image: url(../images/3/step_3.png);
+}
+#page-3 #step_3_text{
+  background-image: url(../images/3/step_3_text.png);
+}
+
+#page-4 #dot{
+  background-image: url(../images/4/dot.png);
+}
+#page-4 #drop{
+  background-image: url(../images/4/drop.png);
+}
+#page-4 #main{
+  background-image: url(../images/4/main.png);
+}
+#page-4 #skin_bag{
+  background-image: url(../images/4/skin_bag.png);
+}
+#page-4 #skin_bag_inner{
+  background-image: url(../images/4/skin_bag_inner.png);
+}
+
+#page-5 #dot{
+  background-image: url(../images/5/dot.png);
+}
+#page-5 #hand{
+  background-image: url(../images/5/hand.png);
+}
+#page-5 #main{
+  background-image: url(../images/5/main.png);
+}
+#page-5 #text{
+  background-image: url(../images/5/text.png);
+}
+
+#page-6 #arrow{
+  background-image: url(../images/6/arrow.png);
+}
+#page-6 #arrow_big{
+  background-image: url(../images/6/arrow_big.png);
+}
+#page-6 #arrow_middle{
+  background-image: url(../images/6/arrow_middle.png);
+}
+#page-6 #face{
+  background-image: url(../images/6/face.png);
+}
+#page-6 #zoom{
+  background-image: url(../images/6/zoom.png);
+}
+
+#page-7 #ball{
+  background-image: url(../images/7/ball.png);
+}
+#page-7 #phone{
+  background-image: url(../images/7/phone.png);
+}
+#page-7 #seperator{
+  background-image: url(../images/7/seperator.png);
+}
+#page-7 #text{
+  background-image: url(../images/7/text.png);
+}
+#page-7 #vibration{
+  background-image: url(../images/7/vibration.png);
+}
+
+
+#page-8 #arrow{
+  background-image: url(../images/8/arrow.png);
+}
+#page-8 #hand{
+  background-image: url(../images/8/hand.png);
+}
+#page-8 #head{
+  background-image: url(../images/8/head.png);
+}
+#page-8 #sun{
+  background-image: url(../images/8/sun.png);
+}
+
+#page-9 #logo{
+  background-image: url(../images/9/logo.png);
+}
+#page-9 #seperator_bottom{
+  background-image: url(../images/9/seperator_bottom.png);
+}
+#page-9 #seperator_top{
+  background-image: url(../images/9/seperator_top.png);
+}
+#page-9 #text_bottom{
+  background-image: url(../images/9/text_bottom.png);
+}
+#page-9 #text_top{
+  background-image: url(../images/9/text_top.png);
+}
+#page-9 #video_container{
+  background-image: url(../images/9/video_container.png);
+}
+#page-9 #video_play{
+  background-image: url(../images/9/video_play.png);
 }
