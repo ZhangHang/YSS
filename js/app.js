@@ -1,96 +1,6 @@
 var TASK_NAME_UNLOCK = "TASK_NAME_UNLOCK"
 var TASK_NAME_NAVIGATE_TO_NEXT_PAGE = "TASK_NAME_NAVIGATE_TO_NEXT_PAGE"
 
-var pageObjects = (function() {
-  var pages = [];
-
-  pages.push({
-    render: function() {
-      Animator.fadeIn(this.find("#logo"), 0)
-      Animator.fadeIn(this.find("#seperator_top"), 600)
-      Animator.fadeIn(this.find("#seperator_bottom"), 1200)
-      Animator.fadeIn(this.find("#text_left"), 1600)
-      Animator.fadeIn(this.find("#text_righ"), 1900)
-      Animator.fadeIn(this.find("#text_bottom"), 2100)
-      Animator.fadeIn(this.find("#drop"), 2200)
-    }
-  })
-
-  pages.push({
-    render: function() {
-      var self = this
-      Animator.fadeIn(this.find("#drop"), 0)
-      Animator.fadeIn(this.find("#inner_circle"), 600)
-      Animator.fadeIn(this.find("#outter_circle"), 1200)
-      Animator.fadeIn(this.find("#text"), 1600)
-      Animator.fadeIn(this.find("#hand"), 1900, function() {
-        self.find(".tapArea").on('click', function() {
-          Animator.animate("fadeOutDown", self.find("#drop"));
-          Animator.registerCustomAction(function() {
-            Inbox.post(TASK_NAME_NAVIGATE_TO_NEXT_PAGE)
-          }, 900)
-        })
-      })
-    }
-  })
-
-  pages.push({
-    render: function() {
-
-      Animator.fadeIn(this.find("#info_container"), 0)
-      Animator.fadeIn(this.find("#info_text"), 100)
-
-      Animator.fadeIn(this.find("#step_1"), 600)
-      Animator.fadeIn(this.find("#step_1_text"), 700)
-
-      Animator.fadeIn(this.find("#step_2"), 1700)
-      Animator.fadeIn(this.find("#step_2_text"), 1800)
-
-      Animator.fadeIn(this.find("#step_3"), 2800)
-      Animator.fadeIn(this.find("#step_3_text"), 2900)
-
-      Animator.fadeIn(this.find("#arrow"), 3600)
-    }
-  })
-
-  pages.push({
-    render: function() {
-
-    }
-  })
-
-  pages.push({
-    render: function() {
-
-    }
-  })
-
-  pages.push({
-    render: function() {
-
-    }
-  })
-
-  pages.push({
-    render: function() {
-
-    }
-  })
-
-  pages.push({
-    render: function() {
-
-    }
-  })
-
-  pages.push({
-    render: function() {
-
-    }
-  })
-  return pages;
-})()
-
 var Animator = (function() {
   var core = {}
 
@@ -178,7 +88,7 @@ var Inbox = (function() {
   return core
 })()
 
-~(function() {
+~(function(pages) {
   var backgroundAudio = undefined;
   var latestSectionNode = undefined;
   var latestSectionIndex = undefined;
@@ -193,7 +103,7 @@ var Inbox = (function() {
         Animator.clearAnimations()
 
         if (latestSectionNode) {
-          latestSectionNode.html(pageObjects[latestSectionIndex].htmlCache)
+          latestSectionNode.html(pages[latestSectionIndex].htmlCache)
         }
 
         var indexFromZero = index - 1;
@@ -203,11 +113,11 @@ var Inbox = (function() {
         latestSectionNode = loadedSection;
         latestSectionIndex = indexFromZero;
 
-        if (!pageObjects[indexFromZero].htmlCache) {
-          pageObjects[indexFromZero].htmlCache = loadedSection.html();
+        if (!pages[indexFromZero].htmlCache) {
+          pages[indexFromZero].htmlCache = loadedSection.html();
         }
 
-        pageObjects[indexFromZero].render.call(loadedSection);
+        pages[indexFromZero].render.call(loadedSection);
       }
     });
   });
@@ -220,4 +130,92 @@ var Inbox = (function() {
   Inbox.on(TASK_NAME_NAVIGATE_TO_NEXT_PAGE, function() {
     $.fn.fullpage.moveSectionDown();
   })
-})()
+})((function() {
+  var pages = [];
+
+  pages.push({
+    render: function() {
+      Animator.fadeIn(this.find("#logo"), 0)
+      Animator.fadeIn(this.find("#seperator_top"), 600)
+      Animator.fadeIn(this.find("#seperator_bottom"), 1200)
+      Animator.fadeIn(this.find("#text_left"), 1600)
+      Animator.fadeIn(this.find("#text_righ"), 1900)
+      Animator.fadeIn(this.find("#text_bottom"), 2100)
+      Animator.fadeIn(this.find("#drop"), 2200)
+    }
+  })
+
+  pages.push({
+    render: function() {
+      var self = this
+      Animator.fadeIn(this.find("#drop"), 0)
+      Animator.fadeIn(this.find("#inner_circle"), 600)
+      Animator.fadeIn(this.find("#outter_circle"), 1200)
+      Animator.fadeIn(this.find("#text"), 1600)
+      Animator.fadeIn(this.find("#hand"), 1900, function() {
+        self.find(".tapArea").on('click', function() {
+          Animator.animate("fadeOutDown", self.find("#drop"));
+          Animator.registerCustomAction(function() {
+            Inbox.post(TASK_NAME_NAVIGATE_TO_NEXT_PAGE)
+          }, 900)
+        })
+      })
+    }
+  })
+
+  pages.push({
+    render: function() {
+
+      Animator.fadeIn(this.find("#info_container"), 0)
+      Animator.fadeIn(this.find("#info_text"), 100)
+
+      Animator.fadeIn(this.find("#step_1"), 600)
+      Animator.fadeIn(this.find("#step_1_text"), 700)
+
+      Animator.fadeIn(this.find("#step_2"), 1700)
+      Animator.fadeIn(this.find("#step_2_text"), 1800)
+
+      Animator.fadeIn(this.find("#step_3"), 2800)
+      Animator.fadeIn(this.find("#step_3_text"), 2900)
+
+      Animator.fadeIn(this.find("#arrow"), 3600)
+    }
+  })
+
+  pages.push({
+    render: function() {
+
+    }
+  })
+
+  pages.push({
+    render: function() {
+
+    }
+  })
+
+  pages.push({
+    render: function() {
+
+    }
+  })
+
+  pages.push({
+    render: function() {
+
+    }
+  })
+
+  pages.push({
+    render: function() {
+
+    }
+  })
+
+  pages.push({
+    render: function() {
+
+    }
+  })
+  return pages;
+})())
