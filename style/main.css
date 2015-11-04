@@ -60,6 +60,10 @@
 }
 */
 
+.tapArea {
+  border: 1px red dashed;
+}
+
 .background {
   width: 100%;
   height: 100%;
@@ -83,6 +87,7 @@
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
+  opacity: 0;
 }
 
 #page-1 #logo{
@@ -99,8 +104,7 @@
 }
 #page-1 #text_righ{
   background-image: url(../images/1/text_righ.png);
-}
-#page-1 #text_bottom{
+}#page-1 #text_bottom{
   background-image: url(../images/1/text_bottom.png);
 }
 #page-1 #drop{
@@ -122,6 +126,14 @@
 }
 #page-2 #text{
   background-image: url(../images/2/text.png);
+}
+
+#page-2 .tapArea {
+    margin-left: 36%;
+    margin-top: 49%;
+    width: 29%;
+    height: 15%;
+    position: absolute;
 }
 
 #page-3 #arrow{
