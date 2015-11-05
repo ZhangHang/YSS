@@ -26,13 +26,14 @@ var Animator = (function() {
   })()
 
   /*
-   * node    : JQuery node
-   * delay   : millisecond
-   * options :
+   * @node    : JQuery node
+   * @delay   : millisecond
+   * @options :
    *   infinite: Bool
    *   callback: Function
+   *   duration: String
    */
-  core.animate = function(animationName, node, delay, options) {
+  core.animate = function(animationClassName, node, delay, options) {
     var _delay = delay || 0
     var _options = (function() {
       var _options = {
@@ -58,7 +59,12 @@ var Animator = (function() {
     }
     core.done = function() {
       TimeoutActionStore.addAction(function() {
-        $(node).addClass("animated" + (_options.infinite ? " infinite" : "") + " " + animationName);
+        $(node).addClass("animated" + (_options.infinite ? " infinite" : "") + " " + animationClassName);
+        if (options["duration"] != undefined) {
+          $(node).css("animation-duration", options["duration"])
+            //TODO: Is this necessary?
+          $(node).css("-webkit-animation-duration", options["duration"])
+        }
         TimeoutActionStore.addAction(_options.callback, DEFAULT_ANIMATION_DURATION)
         afterActions.forEach(function(actionPack) {
           TimeoutActionStore.addAction(actionPack.action, actionPack.delay)
@@ -68,19 +74,30 @@ var Animator = (function() {
     return core;
   }
 
-  animateActionFactory = function(animationName) {
+  animateActionFactory = function(animationClassName, defualtOptions) {
     return function() {
       var node = arguments[0]
       var delay = arguments[1]
       var options = arguments[2]
       console.assert(node != undefined)
-      return core.animate(animationName, node, delay, options)
+
+      var _defualtoption = defualtOptions || {}
+      for (var attrname in options || {}) {
+        _defualtoption[attrname] = options[attrname];
+      }
+      return core.animate(animationClassName, node, delay, _defualtoption)
     }
   }
 
   // MARK: - Custom
   core.fadeIn = animateActionFactory("fadeIn")
+  core.fadeOut = animateActionFactory("fadeOut")
+  core.fadeOutDown = animateActionFactory("fadeOutDown")
   core.flash = animateActionFactory("flash")
+  core.shine = animateActionFactory("shine", {
+    duration: "4s"
+  })
+  core.bounceIn = animateActionFactory("bounceIn")
 
   // MARK: -
   core.registerCustomAction = function(action, delay, callback) {
@@ -205,22 +222,24 @@ var Inbox = (function() {
   pages.push({
     render: function() {
       var self = this
-
       Animator.fadeIn(self.find("#drop")).done()
+      Animator.fadeIn(self.find("#water_drop")).done()
       Animator.fadeIn(self.find("#text"), 600).done()
       Animator.fadeIn(self.find("#hand"), 1200).done()
-      Animator.fadeIn(self.find("#inner_circle"), 1800, {
+      Animator.shine(self.find("#inner_circle"), 1800, {
         infinite: true
       }).done()
-      Animator.fadeIn(self.find("#outter_circle"), 2300, {
+      Animator.shine(self.find("#outter_circle"), 2300, {
         infinite: true
       }).done()
 
       self.find(".tapArea").on('click', function() {
-        Animator.animate("fadeOutDown", self.find("#drop")).done()
+        Animator.fadeOutDown(self.find("#water_drop"), 0, {
+          duration: "3s"
+        }).done()
         Animator.registerCustomAction(function() {
           Inbox.post(TASK_NAME_NAVIGATE_TO_NEXT_PAGE)
-        }, 900)
+        }, 1000)
       })
     }
   })
@@ -230,26 +249,48 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#info_container")).done()
       Animator.fadeIn(this.find("#info_text"), 100).done()
 
-      Animator.fadeIn(this.find("#step_1"), 600).done()
-      Animator.fadeIn(this.find("#step_1_text"), 700).done()
+      Animator.fadeIn(this.find("#step_1"), 300).done()
+      Animator.fadeIn(this.find("#step_1_text"), 400).done()
 
-      Animator.fadeIn(this.find("#step_2"), 1700).done()
-      Animator.fadeIn(this.find("#step_2_text"), 1800).done()
+      Animator.fadeIn(this.find("#step_2"), 600).done()
+      Animator.fadeIn(this.find("#step_2_text"), 800).done()
 
-      Animator.fadeIn(this.find("#step_3"), 2800).done()
-      Animator.fadeIn(this.find("#step_3_text"), 2900).done()
+      Animator.fadeIn(this.find("#step_3"), 1000).done()
+      Animator.fadeIn(this.find("#step_3_text"), 1100).done()
 
-      Animator.fadeIn(this.find("#arrow"), 3600).done()
+      Animator.shine(this.find(".next-page-arrow"), 2000).done()
     }
   })
 
   pages.push({
     render: function() {
+      var self = this
       Animator.fadeIn(this.find("#main")).done()
       Animator.fadeIn(this.find("#dot"), 300).done()
       Animator.fadeIn(this.find("#skin_bag_inner"), 400).done()
       Animator.fadeIn(this.find("#drop"), 600).done()
       Animator.fadeIn(this.find("#skin_bag"), 500).done()
+
+      function nextScene() {
+        // Drop Water
+        Animator.fadeIn(self.find("#scene-1-drop")).done()
+        Animator.fadeOut(self.find("#drop")).done()
+        Animator.fadeIn(self.find("#scene-1-main_bottom"), 200).done()
+
+        // Transformation Light Enter
+        Animator.fadeIn(self.find("#scene-1-light"),400).done()
+
+        // Renew
+        Animator.fadeIn(self.find("#scene-1-dot"),600).done()
+        Animator.fadeOut(self.find("#dot"),600).done()
+
+        //
+        Animator.fadeOut(self.find("#skin_bag_inner"),1000).done()
+        Animator.fadeOut(self.find("#skin_bag"),1000).done()
+
+        Animator.bounceIn(self.find("#scene-1_bag"), 1100).done()
+      }
+      setTimeout(nextScene, 3000)
     }
   })
 
@@ -268,7 +309,7 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#arrow_big"), 300).done()
       Animator.fadeIn(this.find("#zoom"), 400).done()
       Animator.fadeIn(this.find("#arrow_middle"), 500).done()
-      Animator.fadeIn(this.find("#arrow"), 600).done()
+      Animator.shine(this.find(".next-page-arrow"), 600).done()
     }
   })
 
@@ -287,7 +328,7 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#sun")).done()
       Animator.fadeIn(this.find("#head"), 300).done()
       Animator.fadeIn(this.find("#hand"), 400).done()
-      Animator.fadeIn(this.find("#arrow"), 500).done()
+      Animator.shine(this.find(".next-page-arrow"), 500).done()
     }
   })
 
