@@ -40,59 +40,52 @@
   right: 0;
   /* horizontal center */
   overflow: hidden;
+  border: 3px black dashed;
 }
-
 .parallax {
-		-webkit-transition: all 0.2s;
-		-moz-transition: all 0.2s;
-		-o-transition: all 0.2s;
-		-ms-transition: all 0.2s;
-		transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  transition: all 0.2s;
 }
-
-/*.background {
-  position: fixed;
-  width: 110%;
-  height: 110%;
-  left: -10%;
-  top: -10%;
-  z-index: 0;
-  background-image: url(../images/bg.png);
-  background-repeat: no-repeat;
-}
-*/
-
 .tapArea {
-  border: 1px red dashed;
+  border: 10px red dashed;
+  position: relative;
 }
 .background {
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  /*background-image: url(../images/bg.png);*/
+  position: relative;
+  width: 130%;
+  height: 130%;
+  top:-15%;
+  left:-15%;
+  background-image: url(../images/bg.png);
   background-repeat: no-repeat;
 }
 .container {
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-image: url(../images/bg.png);
 }
 .fs {
   position: absolute;
+  width: 100vw;
+  height: 177.8vw;
+  max-height: 100vh;
+  max-width: 56.3vh;
+  margin: auto;
   top: 0;
+  bottom: 0;
+  /* vertical center */
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0;
 }
-
 .next-page-arrow {
   background-image: url(../images/arrow.png)
 }
-
 #page-1 #logo {
   background-image: url(../images/1/logo.png);
 }
@@ -134,10 +127,9 @@
 }
 #page-2 .tapArea {
   margin-left: 36%;
-  margin-top: 49%;
-  width: 29%;
-  height: 15%;
-  position: absolute;
+margin-top: 50%;
+width: 25%;
+height: 12%;
 }
 #page-3 #arrow {
   background-image: url(../images/3/arrow.png);
@@ -196,8 +188,6 @@
 #page-4 #scene-1-main_bottom {
   background-image: url(../images/4-1/main_bottom.png);
 }
-
-
 #page-5 #dot {
   background-image: url(../images/5/dot.png);
 }
@@ -210,17 +200,15 @@
 #page-5 #text {
   background-image: url(../images/5/text.png);
 }
-
-#page-5 #scene-1-dot{
+#page-5 #scene-1-dot {
   background-image: url(../images/5-1/dot.png);
 }
-#page-5 #scene-1-flash{
+#page-5 #scene-1-flash {
   background-image: url(../images/5-1/flash.png);
 }
-#page-5 #scene-1-text{
+#page-5 #scene-1-text {
   background-image: url(../images/5-1/text.png);
 }
-
 #page-6 #arrow {
   background-image: url(../images/6/arrow.png);
 }
@@ -272,12 +260,9 @@
 #page-8 .tapArea {
   margin-left: 60%;
   margin-top: 10%;
-  width: 22%;
-  height: 12%;
-  position: absolute;
+  width: 15%;
+  height: 10%;
 }
-
-
 #page-9 #logo {
   background-image: url(../images/9/logo.png);
 }

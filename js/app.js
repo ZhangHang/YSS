@@ -1,5 +1,6 @@
-var TASK_NAME_UNLOCK = "TASK_NAME_UNLOCK"
+var TASK_NAME_UNLOCK_PAGE = "TASK_NAME_UNLOCK_PAGE"
 var TASK_NAME_NAVIGATE_TO_NEXT_PAGE = "TASK_NAME_NAVIGATE_TO_NEXT_PAGE"
+var TASK_NAME_LOCK_PAGE = "TASK_NAME_LOCK_PAGE"
 
 var Animator = (function() {
   var DEFAULT_ANIMATION_DURATION = 1000
@@ -180,7 +181,7 @@ var Inbox = (function() {
   });
 
   // MARK: - Register task handler
-  Inbox.on(TASK_NAME_UNLOCK, function() {
+  Inbox.on(TASK_NAME_UNLOCK_PAGE, function() {
     $.fn.fullpage.setAllowScrolling(true);
   })
 
@@ -379,7 +380,6 @@ window.ondeviceorientation = function (event) {
 };
 
 function Parallax(gamma, beta, direction) {
-
 	$(".parallax").css("margin-top", beta + "px");
 	$(".parallax").css("margin-left", gamma + "px");
 
