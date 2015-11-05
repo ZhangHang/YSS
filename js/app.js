@@ -278,15 +278,15 @@ var Inbox = (function() {
         Animator.fadeIn(self.find("#scene-1-main_bottom"), 200).done()
 
         // Transformation Light Enter
-        Animator.fadeIn(self.find("#scene-1-light"),400).done()
+        Animator.fadeIn(self.find("#scene-1-light"), 400).done()
 
         // Renew
-        Animator.fadeIn(self.find("#scene-1-dot"),600).done()
-        Animator.fadeOut(self.find("#dot"),600).done()
+        Animator.fadeIn(self.find("#scene-1-dot"), 600).done()
+        Animator.fadeOut(self.find("#dot"), 600).done()
 
         //
-        Animator.fadeOut(self.find("#skin_bag_inner"),1000).done()
-        Animator.fadeOut(self.find("#skin_bag"),1000).done()
+        Animator.fadeOut(self.find("#skin_bag_inner"), 1000).done()
+        Animator.fadeOut(self.find("#skin_bag"), 1000).done()
 
         Animator.bounceIn(self.find("#scene-1_bag"), 1100).done()
       }
@@ -296,10 +296,21 @@ var Inbox = (function() {
 
   pages.push({
     render: function() {
+      var self = this
       Animator.fadeIn(this.find("#main")).done()
       Animator.fadeIn(this.find("#dot"), 300).done()
       Animator.fadeIn(this.find("#text"), 400).done()
       Animator.fadeIn(this.find("#hand"), 500).done()
+
+        $(self).on("click", function() {
+          Animator.fadeOut(self.find("#text")).done()
+          Animator.fadeOut(self.find("#hand")).done()
+          Animator.fadeIn(self.find("#scene-1-flash"), 600).done()
+
+          Animator.fadeOut(self.find("#dot"), 1200).done()
+          Animator.fadeIn(self.find("#scene-1-dot"), 1300).done()
+          Animator.bounceIn(self.find("#scene-1-text"), 2300).done()
+        })
     }
   })
 
@@ -325,10 +336,22 @@ var Inbox = (function() {
 
   pages.push({
     render: function() {
-      Animator.fadeIn(this.find("#sun")).done()
+      var self = this
+      Animator.shine(this.find("#sun")).done()
       Animator.fadeIn(this.find("#head"), 300).done()
       Animator.fadeIn(this.find("#hand"), 400).done()
-      Animator.shine(this.find(".next-page-arrow"), 500).done()
+      Animator.fadeIn(this.find("#arrow"), 400).done()
+
+      this.find(".tapArea").on("click",function(){
+          Animator.fadeOut(self.find("#sun")).done()
+          Animator.fadeOut(self.find("#hand")).done()
+          Animator.fadeOut(self.find("#head")).done()
+
+          Animator.fadeIn(self.find("#scene-1-sun"),200).done()
+          Animator.fadeIn(self.find("#scene-1-head"),600).done()
+
+          Animator.shine(self.find(".next-page-arrow"), 1600).done()
+      })
     }
   })
 

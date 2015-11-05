@@ -202,6 +202,17 @@
 #page-5 #text {
   background-image: url(../images/5/text.png);
 }
+
+#page-5 #scene-1-dot{
+  background-image: url(../images/5-1/dot.png);
+}
+#page-5 #scene-1-flash{
+  background-image: url(../images/5-1/flash.png);
+}
+#page-5 #scene-1-text{
+  background-image: url(../images/5-1/text.png);
+}
+
 #page-6 #arrow {
   background-image: url(../images/6/arrow.png);
 }
@@ -244,6 +255,21 @@
 #page-8 #sun {
   background-image: url(../images/8/sun.png);
 }
+#page-8 #scene-1-head {
+  background-image: url(../images/8-1/head.png);
+}
+#page-8 #scene-1-sun {
+  background-image: url(../images/8-1/sun.png);
+}
+#page-8 .tapArea {
+  margin-left: 60%;
+  margin-top: 10%;
+  width: 22%;
+  height: 12%;
+  position: absolute;
+}
+
+
 #page-9 #logo {
   background-image: url(../images/9/logo.png);
 }
