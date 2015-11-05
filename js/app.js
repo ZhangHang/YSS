@@ -173,59 +173,55 @@ var Inbox = (function() {
 })((function() {
   var pages = [];
 
+  var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
+    var firstTimeCall = true
+    this.next = function(customStepInMilliSecond) {
+      if (firstTimeCall) {
+        firstTimeCall = false
+        console.assert(customStepInMilliSecond === undefined)
+        return baseDelayInMilliSecond
+      }
+      var step = (customStepInMilliSecond === undefined) ? stepInMilliSecond : customStepInMilliSecond
+      baseDelayInMilliSecond += step
+      console.log(baseDelayInMilliSecond)
+      return baseDelayInMilliSecond
+    }
+  }
+
   pages.push({
     render: function() {
       var self = this
-      Animator.fadeIn(self.find("#logo"))
-        .after(function() {
-          Animator.fadeIn(self.find("#seperator_top")).done()
-        }, 600)
-        .after(function() {
-          Animator.fadeIn(self.find("#seperator_bottom")).done()
-        }, 500)
-        .after(function() {
-          Animator.fadeIn(self.find("#text_left")).done()
-        }, 400)
-        .after(function() {
-          Animator.fadeIn(self.find("#text_righ")).done()
-        }, 300)
-        .after(function() {
-          Animator.fadeIn(self.find("#text_bottom")).done()
-        }, 200)
-        .after(function() {
-          Animator.fadeIn(self.find("#drop")).done()
-        }, 100)
-        .done()
+      var incrementer = new Incrementer(200, 300)
+      Animator.fadeIn(self.find("#logo"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#seperator_top", incrementer.next())).done()
+      Animator.fadeIn(self.find("#seperator_bottom", incrementer.next())).done()
+      Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#text_righ"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#drop"), incrementer.next()).done()
     }
   })
 
   pages.push({
     render: function() {
-
       var self = this
 
-      Animator.fadeIn(self.find("#drop"))
-        .after(function() {
-          Animator.fadeIn(self.find("#text")).done()
-        }, 600)
-        .after(function() {
-          Animator.fadeIn(self.find("#hand")).done()
-        }, 600)
-        .after(function() {
-          Animator.fadeIn(self.find("#inner_circle"), 0, {
-            infinite: true
-          }).done()
-          Animator.fadeIn(self.find("#outter_circle"), 500, {
-            infinite: true
-          }).done()
-          self.find(".tapArea").on('click', function() {
-            Animator.animate("fadeOutDown", self.find("#drop")).done()
-            Animator.registerCustomAction(function() {
-              Inbox.post(TASK_NAME_NAVIGATE_TO_NEXT_PAGE)
-            }, 900)
-          })
-        },600)
-        .done()
+      Animator.fadeIn(self.find("#drop")).done()
+      Animator.fadeIn(self.find("#text"), 600).done()
+      Animator.fadeIn(self.find("#hand"), 1200).done()
+      Animator.fadeIn(self.find("#inner_circle"), 1800, {
+        infinite: true
+      }).done()
+      Animator.fadeIn(self.find("#outter_circle"), 2300, {
+        infinite: true
+      }).done()
+
+      self.find(".tapArea").on('click', function() {
+        Animator.animate("fadeOutDown", self.find("#drop")).done()
+        Animator.registerCustomAction(function() {
+          Inbox.post(TASK_NAME_NAVIGATE_TO_NEXT_PAGE)
+        }, 900)
+      })
     }
   })
 
@@ -251,39 +247,59 @@ var Inbox = (function() {
     render: function() {
       Animator.fadeIn(this.find("#main")).done()
       Animator.fadeIn(this.find("#dot"), 300).done()
+      Animator.fadeIn(this.find("#skin_bag_inner"), 400).done()
       Animator.fadeIn(this.find("#drop"), 600).done()
       Animator.fadeIn(this.find("#skin_bag"), 500).done()
-      Animator.fadeIn(this.find("#skin_bag_inner"), 400).done()
     }
   })
 
   pages.push({
     render: function() {
-
+      Animator.fadeIn(this.find("#main")).done()
+      Animator.fadeIn(this.find("#dot"), 300).done()
+      Animator.fadeIn(this.find("#text"), 400).done()
+      Animator.fadeIn(this.find("#hand"), 500).done()
     }
   })
 
   pages.push({
     render: function() {
-
+      Animator.fadeIn(this.find("#face")).done()
+      Animator.fadeIn(this.find("#arrow_big"), 300).done()
+      Animator.fadeIn(this.find("#zoom"), 400).done()
+      Animator.fadeIn(this.find("#arrow_middle"), 500).done()
+      Animator.fadeIn(this.find("#arrow"), 600).done()
     }
   })
 
   pages.push({
     render: function() {
-
+      Animator.fadeIn(this.find("#phone")).done()
+      Animator.fadeIn(this.find("#seperator"), 300).done()
+      Animator.fadeIn(this.find("#text"), 400).done()
+      Animator.fadeIn(this.find("#vibration"), 500).done()
+      Animator.fadeIn(this.find("#ball"), 600).done()
     }
   })
 
   pages.push({
     render: function() {
-
+      Animator.fadeIn(this.find("#sun")).done()
+      Animator.fadeIn(this.find("#head"), 300).done()
+      Animator.fadeIn(this.find("#hand"), 400).done()
+      Animator.fadeIn(this.find("#arrow"), 500).done()
     }
   })
 
   pages.push({
     render: function() {
-
+      Animator.fadeIn(this.find("#logo")).done()
+      Animator.fadeIn(this.find("#text_top"), 300).done()
+      Animator.fadeIn(this.find("#seperator_top"), 400).done()
+      Animator.fadeIn(this.find("#text_bottom"), 500).done()
+      Animator.fadeIn(this.find("#seperator_bottom"), 600).done()
+      Animator.fadeIn(this.find("#video_container"), 700).done()
+      Animator.fadeIn(this.find("#video_play"), 800).done()
     }
   })
 
