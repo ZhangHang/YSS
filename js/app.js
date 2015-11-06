@@ -51,6 +51,7 @@ var Animator = (function() {
     var core = {}
     var afterTimeOffset = 0;
     var afterActions = []
+
     core.after = function(__action, __delay) {
       afterActions.push({
         delay: afterTimeOffset + __delay,
@@ -59,6 +60,7 @@ var Animator = (function() {
       afterTimeOffset += __delay;
       return core;
     }
+
     core.done = function() {
       TimeoutActionStore.addAction(function() {
         $(node).addClass("animated" + (_options.infinite ? " infinite" : "") + " " + animationClassName);
@@ -154,6 +156,7 @@ var Inbox = (function() {
 
   $(document).ready(function() {
     backgroundAudio = $('audio')[0];
+
     $('#fullpage').fullpage({
       afterLoad: function(anchorLink, index) {
         // $.fn.fullpage.setAllowScrolling(false);
