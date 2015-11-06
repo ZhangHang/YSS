@@ -1,5 +1,6 @@
 var TASK_NAME_UNLOCK_PAGE = "TASK_NAME_UNLOCK_PAGE"
 var TASK_NAME_NAVIGATE_TO_NEXT_PAGE = "TASK_NAME_NAVIGATE_TO_NEXT_PAGE"
+var TASK_NAME_NAVIGATE_TO_PAGE = "TASK_NAME_NAVIGATE_TO_PAGE"
 var TASK_NAME_LOCK_PAGE = "TASK_NAME_LOCK_PAGE"
 
 var Animator = (function() {
@@ -136,10 +137,10 @@ var Inbox = (function() {
     map[taskName] = undefined
   }
 
-  core.post = function(taskName) {
+  core.post = function(taskName, options) {
     var action = map[taskName]
     if (action) {
-      action()
+      action(options)
     }
   }
 
@@ -155,7 +156,7 @@ var Inbox = (function() {
     backgroundAudio = $('audio')[0];
     $('#fullpage').fullpage({
       afterLoad: function(anchorLink, index) {
-        $.fn.fullpage.setAllowScrolling(false);
+        // $.fn.fullpage.setAllowScrolling(false);
 
         //remove all animation actions
         Animator.clearAnimations()
@@ -188,6 +189,16 @@ var Inbox = (function() {
   Inbox.on(TASK_NAME_NAVIGATE_TO_NEXT_PAGE, function() {
     $.fn.fullpage.moveSectionDown();
   })
+
+  Inbox.on(TASK_NAME_NAVIGATE_TO_PAGE, function(options) {
+    var anchor = options["anchor"]
+    if (options["silent"]) {
+      $.fn.fullpage.silentMoveTo(anchor, 0);
+    } else {
+      $.fn.fullpage.moveTo(anchor, 0);
+    }
+  })
+
 })((function() {
   var pages = [];
 
@@ -201,7 +212,6 @@ var Inbox = (function() {
       }
       var step = (customStepInMilliSecond === undefined) ? stepInMilliSecond : customStepInMilliSecond
       baseDelayInMilliSecond += step
-      console.log(baseDelayInMilliSecond)
       return baseDelayInMilliSecond
     }
   }
@@ -217,6 +227,13 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#text_righ"), incrementer.next()).done()
       Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
       Animator.fadeIn(self.find("#drop"), incrementer.next()).done()
+
+      setTimeout(function() {
+        Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
+          anchor: "slide2",
+          silent: true
+        })
+      }, incrementer.next(2000))
     }
   })
 
@@ -291,7 +308,7 @@ var Inbox = (function() {
 
         Animator.bounceIn(self.find("#scene-1_bag"), 1100).done()
       }
-      setTimeout(nextScene, 3000)
+      setTimeout(nextScene, 1200)
     }
   })
 
@@ -303,15 +320,15 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#text"), 400).done()
       Animator.fadeIn(this.find("#hand"), 500).done()
 
-        $(self).on("click", function() {
-          Animator.fadeOut(self.find("#text")).done()
-          Animator.fadeOut(self.find("#hand")).done()
-          Animator.fadeIn(self.find("#scene-1-flash"), 600).done()
+      $(self).on("click", function() {
+        Animator.fadeOut(self.find("#text")).done()
+        Animator.fadeOut(self.find("#hand")).done()
+        Animator.fadeIn(self.find("#scene-1-flash"), 600).done()
 
-          Animator.fadeOut(self.find("#dot"), 1200).done()
-          Animator.fadeIn(self.find("#scene-1-dot"), 1300).done()
-          Animator.bounceIn(self.find("#scene-1-text"), 2300).done()
-        })
+        Animator.fadeOut(self.find("#dot"), 1200).done()
+        Animator.fadeIn(self.find("#scene-1-dot"), 1300).done()
+        Animator.bounceIn(self.find("#scene-1-text"), 2300).done()
+      })
     }
   })
 
@@ -343,15 +360,15 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#hand"), 400).done()
       Animator.fadeIn(this.find("#arrow"), 400).done()
 
-      this.find(".tapArea").on("click",function(){
-          Animator.fadeOut(self.find("#sun")).done()
-          Animator.fadeOut(self.find("#hand")).done()
-          Animator.fadeOut(self.find("#head")).done()
+      this.find(".tapArea").on("click", function() {
+        Animator.fadeOut(self.find("#sun")).done()
+        Animator.fadeOut(self.find("#hand")).done()
+        Animator.fadeOut(self.find("#head")).done()
 
-          Animator.fadeIn(self.find("#scene-1-sun"),200).done()
-          Animator.fadeIn(self.find("#scene-1-head"),600).done()
+        Animator.fadeIn(self.find("#scene-1-sun"), 200).done()
+        Animator.fadeIn(self.find("#scene-1-head"), 600).done()
 
-          Animator.shine(self.find(".next-page-arrow"), 1600).done()
+        Animator.shine(self.find(".next-page-arrow"), 1600).done()
       })
     }
   })
@@ -371,24 +388,24 @@ var Inbox = (function() {
   return pages;
 })())
 
-window.ondeviceorientation = function (event) {
-	var gamma = Math.round(event.gamma);
-	var beta = Math.round(event.beta);
-	var direction = Math.round(event.alpha);
+window.ondeviceorientation = function(event) {
+  var gamma = Math.round(event.gamma);
+  var beta = Math.round(event.beta);
+  var direction = Math.round(event.alpha);
 
-	Parallax(gamma, beta, direction);
+  Parallax(gamma, beta, direction);
 };
 
 function Parallax(gamma, beta, direction) {
-	$(".parallax").css("margin-top", beta + "px");
-	$(".parallax").css("margin-left", gamma + "px");
+  $(".parallax").css("margin-top", beta + "px");
+  $(".parallax").css("margin-left", gamma + "px");
 
-	$(".parallax.more").css("margin-top", Math.round(beta*2) + "px");
-	$(".parallax.more").css("margin-left", Math.round(gamma*2) + "px");
+  $(".parallax.more").css("margin-top", Math.round(beta * 2) + "px");
+  $(".parallax.more").css("margin-left", Math.round(gamma * 2) + "px");
 
-	$(".parallax.less").css("margin-top", Math.round(beta/2) + "px");
-	$(".parallax.less").css("margin-left", Math.round(gamma/2) + "px");
+  $(".parallax.less").css("margin-top", Math.round(beta / 2) + "px");
+  $(".parallax.less").css("margin-left", Math.round(gamma / 2) + "px");
 
-	$(".parallax.subtle").css("margin-top", Math.round(beta*0.2) + "px");
-	$(".parallax.subtle").css("margin-left", Math.round(gamma*0.2) + "px");
+  $(".parallax.subtle").css("margin-top", Math.round(beta * 0.2) + "px");
+  $(".parallax.subtle").css("margin-left", Math.round(gamma * 0.2) + "px");
 }

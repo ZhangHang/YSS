@@ -40,7 +40,7 @@
   right: 0;
   /* horizontal center */
   overflow: hidden;
-  border: 3px black dashed;
+  /*border: 1px black dashed;*/
 }
 .parallax {
   -webkit-transition: all 0.2s;
@@ -76,7 +76,6 @@
   margin: auto;
   top: 0;
   bottom: 0;
-  /* vertical center */
   left: 0;
   right: 0;
   background-repeat: no-repeat;
