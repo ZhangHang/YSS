@@ -50,7 +50,6 @@
   transition: all 0.2s;
 }
 .tapArea {
-  border: 10px red dashed;
   position: relative;
 }
 .background {
