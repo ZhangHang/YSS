@@ -69,7 +69,7 @@ var Animator = (function() {
         }
 
         // Use real custom duration if it does exsit in options
-        if(completionHandler){
+        if (completionHandler) {
           TimeoutActionStore.addAction(completionHandler, DEFAULT_ANIMATION_DURATION)
         }
 
@@ -81,8 +81,11 @@ var Animator = (function() {
     return core;
   }
 
-  animateActionFactory = function(animationClassName, defualtOptions) {
-    return function() {
+  /*
+   * This function binds `animationName` function and `removeAnimation` function to @bindingObject
+   */
+  animateActionFactory = function(bindingObject, animationClassName, defualtOptions) {
+    var addAnimationAction = function() {
       var node = arguments[0]
       var delay = arguments[1]
       var options = arguments[2]
@@ -94,17 +97,32 @@ var Animator = (function() {
       }
       return core.animate(animationClassName, node, delay, _defualtoption)
     }
+
+    var removeAnimationAction = function(node) {
+      node.removeClass("animate")
+      node.removeClass(animationClassName)
+    }
+
+    bindingObject[animationClassName] = addAnimationAction
+    bindingObject["remove" + capitalizeFirstLetter(animationClassName)] = removeAnimationAction
+
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
   }
 
   // MARK: - Custom
-  core.fadeIn = animateActionFactory("fadeIn")
-  core.fadeOut = animateActionFactory("fadeOut")
-  core.fadeOutDown = animateActionFactory("fadeOutDown")
-  core.flash = animateActionFactory("flash")
-  core.shine = animateActionFactory("shine", {
+  animateActionFactory(core,"fadeIn")
+  animateActionFactory(core,"fadeOut")
+  animateActionFactory(core,"fadeOutDown")
+  animateActionFactory(core,"flash")
+  animateActionFactory(core,"shine",{
     duration: "4s"
   })
-  core.bounceIn = animateActionFactory("bounceIn")
+  animateActionFactory(core,"float",{
+    duration: "2s"
+  })
+  animateActionFactory(core,"bounceIn")
 
   // MARK: -
   core.registerCustomAction = function(action, delay, callback) {
@@ -189,7 +207,7 @@ var Inbox = (function() {
 
   // MARK: - Register task handler
   Inbox.on(TASK_NAME_UNLOCK_PAGE, function() {
-      $.fn.fullpage.setAllowScrolling(true, 'down');
+    $.fn.fullpage.setAllowScrolling(true, 'down');
   })
 
   Inbox.on(TASK_NAME_NAVIGATE_TO_NEXT_PAGE, function() {
@@ -232,7 +250,7 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
       Animator.fadeIn(self.find("#text_righ"), incrementer.next()).done()
       Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function(){
+      Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
         setTimeout(function() {
           Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
             anchor: "slide2",
@@ -249,7 +267,10 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#drop")).done()
       Animator.fadeIn(self.find("#water_drop")).done()
       Animator.fadeIn(self.find("#text"), 600).done()
-      Animator.fadeIn(self.find("#hand"), 1200).done()
+      Animator.fadeIn(self.find("#hand"), 1200).done(function() {
+        Animator.removeFadeIn(self.find("#hand"))
+        Animator.float(self.find("#hand"),0,{ infinite: true }).done()
+      })
       Animator.shine(self.find("#inner_circle"), 1800, {
         infinite: true
       }).done()
@@ -284,7 +305,7 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#step_3"), 1000).done()
       Animator.fadeIn(this.find("#step_3_text"), 1100).done()
 
-      Animator.shine(this.find(".next-page-arrow"), 2000).done(function(){
+      Animator.shine(this.find(".next-page-arrow"), 2000).done(function() {
         Inbox.post(TASK_NAME_UNLOCK_PAGE)
       })
     }
@@ -297,8 +318,8 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#dot"), 300).done()
       Animator.fadeIn(this.find("#skin_bag_inner"), 400).done()
       Animator.fadeIn(this.find("#drop"), 600).done()
-      Animator.fadeIn(this.find("#skin_bag"), 500).done(function(){
-        setTimeout(nextScene, 200)
+      Animator.fadeIn(this.find("#skin_bag"), 700).done(function() {
+        $(self).on("click",nextScene)
       })
 
       function nextScene() {
@@ -320,7 +341,7 @@ var Inbox = (function() {
 
         Animator.bounceIn(self.find("#scene-1_bag"), 1100).done()
 
-        Animator.shine(self.find(".next-page-arrow"), 2100).done(function(){
+        Animator.shine(self.find(".next-page-arrow"), 2100).done(function() {
           Inbox.post(TASK_NAME_UNLOCK_PAGE)
         })
       }
@@ -333,7 +354,10 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#main")).done()
       Animator.fadeIn(this.find("#dot"), 300).done()
       Animator.fadeIn(this.find("#text"), 400).done()
-      Animator.fadeIn(this.find("#hand"), 500).done()
+      Animator.fadeIn(self.find("#hand"), 500).done(function() {
+        Animator.removeFadeIn(self.find("#hand"))
+        Animator.float(self.find("#hand"),0,{ infinite: true }).done()
+      })
 
       $(self).on("click", function() {
         Animator.fadeOut(self.find("#text")).done()
@@ -342,8 +366,8 @@ var Inbox = (function() {
 
         Animator.fadeOut(self.find("#dot"), 1200).done()
         Animator.fadeIn(self.find("#scene-1-dot"), 1300).done()
-        Animator.bounceIn(self.find("#scene-1-text"), 2300).done(function(){
-          Animator.shine(self.find(".next-page-arrow")).done(function(){
+        Animator.bounceIn(self.find("#scene-1-text"), 2300).done(function() {
+          Animator.shine(self.find(".next-page-arrow")).done(function() {
             Inbox.post(TASK_NAME_UNLOCK_PAGE)
           })
         })
@@ -358,7 +382,7 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#zoom"), 400).done()
       Animator.fadeIn(this.find("#arrow_middle"), 500).done()
 
-      Animator.shine(this.find(".next-page-arrow"), 600).done(function(){
+      Animator.shine(this.find(".next-page-arrow"), 600).done(function() {
         Inbox.post(TASK_NAME_UNLOCK_PAGE)
       })
     }
@@ -372,7 +396,7 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#ball"), 500).done()
       Animator.shine(this.find("#vibration"), 1000).done()
 
-      Animator.shine(this.find(".next-page-arrow"),2000).done(function(){
+      Animator.shine(this.find(".next-page-arrow"), 2000).done(function() {
         Inbox.post(TASK_NAME_UNLOCK_PAGE)
       })
     }
@@ -383,7 +407,10 @@ var Inbox = (function() {
       var self = this
       Animator.shine(this.find("#sun")).done()
       Animator.fadeIn(this.find("#head"), 300).done()
-      Animator.fadeIn(this.find("#hand"), 400).done()
+      Animator.fadeIn(self.find("#hand"), 400).done(function() {
+        Animator.removeFadeIn(self.find("#hand"))
+        Animator.float(self.find("#hand"),0,{ infinite: true }).done()
+      })
       Animator.fadeIn(this.find("#arrow"), 400).done()
 
       this.find(".tapArea").on("click", function() {
@@ -396,7 +423,7 @@ var Inbox = (function() {
         Animator.fadeIn(self.find("#scene-1-sun"), 200).done()
         Animator.fadeIn(self.find("#scene-1-head"), 600).done()
 
-        Animator.fadeIn(self.find(".next-page-arrow"), 1600).done(function(){
+        Animator.fadeIn(self.find(".next-page-arrow"), 1600).done(function() {
           Inbox.post(TASK_NAME_UNLOCK_PAGE)
         })
       })
