@@ -1,6 +1,7 @@
 var TASK_NAME_UNLOCK_PAGE = "TASK_NAME_UNLOCK_PAGE"
 var TASK_NAME_NAVIGATE_TO_NEXT_PAGE = "TASK_NAME_NAVIGATE_TO_NEXT_PAGE"
 var TASK_NAME_NAVIGATE_TO_PAGE = "TASK_NAME_NAVIGATE_TO_PAGE"
+var TASK_NAME_DEVICE_ORIENTATION = "TASK_NAME_DEVICE_ORIENTATION"
 
 var Animator = (function() {
   var DEFAULT_ANIMATION_DURATION = 1000
@@ -112,17 +113,17 @@ var Animator = (function() {
   }
 
   // MARK: - Custom
-  animateActionFactory(core,"fadeIn")
-  animateActionFactory(core,"fadeOut")
-  animateActionFactory(core,"fadeOutDown")
-  animateActionFactory(core,"flash")
-  animateActionFactory(core,"shine",{
+  animateActionFactory(core, "fadeIn")
+  animateActionFactory(core, "fadeOut")
+  animateActionFactory(core, "fadeOutDown")
+  animateActionFactory(core, "flash")
+  animateActionFactory(core, "shine", {
     duration: "4s"
   })
-  animateActionFactory(core,"float",{
+  animateActionFactory(core, "float", {
     duration: "2s"
   })
-  animateActionFactory(core,"bounceIn")
+  animateActionFactory(core, "bounceIn")
 
   // MARK: -
   core.registerCustomAction = function(action, delay, callback) {
@@ -203,6 +204,8 @@ var Inbox = (function() {
         pages[indexFromZero].render.call(loadedSection);
       }
     });
+
+    $.fn.fullpage.moveTo("ball-slide", 0)
   });
 
   // MARK: - Register task handler
@@ -269,7 +272,9 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#text"), 600).done()
       Animator.fadeIn(self.find("#hand"), 1200).done(function() {
         Animator.removeFadeIn(self.find("#hand"))
-        Animator.float(self.find("#hand"),0,{ infinite: true }).done()
+        Animator.float(self.find("#hand"), 0, {
+          infinite: true
+        }).done()
       })
       Animator.shine(self.find("#inner_circle"), 1800, {
         infinite: true
@@ -319,7 +324,7 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#skin_bag_inner"), 400).done()
       Animator.fadeIn(this.find("#drop"), 600).done()
       Animator.fadeIn(this.find("#skin_bag"), 700).done(function() {
-        $(self).on("click",nextScene)
+        nextScene()
       })
 
       function nextScene() {
@@ -356,7 +361,9 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#text"), 400).done()
       Animator.fadeIn(self.find("#hand"), 500).done(function() {
         Animator.removeFadeIn(self.find("#hand"))
-        Animator.float(self.find("#hand"),0,{ infinite: true }).done()
+        Animator.float(self.find("#hand"), 0, {
+          infinite: true
+        }).done()
       })
 
       $(self).on("click", function() {
@@ -390,10 +397,45 @@ var Inbox = (function() {
 
   pages.push({
     render: function() {
+      var self = this
+
       Animator.fadeIn(this.find("#phone")).done()
       Animator.fadeIn(this.find("#seperator"), 300).done()
       Animator.fadeIn(this.find("#text"), 400).done()
-      Animator.fadeIn(this.find("#ball"), 500).done()
+      Animator.fadeIn(this.find("#ball"), 500).done(function() {
+
+        (function(node, maxLeft, maxRight, maxTop, maxBottom) {
+          var isStart = false
+
+          var verticalOffset = 0
+          var horizontalOffset = 0
+          var graivty = 0.001
+          var verticalSpeed = 0
+          var horizontalSpeed = 0
+
+          Inbox.on(TASK_NAME_DEVICE_ORIENTATION, function(event) {
+            var gamma = Math.round(event.gamma)
+            var beta = Math.round(event.beta)
+            var direction = Math.round(event.alpha)
+
+            // if (horizontalOffset <= maxLeft || horizontalOffset >= maxRight) {
+            //   horizontalSpeed *= -1
+            // }
+            // if (verticalOffset <= maxTop || verticalOffset >= maxBottom) {
+            //   verticalSpeed *= -1
+            // }
+            // verticalSpeed += (-beta) * (Math.abs(beta) + Math.abs(gamma)) * graivty
+            // horizontalSpeed += (-gamma) * (Math.abs(beta) + Math.abs(gamma)) * graivty
+            //
+            // verticalOffset += verticalSpeed
+            // horizontalOffset += horizontalSpeed
+            // // console.log(verticalOffset + " " + horizontalOffset)
+            //
+            // node.css("margin-top", verticalOffset + "%");
+            // node.css("margin-left", horizontalOffset + "%");
+          })
+        })(self.find("#ball"),-40,-40,40,40)
+      })
       Animator.shine(this.find("#vibration"), 1000).done()
 
       Animator.shine(this.find(".next-page-arrow"), 2000).done(function() {
@@ -409,7 +451,9 @@ var Inbox = (function() {
       Animator.fadeIn(this.find("#head"), 300).done()
       Animator.fadeIn(self.find("#hand"), 400).done(function() {
         Animator.removeFadeIn(self.find("#hand"))
-        Animator.float(self.find("#hand"),0,{ infinite: true }).done()
+        Animator.float(self.find("#hand"), 0, {
+          infinite: true
+        }).done()
       })
       Animator.fadeIn(this.find("#arrow"), 400).done()
 
@@ -446,14 +490,15 @@ var Inbox = (function() {
 })())
 
 window.ondeviceorientation = function(event) {
+  Inbox.post(TASK_NAME_DEVICE_ORIENTATION, event)
+  parallax(event)
+};
+
+function parallax(event) {
   var gamma = Math.round(event.gamma);
   var beta = Math.round(event.beta);
   var direction = Math.round(event.alpha);
 
-  Parallax(gamma, beta, direction);
-};
-
-function Parallax(gamma, beta, direction) {
   $(".parallax").css("margin-top", beta + "px");
   $(".parallax").css("margin-left", gamma + "px");
 
