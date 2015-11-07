@@ -82,7 +82,7 @@ var Animator = (function() {
   }
 
   /*
-   * This function binds `animationName` function and `removeAnimation` function to @bindingObject
+   * This function binds `@animationName` function and `remove@AnimationName` function to @bindingObject
    */
   animateActionFactory = function(bindingObject, animationClassName, defualtOptions) {
     var addAnimationAction = function() {
