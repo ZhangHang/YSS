@@ -68,10 +68,12 @@
   }
 }
 .warpper {
-  width: 100vw;
+  /*width: 100vw;
   height: 177.8vw;
   max-height: 100vh;
-  max-width: 56.3vh;
+  max-width: 56.3vh;*/
+  height: 100vh;
+  width: 56.3vh;
   margin: auto;
   top: 0;
   bottom: 0;
@@ -108,17 +110,19 @@
 }
 .fs {
   position: absolute;
-  width: 100vw;
+  /*width: 100vw;
   height: 177.8vw;
   max-height: 100vh;
-  max-width: 56.3vh;
+  max-width: 56.3vh;*/
+  height: 100vh;
+  width: 56.3vh;
   margin: auto;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   opacity: 0;
 }
 .next-page-arrow {
@@ -322,4 +326,6 @@ height: 12%;
 }
 #page-9 #video_play {
   background-image: url(../images/9/video_play.png);
+}
+#ball-container{
 }
