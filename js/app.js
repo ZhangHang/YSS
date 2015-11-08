@@ -3,6 +3,8 @@ var TASK_NAME_NAVIGATE_TO_NEXT_PAGE = "TASK_NAME_NAVIGATE_TO_NEXT_PAGE"
 var TASK_NAME_NAVIGATE_TO_PAGE = "TASK_NAME_NAVIGATE_TO_PAGE"
 var TASK_NAME_DEVICE_ORIENTATION = "TASK_NAME_DEVICE_ORIENTATION"
 
+var isBackgroundAudioInited = false
+
 var Animator = (function() {
   var DEFAULT_ANIMATION_DURATION = 1000
 
@@ -177,6 +179,7 @@ var Inbox = (function() {
     var latestSectionNode = undefined;
     var latestSectionIndex = undefined;
     var backgroundAudio = $('audio')[0];
+    backgroundAudio.play()
 
     $('#fullpage').fullpage({
       afterLoad: function(anchorLink, index) {
@@ -247,21 +250,38 @@ var Inbox = (function() {
   pages.push({
     render: function() {
       var self = this
-      var incrementer = new Incrementer(200, 300)
-      Animator.fadeIn(self.find("#logo"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#seperator_top", incrementer.next())).done()
-      Animator.fadeIn(self.find("#seperator_bottom", incrementer.next())).done()
-      Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#text_righ"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
-        setTimeout(function() {
-          Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
-            anchor: "slide2",
-            silent: true
-          })
-        }, 2000)
-      })
+
+      function scene() {
+        var incrementer = new Incrementer(200, 300)
+        Animator.fadeIn(self.find("#logo"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#seperator_top", incrementer.next())).done()
+        Animator.fadeIn(self.find("#seperator_bottom", incrementer.next())).done()
+        Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#text_righ"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
+          setTimeout(function() {
+            Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
+              anchor: "slide2",
+              silent: true
+            })
+          }, 2000)
+        })
+      }
+      if (!isBackgroundAudioInited) {
+        self.on('click', function() {
+          isBackgroundAudioInited = true
+          var backgrondAudio = $('audio')[0]
+          backgrondAudio.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play()
+          }, false)
+          backgrondAudio.play()
+          scene()
+        })
+      } else {
+        scene()
+      }
     }
   })
 
@@ -287,6 +307,7 @@ var Inbox = (function() {
       self.find(".tapArea").on('click', function() {
         $(this).off()
 
+        $('audio')[0].play()
         Animator.fadeOutDown(self.find("#water_drop"), 0, {
           duration: "3s"
         }).done()
