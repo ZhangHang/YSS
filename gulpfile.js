@@ -33,8 +33,7 @@ gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
     // Pass in options to the task
     .pipe(imagemin({
-      optimizationLevel: 5,
-      progressive: true
+      optimizationLevel: 7,
     }))
     .pipe(gulp.dest('dist/images'));
 });

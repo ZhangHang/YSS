@@ -214,7 +214,7 @@ var Inbox = (function() {
       }
     })
 
-    $.fn.fullpage.moveTo("ball-slide", 0)
+    // $.fn.fullpage.moveTo("ball-slide", 0)
 
   })
 
