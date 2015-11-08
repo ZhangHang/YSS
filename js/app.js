@@ -172,12 +172,11 @@ var Inbox = (function() {
 })()
 
 ~(function(pages) {
-  var backgroundAudio = undefined;
-  var latestSectionNode = undefined;
-  var latestSectionIndex = undefined;
 
-  $(document).ready(function() {
-    backgroundAudio = $('audio')[0];
+  Pace.once('done', function() {
+    var latestSectionNode = undefined;
+    var latestSectionIndex = undefined;
+    var backgroundAudio = $('audio')[0];
 
     $('#fullpage').fullpage({
       afterLoad: function(anchorLink, index) {
@@ -203,28 +202,30 @@ var Inbox = (function() {
 
         pages[indexFromZero].render.call(loadedSection);
       }
-    });
+    })
+  })
 
-    $.fn.fullpage.moveTo("ball-slide", 0)
-  });
+  // $.fn.fullpage.moveTo("ball-slide", 0)
 
   // MARK: - Register task handler
-  Inbox.on(TASK_NAME_UNLOCK_PAGE, function() {
-    $.fn.fullpage.setAllowScrolling(true, 'down');
-  })
+  ~(function() {
+    Inbox.on(TASK_NAME_UNLOCK_PAGE, function() {
+      $.fn.fullpage.setAllowScrolling(true, 'down');
+    })
 
-  Inbox.on(TASK_NAME_NAVIGATE_TO_NEXT_PAGE, function() {
-    $.fn.fullpage.moveSectionDown();
-  })
+    Inbox.on(TASK_NAME_NAVIGATE_TO_NEXT_PAGE, function() {
+      $.fn.fullpage.moveSectionDown();
+    })
 
-  Inbox.on(TASK_NAME_NAVIGATE_TO_PAGE, function(options) {
-    var anchor = options["anchor"]
-    if (options["silent"]) {
-      $.fn.fullpage.silentMoveTo(anchor, 0);
-    } else {
-      $.fn.fullpage.moveTo(anchor, 0);
-    }
-  })
+    Inbox.on(TASK_NAME_NAVIGATE_TO_PAGE, function(options) {
+      var anchor = options["anchor"]
+      if (options["silent"]) {
+        $.fn.fullpage.silentMoveTo(anchor, 0);
+      } else {
+        $.fn.fullpage.moveTo(anchor, 0);
+      }
+    })
+  })()
 
 })((function() {
   var pages = [];
@@ -434,7 +435,7 @@ var Inbox = (function() {
             // node.css("margin-top", verticalOffset + "%");
             // node.css("margin-left", horizontalOffset + "%");
           })
-        })(self.find("#ball"),-40,-40,40,40)
+        })(self.find("#ball"), -40, -40, 40, 40)
       })
       Animator.shine(this.find("#vibration"), 1000).done()
 
