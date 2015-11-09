@@ -280,8 +280,8 @@ var Inbox = (function() {
         Animator.fadeIn(self.find("#logo")).done()
         Animator.fadeIn(self.find("#seperator_top"), incrementer.next()).done()
         Animator.fadeIn(self.find("#seperator_bottom"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#text_right"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
-        Animator.fadeIn(self.find("#text_righ"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
         Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
           setTimeout(function() {
