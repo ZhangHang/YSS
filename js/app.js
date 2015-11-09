@@ -3,7 +3,18 @@ var TASK_NAME_NAVIGATE_TO_NEXT_PAGE = "TASK_NAME_NAVIGATE_TO_NEXT_PAGE"
 var TASK_NAME_NAVIGATE_TO_PAGE = "TASK_NAME_NAVIGATE_TO_PAGE"
 var TASK_NAME_DEVICE_ORIENTATION = "TASK_NAME_DEVICE_ORIENTATION"
 
+var isWeixinWebView = (function() {
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) == "micromessenger") {
+    return true;
+  } else {
+    return false;
+  }
+})()
 var isBackgroundAudioInited = false
+$("audio").on('play',function(){
+  isBackgroundAudioInited = true
+})
 
 var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
   var delay = 0
@@ -278,7 +289,9 @@ var Inbox = (function() {
           }, 2000)
         })
       }
-      if (!isBackgroundAudioInited) {
+      if (isWeixinWebView || isBackgroundAudioInited) {
+        scene()
+      } else {
         self.on('click', function() {
           isBackgroundAudioInited = true
           var backgrondAudio = $('audio')[0]
@@ -289,8 +302,6 @@ var Inbox = (function() {
           backgrondAudio.play()
           scene()
         })
-      } else {
-        scene()
       }
     }
   })
