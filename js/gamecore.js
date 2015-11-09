@@ -1,4 +1,4 @@
-function BallGame(container, ballTexturePath, radius) {
+function BallGame(container, ballTexturePath, radius, x, y) {
 
   // Matter aliases
   var Engine = Matter.Engine,
@@ -65,7 +65,7 @@ function BallGame(container, ballTexturePath, radius) {
 
     offset = 0;
 
-    World.add(world, [Bodies.circle(15, 15, radius, {
+    World.add(world, [Bodies.circle(x, y, radius, {
       density: 6,
       frictionAir: 0,
       restitution: 0.2,

@@ -284,7 +284,7 @@ var Inbox = (function() {
         Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
         Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
-          setTimeout(function() {
+          Animator.registerCustomAction(function() {
             Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
               anchor: "slide2",
               silent: true
@@ -370,7 +370,7 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#skin_bag"), incrementer.next()).done()
       Animator.fadeIn(self.find("#skin_bag_inner"), incrementer.next()).done()
       Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
-        setTimeout(nextScene, 1000)
+        Animator.registerCustomAction(nextScene, 1000)
       })
 
       function nextScene() {
@@ -448,17 +448,19 @@ var Inbox = (function() {
   pages.push({
 
     render: function(self, incrementer) {
-      this.game = BallGame(self.find("#ball-container")[0], "images/ball.png", 150)
-      this.game.init();
+      var containerWidth = parseInt(self.width())
+      var containerHeight = parseInt(self.height())
+      var game = BallGame(self.find("#ball-container")[0], "images/ball.png", 100, containerWidth * 0.6, containerHeight * 0.4)
+      this.game = game
 
       Animator.fadeIn(self.find("#phone")).done()
       Animator.fadeIn(self.find("#seperator"), incrementer.next(600)).done()
       Animator.fadeIn(self.find("#text"), incrementer.next(600)).done()
       Animator.shine(self.find("#vibration"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#ball"), incrementer.last()).done(function() {
-        Animator.fadeOut(this, 1000).done()
-        Animator.fadeIn(self.find("#ball-container"), 1500).done()
-      })
+      Animator.fadeIn(self.find("#ball-container"), incrementer.next()).done()
+      Animator.registerCustomAction(function() {
+        game.init()
+      }, incrementer.last())
 
       Animator.shine(self.find(".next-page-arrow"), incrementer.next()).done(function() {
         Inbox.post(TASK_NAME_UNLOCK_PAGE)

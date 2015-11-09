@@ -257,10 +257,6 @@
 #page-6 #zoom {
   background-image: url(../images/6/zoom.png);
 }
-#page-7 #ball {
-  background-image: url(../images/7/ball.png);
-  -webkit-transition: 0.01s margin;
-}
 #page-7 #phone {
   background-image: url(../images/7/phone.png);
 }
