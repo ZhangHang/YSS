@@ -140,178 +140,174 @@
 #page-1 #drop {
   background-image: url(../images/1/drop.png);
 }
-#page-2 #drop {
-  background-image: url(../images/2/drop.png);
+#page-1 .water_drop {
+  background-image: url(../images/1/water_drop.png);
 }
-#page-2 #water_drop {
-  background-image: url(../images/2/water_drop.png);
+#page-1 #hand {
+  background-image: url(../images/1/hand.png);
 }
-#page-2 #hand {
-  background-image: url(../images/2/hand.png);
+#page-1 #inner_circle {
+  background-image: url(../images/1/inner_circle.png);
 }
-#page-2 #inner_circle {
-  background-image: url(../images/2/inner_circle.png);
+#page-1 #outter_circle {
+  background-image: url(../images/1/outter_circle.png);
 }
-#page-2 #outter_circle {
-  background-image: url(../images/2/outter_circle.png);
+#page-1 #text {
+  background-image: url(../images/1/text.png);
 }
-#page-2 #text {
-  background-image: url(../images/2/text.png);
-}
-#page-2 .tapArea {
+#page-1 .tapArea {
   margin-left: 36%;
   margin-top: 50%;
   width: 25%;
   height: 12%;
 }
-#page-3 #arrow {
-  background-image: url(../images/3/arrow.png);
+#page-2 #arrow {
+  background-image: url(../images/2/arrow.png);
 }
-#page-3 #info_container {
-  background-image: url(../images/3/info_container.png);
+#page-2 #info_container {
+  background-image: url(../images/2/info_container.png);
 }
-#page-3 #info_text {
-  background-image: url(../images/3/info_text.png);
+#page-2 #info_text {
+  background-image: url(../images/2/info_text.png);
 }
-#page-3 #step_1 {
-  background-image: url(../images/3/step_1.png);
+#page-2 #step_1 {
+  background-image: url(../images/2/step_1.png);
 }
-#page-3 #step_1_text {
-  background-image: url(../images/3/step_1_text.png);
+#page-2 #step_1_text {
+  background-image: url(../images/2/step_1_text.png);
 }
-#page-3 #step_2 {
-  background-image: url(../images/3/step_2.png);
+#page-2 #step_2 {
+  background-image: url(../images/2/step_2.png);
 }
-#page-3 #step_2_text {
-  background-image: url(../images/3/step_2_text.png);
+#page-2 #step_2_text {
+  background-image: url(../images/2/step_2_text.png);
 }
-#page-3 #step_3 {
-  background-image: url(../images/3/step_3.png);
+#page-2 #step_3 {
+  background-image: url(../images/2/step_3.png);
 }
-#page-3 #step_3_text {
-  background-image: url(../images/3/step_3_text.png);
+#page-2 #step_3_text {
+  background-image: url(../images/2/step_3_text.png);
+}
+#page-3 #dot {
+  background-image: url(../images/3/dot.png);
+}
+#page-3 #drop {
+  background-image: url(../images/3/drop.png);
+}
+#page-3 #main {
+  background-image: url(../images/3/main.png);
+}
+#page-3 #skin_bag {
+  background-image: url(../images/3/skin_bag.png);
+}
+#page-3 #skin_bag_inner {
+  background-image: url(../images/3/skin_bag_inner.png);
+}
+#page-3 #scene-1_bag {
+  background-image: url(../images/3-1/bag.png);
+}
+#page-3 #scene-1-dot {
+  background-image: url(../images/3-1/dot.png);
+}
+#page-3 #scene-1-drop {
+  background-image: url(../images/3-1/drop.png);
+}
+#page-3 #scene-1-light {
+  background-image: url(../images/3-1/light.png);
+}
+#page-3 #scene-1-main_bottom {
+  background-image: url(../images/3-1/main_bottom.png);
 }
 #page-4 #dot {
   background-image: url(../images/4/dot.png);
 }
-#page-4 #drop {
-  background-image: url(../images/4/drop.png);
+#page-4 #hand {
+  background-image: url(../images/4/hand.png);
 }
 #page-4 #main {
   background-image: url(../images/4/main.png);
 }
-#page-4 #skin_bag {
-  background-image: url(../images/4/skin_bag.png);
-}
-#page-4 #skin_bag_inner {
-  background-image: url(../images/4/skin_bag_inner.png);
-}
-#page-4 #scene-1_bag {
-  background-image: url(../images/4-1/bag.png);
+#page-4 #text {
+  background-image: url(../images/4/text.png);
 }
 #page-4 #scene-1-dot {
   background-image: url(../images/4-1/dot.png);
 }
-#page-4 #scene-1-drop {
-  background-image: url(../images/4-1/drop.png);
+#page-4 #scene-1-flash {
+  background-image: url(../images/4-1/flash.png);
 }
-#page-4 #scene-1-light {
-  background-image: url(../images/4-1/light.png);
+#page-4 #scene-1-text {
+  background-image: url(../images/4-1/text.png);
 }
-#page-4 #scene-1-main_bottom {
-  background-image: url(../images/4-1/main_bottom.png);
+#page-5 #arrow {
+  background-image: url(../images/5/arrow.png);
 }
-#page-5 #dot {
-  background-image: url(../images/5/dot.png);
+#page-5 #arrow_big {
+  background-image: url(../images/5/arrow_big.png);
 }
-#page-5 #hand {
-  background-image: url(../images/5/hand.png);
+#page-5 #arrow_middle {
+  background-image: url(../images/5/arrow_middle.png);
 }
-#page-5 #main {
-  background-image: url(../images/5/main.png);
+#page-5 #face {
+  background-image: url(../images/5/face.png);
 }
-#page-5 #text {
-  background-image: url(../images/5/text.png);
+#page-5 #zoom {
+  background-image: url(../images/5/zoom.png);
 }
-#page-5 #scene-1-dot {
-  background-image: url(../images/5-1/dot.png);
+#page-6 #phone {
+  background-image: url(../images/6/phone.png);
 }
-#page-5 #scene-1-flash {
-  background-image: url(../images/5-1/flash.png);
+#page-6 #seperator {
+  background-image: url(../images/6/seperator.png);
 }
-#page-5 #scene-1-text {
-  background-image: url(../images/5-1/text.png);
+#page-6 #text {
+  background-image: url(../images/6/text.png);
 }
-#page-6 #arrow {
-  background-image: url(../images/6/arrow.png);
+#page-6 #vibration {
+  background-image: url(../images/6/vibration.png);
 }
-#page-6 #arrow_big {
-  background-image: url(../images/6/arrow_big.png);
+#page-7 #arrow {
+  background-image: url(../images/7/arrow.png);
 }
-#page-6 #arrow_middle {
-  background-image: url(../images/6/arrow_middle.png);
+#page-7 #hand {
+  background-image: url(../images/7/hand.png);
 }
-#page-6 #face {
-  background-image: url(../images/6/face.png);
+#page-7 #head {
+  background-image: url(../images/7/head.png);
 }
-#page-6 #zoom {
-  background-image: url(../images/6/zoom.png);
+#page-7 #sun {
+  background-image: url(../images/7/sun.png);
 }
-#page-7 #phone {
-  background-image: url(../images/7/phone.png);
+#page-7 #scene-1-head {
+  background-image: url(../images/7-1/head.png);
 }
-#page-7 #seperator {
-  background-image: url(../images/7/seperator.png);
+#page-7 #scene-1-sun {
+  background-image: url(../images/7-1/sun.png);
 }
-#page-7 #text {
-  background-image: url(../images/7/text.png);
-}
-#page-7 #vibration {
-  background-image: url(../images/7/vibration.png);
-}
-#page-8 #arrow {
-  background-image: url(../images/8/arrow.png);
-}
-#page-8 #hand {
-  background-image: url(../images/8/hand.png);
-}
-#page-8 #head {
-  background-image: url(../images/8/head.png);
-}
-#page-8 #sun {
-  background-image: url(../images/8/sun.png);
-}
-#page-8 #scene-1-head {
-  background-image: url(../images/8-1/head.png);
-}
-#page-8 #scene-1-sun {
-  background-image: url(../images/8-1/sun.png);
-}
-#page-8 .tapArea {
+#page-7 .tapArea {
   margin-left: 60%;
   margin-top: 10%;
   width: 15%;
   height: 10%;
 }
-#page-9 #logo {
-  background-image: url(../images/9/logo.png);
+#page-8 #logo {
+  background-image: url(../images/8/logo.png);
 }
-#page-9 #seperator_bottom {
-  background-image: url(../images/9/seperator_bottom.png);
+#page-8 #seperator_bottom {
+  background-image: url(../images/8/seperator_bottom.png);
 }
-#page-9 #seperator_top {
-  background-image: url(../images/9/seperator_top.png);
+#page-8 #seperator_top {
+  background-image: url(../images/8/seperator_top.png);
 }
-#page-9 #text_bottom {
-  background-image: url(../images/9/text_bottom.png);
+#page-8 #text_bottom {
+  background-image: url(../images/8/text_bottom.png);
 }
-#page-9 #text_top {
-  background-image: url(../images/9/text_top.png);
+#page-8 #text_top {
+  background-image: url(../images/8/text_top.png);
 }
-#page-9 #video_container {
-  background-image: url(../images/9/video_container.png);
+#page-8 #video_container {
+  background-image: url(../images/8/video_container.png);
 }
-#page-9 #video_play {
-  background-image: url(../images/9/video_play.png);
+#page-8 #video_play {
+  background-image: url(../images/8/video_play.png);
 }
-#ball-container {}

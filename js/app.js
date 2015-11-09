@@ -22,8 +22,8 @@ var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
     delay += (customStepInMilliSecond === undefined) ? stepInMilliSecond : customStepInMilliSecond
     return delay
   }
-  this.copy = function() {
-    return new Incrementer(baseDelayInMilliSecond, stepInMilliSecond)
+  this.reset = function() {
+    delay = 0
   }
   this.last = function() {
     return delay
@@ -31,7 +31,6 @@ var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
 }
 
 var Animator = (function() {
-  var DEFAULT_ANIMATION_DURATION = 1000
 
   var core = {}
 
@@ -92,7 +91,7 @@ var Animator = (function() {
 
         $(node).addClass("animated" + timing + animationClassName);
 
-        var duration = DEFAULT_ANIMATION_DURATION
+        var duration = 1
         if (options["duration"] != undefined) {
           duration = options["duration"];
           $(node).css("animation-duration", duration + "s")
@@ -102,7 +101,7 @@ var Animator = (function() {
         if (completionHandler) {
           TimeoutActionStore.addAction(function() {
             completionHandler.call($(node))
-          }, duration)
+          }, duration * 1000)
         }
 
         afterActions.forEach(function(actionPack) {
@@ -145,16 +144,16 @@ var Animator = (function() {
 
   // MARK: - Custom
   animateActionFactory(core, "fadeIn", {
-    duration: "2"
+    duration: 2
   })
   animateActionFactory(core, "fadeOut")
   animateActionFactory(core, "fadeOutDown")
   animateActionFactory(core, "flash")
   animateActionFactory(core, "shine", {
-    duration: "4"
+    duration: 4
   })
   animateActionFactory(core, "float", {
-    duration: "2"
+    duration: 2
   })
   animateActionFactory(core, "bounceIn")
 
@@ -276,24 +275,19 @@ var Inbox = (function() {
 
   pages.push({
     render: function(self, incrementer) {
-      function scene() {
+      function introductionScene() {
         Animator.fadeIn(self.find("#logo")).done()
         Animator.fadeIn(self.find("#seperator_top"), incrementer.next()).done()
         Animator.fadeIn(self.find("#seperator_bottom"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_right"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
-        Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done()
-        Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
-          Animator.registerCustomAction(function() {
-            Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
-              anchor: "slide2",
-              silent: true
-            })
-          }, 2000)
+        Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done(function() {
+          Animator.registerCustomAction(dropperScene, 100)
         })
       }
+
       if (isWeixinWebView || isBackgroundAudioInited) {
-        scene()
+        introductionScene()
       } else {
         self.on('click', function() {
           isBackgroundAudioInited = true
@@ -303,43 +297,74 @@ var Inbox = (function() {
             this.play()
           }, false)
           backgrondAudio.play()
-          scene()
+          introductionScene()
         })
       }
-    }
-  })
 
-  pages.push({
-    render: function(self, incrementer) {
-      Animator.fadeIn(self.find("#drop")).done()
-      Animator.fadeIn(self.find("#water_drop")).done()
-      Animator.fadeIn(self.find("#text"), incrementer.next()).done()
-      Animator.shine(self.find("#inner_circle"), incrementer.next(), {
-        infinite: true
-      }).done()
-      Animator.shine(self.find("#outter_circle"), incrementer.next(), {
-        infinite: true
-      }).done()
-      Animator.fadeIn(self.find("#hand"), incrementer.next()).done(function() {
-        Animator.removeFadeIn(this)
-        Animator.float(this, 0, {
+      function dropperScene() {
+        ~(function() {
+          Animator.fadeOut(self.find("#logo")).done()
+          Animator.fadeOut(self.find("#seperator_top")).done()
+          Animator.fadeOut(self.find("#seperator_bottom")).done()
+          Animator.fadeOut(self.find("#text_right")).done()
+          Animator.fadeOut(self.find("#text_left")).done()
+          Animator.fadeOut(self.find("#text_bottom")).done()
+        })()
+
+        incrementer.reset()
+        Animator.fadeIn(self.find("#drop")).done()
+        Animator.fadeIn(self.find(".water_drop")).done()
+        Animator.fadeIn(self.find("#text"), incrementer.next()).done()
+        Animator.shine(self.find("#inner_circle"), incrementer.next(), {
           infinite: true
         }).done()
-      })
-
-      self.find(".tapArea").on('click', function() {
-        $(this).off()
-        self.find("#hand").remove()
-        Animator.fadeOutDown(self.find("#water_drop"), 0, {
-          duration: "3"
+        Animator.shine(self.find("#outter_circle"), incrementer.next(), {
+          infinite: true
         }).done()
-        Animator.registerCustomAction(function() {
-          Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
-            anchor: "slide3",
-            silent: true
-          })
-        }, 1000)
-      })
+        Animator.fadeIn(self.find("#hand"), incrementer.next()).done(function() {
+          Animator.removeFadeIn(this)
+          Animator.float(this, 0, {
+            infinite: true
+          }).done()
+        })
+
+        var dropController = (function(drop) {
+          var controller = {}
+          var isDropReady = true
+
+          controller.drop = function() {
+            if (!isDropReady) {
+              return
+            }
+
+            controller.hasNeverDropAnything = false
+
+            Animator.fadeOutDown(drop, 0, {
+              duration: 3
+            }).done()
+
+            Animator.registerCustomAction(function() {
+              drop.removeClass("fadeOutDown")
+              isDropReady = true
+            }, 1500)
+          }
+
+          controller.hasNeverDropAnything = true
+
+          return controller
+        })(self.find(".water_drop"))
+
+        self.find(".tapArea").on('click', function() {
+          if(dropController.hasNeverDropAnything){
+            isDropperTaped = true
+            Animator.shine(self.find(".next-page-arrow"), 1500).done(function() {
+              Inbox.post(TASK_NAME_UNLOCK_PAGE)
+            })
+          }
+          self.find("#hand").remove()
+          dropController.drop()
+        })
+      }
     }
   })
 
@@ -374,26 +399,26 @@ var Inbox = (function() {
       })
 
       function nextScene() {
-        var _incrementer = incrementer.copy()
+        incrementer.reset()
           // Drop Water
         Animator.fadeIn(self.find("#scene-1-drop")).done()
         Animator.fadeOut(self.find("#drop")).done()
-        Animator.fadeIn(self.find("#scene-1-main_bottom"), _incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-main_bottom"), incrementer.next()).done()
 
         // Transformation Light Enter
-        Animator.fadeIn(self.find("#scene-1-light"), _incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-light"), incrementer.next()).done()
 
         // Renew
-        Animator.fadeIn(self.find("#scene-1-dot"), _incrementer.next()).done()
-        Animator.fadeOut(self.find("#dot"), _incrementer.last()).done()
+        Animator.fadeIn(self.find("#scene-1-dot"), incrementer.next()).done()
+        Animator.fadeOut(self.find("#dot"), incrementer.last()).done()
 
         //
-        Animator.fadeOut(self.find("#skin_bag_inner"), _incrementer.next()).done()
-        Animator.fadeOut(self.find("#skin_bag"), _incrementer.last()).done()
+        Animator.fadeOut(self.find("#skin_bag_inner"), incrementer.next()).done()
+        Animator.fadeOut(self.find("#skin_bag"), incrementer.last()).done()
 
-        Animator.bounceIn(self.find("#scene-1_bag"), _incrementer.next()).done()
+        Animator.bounceIn(self.find("#scene-1_bag"), incrementer.next()).done()
 
-        Animator.shine(self.find(".next-page-arrow"), _incrementer.next()).done(function() {
+        Animator.shine(self.find(".next-page-arrow"), incrementer.next()).done(function() {
           Inbox.post(TASK_NAME_UNLOCK_PAGE)
         })
       }
@@ -414,16 +439,16 @@ var Inbox = (function() {
 
       self.on("click", function() {
         self.off()
-        var _incrementer = incrementer.copy()
+        incrementer.reset()
         Animator.fadeOut(self.find("#text")).done()
         Animator.fadeOut(self.find("#hand")).done(function() {
           this.remove()
         })
-        Animator.fadeIn(self.find("#scene-1-flash"), _incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-flash"), incrementer.next()).done()
 
-        Animator.fadeOut(self.find("#dot"), _incrementer.next()).done()
-        Animator.fadeIn(self.find("#scene-1-dot"), _incrementer.next()).done()
-        Animator.bounceIn(self.find("#scene-1-text"), _incrementer.next()).done(function() {
+        Animator.fadeOut(self.find("#dot"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-dot"), incrementer.next()).done()
+        Animator.bounceIn(self.find("#scene-1-text"), incrementer.next()).done(function() {
           Animator.shine(self.find(".next-page-arrow")).done(function() {
             Inbox.post(TASK_NAME_UNLOCK_PAGE)
           })
@@ -448,7 +473,7 @@ var Inbox = (function() {
   pages.push({
 
     render: function(self, incrementer) {
-      var game = (function(){
+      var game = (function() {
         var x = parseInt(self.width()) * 0.8
         var y = parseInt(self.height()) * 0.6
         var useSmallBall = parseInt(self.width()) <= 400
@@ -492,17 +517,17 @@ var Inbox = (function() {
 
       self.find(".tapArea").on("click", function() {
         $(this).off()
-        var _incrementer = incrementer.copy()
+        incrementer.reset()
         Animator.fadeOut(self.find("#sun")).done()
         Animator.fadeOut(self.find("#hand")).done(function() {
           this.remove()
         })
         Animator.fadeOut(self.find("#head")).done()
 
-        Animator.fadeIn(self.find("#scene-1-sun"), _incrementer.next()).done()
-        Animator.fadeIn(self.find("#scene-1-head"), _incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-sun"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-head"), incrementer.next()).done()
 
-        Animator.fadeIn(self.find(".next-page-arrow"), _incrementer.next()).done(function() {
+        Animator.fadeIn(self.find(".next-page-arrow"), incrementer.next()).done(function() {
           Inbox.post(TASK_NAME_UNLOCK_PAGE)
         })
       })
