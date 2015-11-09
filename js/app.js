@@ -11,6 +11,7 @@ var isWeixinWebView = (function() {
     return false;
   }
 })()
+
 var isBackgroundAudioInited = false
 $("audio").on('play',function(){
   isBackgroundAudioInited = true
@@ -242,11 +243,7 @@ var Inbox = (function() {
         pages[indexFromZero].render(loadedSection, new Incrementer(200, 800));
       }
     })
-
-    // $.fn.fullpage.moveTo("ball-slide", 0)
-
   })
-
 
   // MARK: - Register task handler
   ~(function() {
@@ -365,8 +362,8 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#dot"), incrementer.next()).done()
       Animator.fadeIn(self.find("#skin_bag"), incrementer.next()).done()
       Animator.fadeIn(self.find("#skin_bag_inner"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#drop"), incrementer.next(2000)).done(function() {
-        nextScene()
+      Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
+        setTimeout(nextScene,1000)
       })
 
       function nextScene() {
@@ -410,15 +407,16 @@ var Inbox = (function() {
 
       self.on("click", function() {
         self.off()
+        var _incrementer = incrementer.copy()
         Animator.fadeOut(self.find("#text")).done()
         Animator.fadeOut(self.find("#hand")).done(function() {
           this.remove()
         })
-        Animator.fadeIn(self.find("#scene-1-flash"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-flash"), _incrementer.next()).done()
 
-        Animator.fadeOut(self.find("#dot"), incrementer.next()).done()
-        Animator.fadeIn(self.find("#scene-1-dot"), incrementer.next()).done()
-        Animator.bounceIn(self.find("#scene-1-text"), incrementer.next()).done(function() {
+        Animator.fadeOut(self.find("#dot"), _incrementer.next()).done()
+        Animator.fadeIn(self.find("#scene-1-dot"), _incrementer.next()).done()
+        Animator.bounceIn(self.find("#scene-1-text"), _incrementer.next()).done(function() {
           Animator.shine(self.find(".next-page-arrow")).done(function() {
             Inbox.post(TASK_NAME_UNLOCK_PAGE)
           })
