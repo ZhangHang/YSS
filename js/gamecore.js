@@ -14,9 +14,11 @@ function BallGame(container, ballTexturePath, radius, x, y) {
     _sceneName = 'mixed',
     _sceneWidth,
     _sceneHeight,
-    _deviceOrientationEvent;
+    _deviceOrientationEvent,
+    _isGravityEnabled;
 
   GameCore.init = function() {
+    _isGravityEnabled = false;
 
     _engine = Engine.create(container, {
       render: {
@@ -26,7 +28,8 @@ function BallGame(container, ballTexturePath, radius, x, y) {
           showDebug: false,
           background: 'rbga(0,0,0,0)'
         }
-      }
+      },
+      timeScale: 1.3
     });
 
 
@@ -66,11 +69,12 @@ function BallGame(container, ballTexturePath, radius, x, y) {
     offset = 0;
 
     World.add(world, [Bodies.circle(x, y, radius, {
-      density: 6,
+      density: 1,
       frictionAir: 0,
       restitution: 0.2,
       friction: 1,
       render: {
+        isStatic: false,
         sprite: {
           texture: ballTexturePath
         }
@@ -104,6 +108,12 @@ function BallGame(container, ballTexturePath, radius, x, y) {
 
     var orientation = window.orientation,
       gravity = _engine.world.gravity;
+
+    if (!_isGravityEnabled) {
+      gravity.x = 0;
+      gravity.y = 0;
+      return;
+    }
 
     if (orientation === 0) {
       gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
@@ -142,7 +152,14 @@ function BallGame(container, ballTexturePath, radius, x, y) {
   };
 
   GameCore.clear = function() {
-    Engine.clear(_engine)
+    if (_engine) {
+      Engine.clear(_engine)
+    }
+  }
+
+  GameCore.setGravityEnabled = function(enabled) {
+    _isGravityEnabled = enabled;
+    GameCore.updateGravity();
   }
 
   return GameCore
