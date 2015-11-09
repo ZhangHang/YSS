@@ -313,7 +313,6 @@ var Inbox = (function() {
 
         incrementer.reset()
         Animator.fadeIn(self.find("#drop")).done()
-        Animator.fadeIn(self.find(".water_drop")).done()
         Animator.fadeIn(self.find("#text"), incrementer.next()).done()
         Animator.shine(self.find("#inner_circle"), incrementer.next(), {
           infinite: true
@@ -337,16 +336,22 @@ var Inbox = (function() {
               return
             }
 
+            isDropReady = false
+
+            Animator.fadeIn(self.find(".water_drop"),0, {
+              duration: 0.2
+            }).done()
+
             controller.hasNeverDropAnything = false
 
-            Animator.fadeOutDown(drop, 0, {
+            Animator.fadeOutDown(drop, 0.2, {
               duration: 3
             }).done()
 
             Animator.registerCustomAction(function() {
-              drop.removeClass("fadeOutDown")
+              drop.removeClass("fadeOutDown fadeIn")
               isDropReady = true
-            }, 1500)
+            }, 1700)
           }
 
           controller.hasNeverDropAnything = true
