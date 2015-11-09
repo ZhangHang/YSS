@@ -205,15 +205,8 @@ var Inbox = (function() {
 })()
 
 ~(function(pages) {
-
   Pace.once('done', function() {
-    // {
-    // id: String
-    // pageIndex
-    // }
     var cleanUpTimeoutIdObject = undefined;
-
-
     $('#fullpage').fullpage({
       afterRender: function() {
         var containers = $(".section .container");
