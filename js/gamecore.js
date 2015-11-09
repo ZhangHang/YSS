@@ -21,9 +21,10 @@ function BallGame(container, ballTexturePath, radius) {
     _engine = Engine.create(container, {
       render: {
         options: {
-          wireframes: true,
-          showAngleIndicator: true,
-          showDebug: true
+          wireframes: false,
+          showAngleIndicator: false,
+          showDebug: false,
+          background: 'rbga(0,0,0,0)'
         }
       }
     });
@@ -63,16 +64,6 @@ function BallGame(container, ballTexturePath, radius) {
       };
 
     offset = 0;
-    // these static walls will not be rendered in this sprites example, see options
-    // World.add(world, [
-    //   Bodies.rectangle(offset, offset, _sceneWidth + offset, 1, options),
-    //   Bodies.rectangle(offset, offset, 1, _sceneHeight, options),
-    //   Bodies.rectangle(_sceneWidth + offset, offset, 1, _sceneHeight, options),
-    //   Bodies.rectangle(offset,  _sceneHeight + offset, _sceneWidth, 1, options)
-    // ]);
-    // World.add(world, [
-      // Bodies.rectangle(offset, offset, screenWidth + offset, screenHeight, options)
-    // ]);
 
     World.add(world, [Bodies.circle(15, 15, radius, {
       density: 6,
@@ -85,11 +76,6 @@ function BallGame(container, ballTexturePath, radius) {
         }
       }
     })])
-
-    var renderOptions = engine.render.options;
-    renderOptions.showAngleIndicator = false;
-    renderOptions.background = 'rbga(0,0,0,0)';
-    renderOptions.wireframes = false;
   };
 
   GameCore.updateScene = function() {
