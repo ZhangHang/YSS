@@ -1,5 +1,4 @@
 var TASK_NAME_UNLOCK_PAGE = "TASK_NAME_UNLOCK_PAGE"
-var TASK_NAME_NAVIGATE_TO_NEXT_PAGE = "TASK_NAME_NAVIGATE_TO_NEXT_PAGE"
 var TASK_NAME_NAVIGATE_TO_PAGE = "TASK_NAME_NAVIGATE_TO_PAGE"
 var TASK_NAME_DEVICE_ORIENTATION = "TASK_NAME_DEVICE_ORIENTATION"
 
@@ -13,7 +12,7 @@ var isWeixinWebView = (function() {
 })()
 
 var isBackgroundAudioInited = false
-$("audio").on('play',function(){
+$("audio").on('play', function() {
   isBackgroundAudioInited = true
 })
 
@@ -208,39 +207,57 @@ var Inbox = (function() {
 ~(function(pages) {
 
   Pace.once('done', function() {
-    var latestSectionNode = undefined;
-    var latestSectionIndex = undefined;
-    var backgroundAudio = $('audio')[0];
-    backgroundAudio.play()
+    // {
+    // id: String
+    // pageIndex
+    // }
+    var cleanUpTimeoutIdObject = undefined;
+
 
     $('#fullpage').fullpage({
+      afterRender: function() {
+        var containers = $(".section .container");
+        for (var i = 0; i < pages.length; i++) {
+          pages[i].htmlCache = containers.eq(i).html()
+          if (i != 0) {
+            containers.eq(i).html("")
+          }
+        }
+      },
       afterLoad: function(anchorLink, index) {
         $.fn.fullpage.setAllowScrolling(false, 'down');
 
-        //remove all animation actions
-        Animator.clearAnimations();
+        var indexFromZero = index - 1;
+        var loadedSection = $(this).find(".container");
 
-        if (latestSectionNode) {
-          latestSectionNode.html(pages[latestSectionIndex].htmlCache);
-        }
-        if (latestSectionIndex) {
-          if (pages[latestSectionIndex].deinit) {
-            pages[latestSectionIndex].deinit();
+        loadedSection.html(pages[indexFromZero].htmlCache)
+        pages[indexFromZero].render(loadedSection, new Incrementer(200, 800));
+      },
+      onLeave: function(index, nextIndex, direction) {
+        if (cleanUpTimeoutIdObject) {
+          if ((nextIndex - 1) === cleanUpTimeoutIdObject.index) {
+            clearTimeout(cleanUpTimeoutIdObject.id);
+            cleanUpTimeoutIdObject.clean()
+            cleanUpTimeoutIdObject = undefined;
           }
         }
 
+        Animator.clearAnimations();
+        var leavingSection = $(this).find(".container");
         var indexFromZero = index - 1;
-        var loadedSection = $(this);
 
-        // cache
-        latestSectionNode = loadedSection;
-        latestSectionIndex = indexFromZero;
-
-        if (!pages[indexFromZero].htmlCache) {
-          pages[indexFromZero].htmlCache = loadedSection.html();
+        function cleanUp() {
+          leavingSection.html("")
+          if (pages[indexFromZero].deinit) {
+            pages[indexFromZero].deinit();
+          }
         }
 
-        pages[indexFromZero].render(loadedSection, new Incrementer(200, 800));
+        cleanUpTimeoutIdObject = {
+          id: setTimeout(cleanUp, 1000),
+          index: indexFromZero,
+          clean: cleanUp
+        }
       }
     })
   })
@@ -249,10 +266,6 @@ var Inbox = (function() {
   ~(function() {
     Inbox.on(TASK_NAME_UNLOCK_PAGE, function() {
       $.fn.fullpage.setAllowScrolling(true, 'down');
-    })
-
-    Inbox.on(TASK_NAME_NAVIGATE_TO_NEXT_PAGE, function() {
-      $.fn.fullpage.moveSectionDown();
     })
 
     Inbox.on(TASK_NAME_NAVIGATE_TO_PAGE, function(options) {
@@ -323,14 +336,15 @@ var Inbox = (function() {
 
       self.find(".tapArea").on('click', function() {
         $(this).off()
-        Animator.fadeOut(self.find("#hand")).done(function() {
-          this.remove();
-        })
+        self.find("#hand").remove()
         Animator.fadeOutDown(self.find("#water_drop"), 0, {
           duration: "3"
         }).done()
         Animator.registerCustomAction(function() {
-          Inbox.post(TASK_NAME_NAVIGATE_TO_NEXT_PAGE)
+          Inbox.post(TASK_NAME_NAVIGATE_TO_PAGE, {
+            anchor: "slide3",
+            silent: true
+          })
         }, 1000)
       })
     }
@@ -363,7 +377,7 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#skin_bag"), incrementer.next()).done()
       Animator.fadeIn(self.find("#skin_bag_inner"), incrementer.next()).done()
       Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
-        setTimeout(nextScene,1000)
+        setTimeout(nextScene, 1000)
       })
 
       function nextScene() {

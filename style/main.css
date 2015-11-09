@@ -67,23 +67,6 @@
     -webkit-transform: scale(1);
   }
 }
-.warpper {
-  /*width: 100vw;
-  height: 177.8vw;
-  max-height: 100vh;
-  max-width: 56.3vh;*/
-  height: 100vh;
-  width: 56.3vh;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  /* vertical center */
-  left: 0;
-  right: 0;
-  /* horizontal center */
-  overflow: hidden;
-  /*border: 1px black dashed;*/
-}
 .parallax {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -98,14 +81,22 @@
   position: relative;
   width: 130%;
   height: 130%;
-  top:-15%;
-  left:-15%;
+  top: -15%;
+  left: -15%;
   background-image: url(../images/bg.png);
   background-repeat: no-repeat;
 }
 .container {
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  width: 56.3vh;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  /* vertical center */
+  left: 0;
+  right: 0;
+  /* horizontal center */
+  overflow: hidden;
   z-index: 1;
 }
 .fs {
@@ -169,9 +160,9 @@
 }
 #page-2 .tapArea {
   margin-left: 36%;
-margin-top: 50%;
-width: 25%;
-height: 12%;
+  margin-top: 50%;
+  width: 25%;
+  height: 12%;
 }
 #page-3 #arrow {
   background-image: url(../images/3/arrow.png);
@@ -327,5 +318,4 @@ height: 12%;
 #page-9 #video_play {
   background-image: url(../images/9/video_play.png);
 }
-#ball-container{
-}
+#ball-container {}
