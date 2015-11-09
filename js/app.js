@@ -204,12 +204,12 @@ var Inbox = (function() {
   return core
 })()
 
-~(function(pages) {
+~(function(pages, containerSelector) {
   Pace.once('done', function() {
     var cleanUpTimeoutIdObject = undefined;
     $('#fullpage').fullpage({
       afterRender: function() {
-        var containers = $(".section .container");
+        var containers = $(".section " + containerSelector);
         for (var i = 0; i < pages.length; i++) {
           pages[i].htmlCache = containers.eq(i).html()
           if (i != 0) {
@@ -221,7 +221,7 @@ var Inbox = (function() {
         $.fn.fullpage.setAllowScrolling(false, 'down');
 
         var indexFromZero = index - 1;
-        var loadedSection = $(this).find(".container");
+        var loadedSection = $(this).find(containerSelector);
 
         loadedSection.html(pages[indexFromZero].htmlCache)
         pages[indexFromZero].render(loadedSection, new Incrementer(200, 800));
@@ -236,7 +236,7 @@ var Inbox = (function() {
         }
 
         Animator.clearAnimations();
-        var leavingSection = $(this).find(".container");
+        var leavingSection = $(this).find(containerSelector);
         var indexFromZero = index - 1;
 
         function cleanUp() {
@@ -513,7 +513,7 @@ var Inbox = (function() {
   })
 
   return pages;
-})())
+})(), ".container")
 
 window.ondeviceorientation = function(event) {
   Inbox.post(TASK_NAME_DEVICE_ORIENTATION, event)
