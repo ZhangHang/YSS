@@ -19,7 +19,7 @@ $("audio").on('play', function() {
 var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
   var delay = 0
   this.next = function(customStepInMilliSecond) {
-    delay += (customStepInMilliSecond === undefined) ? stepInMilliSecond : customStepInMilliSecond
+    delay += (customStepInMilliSecond === undefined) ? this.stepInMilliSecond : this.stepInMilliSecond
     return delay
   }
   this.reset = function() {
@@ -28,6 +28,7 @@ var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
   this.last = function() {
     return delay
   }
+  this.stepInMilliSecond = stepInMilliSecond
 }
 
 var Animator = (function() {
