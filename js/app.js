@@ -224,7 +224,7 @@ var Inbox = (function() {
         var loadedSection = $(this).find(containerSelector);
 
         loadedSection.html(pages[indexFromZero].htmlCache)
-        pages[indexFromZero].render(loadedSection, new Incrementer(200, 800));
+        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500));
       },
       onLeave: function(index, nextIndex, direction) {
         if (cleanUpTimeoutIdObject) {
@@ -283,7 +283,7 @@ var Inbox = (function() {
         Animator.fadeIn(self.find("#text_right"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done(function() {
-          Animator.registerCustomAction(dropperScene, 100)
+          Animator.registerCustomAction(dropperScene, 1000)
         })
       }
 
@@ -321,7 +321,7 @@ var Inbox = (function() {
         Animator.shine(self.find("#outter_circle"), incrementer.next(), {
           infinite: true
         }).done()
-        Animator.fadeIn(self.find("#hand"), incrementer.next()).done(function() {
+        Animator.fadeIn(self.find("#hand"), incrementer.last()).done(function() {
           Animator.removeFadeIn(this)
           Animator.float(this, 0, {
             infinite: true
@@ -367,7 +367,6 @@ var Inbox = (function() {
               Inbox.post(TASK_NAME_UNLOCK_PAGE)
             })
           }
-          self.find("#hand").remove()
           dropController.drop()
         })
       }
