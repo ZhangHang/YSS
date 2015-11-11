@@ -272,6 +272,8 @@
 }
 #page-7 #head {
   background-image: url(../images/7/head.png);
+  -webkit-filter: grayscale(0.6);
+  filter: grayscale(0.6);
 }
 #page-7 #sun {
   background-image: url(../images/7/sun.png);

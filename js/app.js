@@ -95,7 +95,6 @@ var Animator = (function() {
         var duration = 1
         if (options["duration"] != undefined) {
           duration = options["duration"]
-          console.log(duration)
           $(node).css("animation-duration", duration + "s")
         }
 
@@ -399,7 +398,7 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#main")).done()
       Animator.fadeIn(self.find("#dot"), incrementer.next()).done()
       Animator.fadeIn(self.find("#skin_bag"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#skin_bag_inner"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#skin_bag_inner"), incrementer.last()).done()
       Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
         Animator.registerCustomAction(nextScene, 1000)
       })
@@ -511,7 +510,7 @@ var Inbox = (function() {
 
   pages.push({
     render: function(self, incrementer) {
-      Animator.shine(self.find("#sun")).done()
+      Animator.fadeIn(self.find("#sun"),incrementer.next()).done()
       Animator.fadeIn(self.find("#head"), incrementer.next()).done()
       Animator.fadeIn(self.find("#hand"), incrementer.next()).done(function() {
         Animator.removeFadeIn(this)
