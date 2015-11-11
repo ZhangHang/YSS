@@ -1,13 +1,14 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
 
 var paths = {
   scripts: ['js/*.js'],
-  images: ['images/**/*.png', 'images/*.png']
+  images: ['images/**/*', 'images/*']
 };
 
 // Not all tasks need to use streams
@@ -28,6 +29,12 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('css', ['clean'], function() {
+  return gulp.src('style/*.css')
+    .pipe(minifyCss())
+    .pipe(gulp.dest('dist/style'));
+});
+
 // Copy all static images
 gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
@@ -46,9 +53,9 @@ gulp.task('watch', function() {
 
 // Copy other files
 gulp.task('copy', ['clean'], function() {
-  gulp.src(['*lib/*', 'main.html', '*style/*', '*audio/*'])
+  gulp.src(['*lib/*', 'main.html', '*audio/*'])
     .pipe(gulp.dest('dist'))
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'scripts', 'copy', 'images']);
+gulp.task('default', ['watch', 'scripts', 'css', 'copy', 'images']);
