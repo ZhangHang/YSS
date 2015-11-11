@@ -116,7 +116,7 @@ var Animator = (function() {
    * This function binds `@animationName` function and `remove@AnimationName` function to @bindingObject
    */
   animateActionFactory = function(bindingObject, animationClassName, defualtOptions) {
-    var addAnimationAction = function() {
+    bindingObject[animationClassName] = function() {
       var node = arguments[0]
       var delay = arguments[1]
       var options = arguments[2] || {}
@@ -129,14 +129,10 @@ var Animator = (function() {
       }
       return core.animate(animationClassName, node, delay, options)
     }
-
-    var removeAnimationAction = function(node) {
+    bindingObject["remove" + capitalizeFirstLetter(animationClassName)] = function(node) {
       node.removeClass("animate")
       node.removeClass(animationClassName)
     }
-
-    bindingObject[animationClassName] = addAnimationAction
-    bindingObject["remove" + capitalizeFirstLetter(animationClassName)] = removeAnimationAction
 
     function capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
@@ -159,13 +155,10 @@ var Animator = (function() {
   animateActionFactory(core, "bounceIn")
 
   // MARK: -
-  core.registerCustomAction = function(action, delay, callback) {
-    TimeoutActionStore.addAction(function() {
-      action()
-      if (callback) {
-        callback()
-      }
-    }, delay)
+  core.performAction = function(action, delay) {
+    console.assert(typeof action === 'function')
+    console.assert(delay >= 0)
+    TimeoutActionStore.addAction(action, delay)
   }
 
   // MARK: Control
@@ -283,7 +276,7 @@ var Inbox = (function() {
         Animator.fadeIn(self.find("#text_right"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_left"), incrementer.next()).done()
         Animator.fadeIn(self.find("#text_bottom"), incrementer.next()).done(function() {
-          Animator.registerCustomAction(dropperScene, 1000)
+          Animator.performAction(dropperScene, 1000)
         })
       }
 
@@ -349,7 +342,7 @@ var Inbox = (function() {
               duration: 3
             }).done()
 
-            Animator.registerCustomAction(function() {
+            Animator.performAction(function() {
               drop.removeClass("fadeOutDown fadeIn")
               isDropReady = true
             }, 1700)
@@ -400,7 +393,7 @@ var Inbox = (function() {
       Animator.fadeIn(self.find("#skin_bag"), incrementer.next()).done()
       Animator.fadeIn(self.find("#skin_bag_inner"), incrementer.last()).done()
       Animator.fadeIn(self.find("#drop"), incrementer.next()).done(function() {
-        Animator.registerCustomAction(nextScene, 1000)
+        Animator.performAction(nextScene, 1000)
       })
 
       function nextScene() {
@@ -495,7 +488,7 @@ var Inbox = (function() {
       Animator.shine(self.find("#vibration"), incrementer.next()).done()
       Animator.fadeIn(self.find("#ball-container"), incrementer.next()).done()
 
-      Animator.registerCustomAction(function() {
+      Animator.performAction(function() {
         game.setGravityEnabled(true)
       }, incrementer.last() + 2000)
 
