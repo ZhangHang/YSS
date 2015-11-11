@@ -3,11 +3,11 @@ var TASK_NAME_NAVIGATE_TO_PAGE = "TASK_NAME_NAVIGATE_TO_PAGE"
 var TASK_NAME_DEVICE_ORIENTATION = "TASK_NAME_DEVICE_ORIENTATION"
 
 var isWeixinWebView = (function() {
-  var ua = navigator.userAgent.toLowerCase();
+  var ua = navigator.userAgent.toLowerCase()
   if (ua.match(/MicroMessenger/i) == "micromessenger") {
-    return true;
+    return true
   } else {
-    return false;
+    return false
   }
 })()
 
@@ -51,7 +51,7 @@ var Animator = (function() {
         clearTimeout(timeoutIds.pop())
       }
     }
-    return store;
+    return store
   })()
 
   /*
@@ -68,13 +68,13 @@ var Animator = (function() {
         infinite: false,
       }
       for (var attrname in options || {}) {
-        _options[attrname] = options[attrname];
+        _options[attrname] = options[attrname]
       }
       return _options
     })()
 
     var core = {}
-    var afterTimeOffset = 0;
+    var afterTimeOffset = 0
     var afterActions = []
 
     core.after = function(__action, __delay) {
@@ -82,21 +82,21 @@ var Animator = (function() {
         delay: afterTimeOffset + __delay,
         action: __action
       })
-      afterTimeOffset += __delay;
-      return core;
+      afterTimeOffset += __delay
+      return core
     }
 
     core.done = function(completionHandler) {
       TimeoutActionStore.addAction(function() {
         var timing = (_options.infinite ? " infinite" : "") + " "
 
-        $(node).addClass("animated" + timing + animationClassName);
+        $(node).addClass("animated" + timing + animationClassName)
 
         var duration = 1
         if (options["duration"] != undefined) {
-          duration = options["duration"];
+          duration = options["duration"]
+          console.log(duration)
           $(node).css("animation-duration", duration + "s")
-
         }
 
         if (completionHandler) {
@@ -110,7 +110,7 @@ var Animator = (function() {
         })
       }, _delay)
     }
-    return core;
+    return core
   }
 
   /*
@@ -120,14 +120,15 @@ var Animator = (function() {
     var addAnimationAction = function() {
       var node = arguments[0]
       var delay = arguments[1]
-      var options = arguments[2]
+      var options = arguments[2] || {}
       console.assert(node != undefined)
 
-      var _defualtoption = defualtOptions || {}
-      for (var attrname in options || {}) {
-        _defualtoption[attrname] = options[attrname];
+      for (var attrname in (defualtOptions || {})) {
+        if(options[attrname] == undefined){
+          options[attrname] = defualtOptions[attrname]
+        }
       }
-      return core.animate(animationClassName, node, delay, _defualtoption)
+      return core.animate(animationClassName, node, delay, options)
     }
 
     var removeAnimationAction = function(node) {
@@ -139,7 +140,7 @@ var Animator = (function() {
     bindingObject["remove" + capitalizeFirstLetter(animationClassName)] = removeAnimationAction
 
     function capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
+      return string.charAt(0).toUpperCase() + string.slice(1)
     }
   }
 
@@ -173,7 +174,7 @@ var Animator = (function() {
     TimeoutActionStore.removeAllActions()
   }
 
-  return core;
+  return core
 })()
 
 var Inbox = (function() {
@@ -206,10 +207,10 @@ var Inbox = (function() {
 
 ~(function(pages, containerSelector) {
   Pace.once('done', function() {
-    var cleanUpTimeoutIdObject = undefined;
+    var cleanUpTimeoutIdObject = undefined
     $('#fullpage').fullpage({
       afterRender: function() {
-        var containers = $(".section " + containerSelector);
+        var containers = $(".section " + containerSelector)
         for (var i = 0; i < pages.length; i++) {
           pages[i].htmlCache = containers.eq(i).html()
           if (i != 0) {
@@ -218,31 +219,31 @@ var Inbox = (function() {
         }
       },
       afterLoad: function(anchorLink, index) {
-        $.fn.fullpage.setAllowScrolling(false, 'down');
+        $.fn.fullpage.setAllowScrolling(false, 'down')
 
-        var indexFromZero = index - 1;
-        var loadedSection = $(this).find(containerSelector);
+        var indexFromZero = index - 1
+        var loadedSection = $(this).find(containerSelector)
 
         loadedSection.html(pages[indexFromZero].htmlCache)
-        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500));
+        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500))
       },
       onLeave: function(index, nextIndex, direction) {
         if (cleanUpTimeoutIdObject) {
           if ((nextIndex - 1) === cleanUpTimeoutIdObject.index) {
-            clearTimeout(cleanUpTimeoutIdObject.id);
+            clearTimeout(cleanUpTimeoutIdObject.id)
             cleanUpTimeoutIdObject.clean()
-            cleanUpTimeoutIdObject = undefined;
+            cleanUpTimeoutIdObject = undefined
           }
         }
 
-        Animator.clearAnimations();
-        var leavingSection = $(this).find(containerSelector);
-        var indexFromZero = index - 1;
+        Animator.clearAnimations()
+        var leavingSection = $(this).find(containerSelector)
+        var indexFromZero = index - 1
 
         function cleanUp() {
           leavingSection.html("")
           if (pages[indexFromZero].deinit) {
-            pages[indexFromZero].deinit();
+            pages[indexFromZero].deinit()
           }
         }
 
@@ -258,21 +259,21 @@ var Inbox = (function() {
   // MARK: - Register task handler
   ~(function() {
     Inbox.on(TASK_NAME_UNLOCK_PAGE, function() {
-      $.fn.fullpage.setAllowScrolling(true, 'down');
+      $.fn.fullpage.setAllowScrolling(true, 'down')
     })
 
     Inbox.on(TASK_NAME_NAVIGATE_TO_PAGE, function(options) {
       var anchor = options["anchor"]
       if (options["silent"]) {
-        $.fn.fullpage.silentMoveTo(anchor, 0);
+        $.fn.fullpage.silentMoveTo(anchor, 0)
       } else {
-        $.fn.fullpage.moveTo(anchor, 0);
+        $.fn.fullpage.moveTo(anchor, 0)
       }
     })
   })()
 
 })((function() {
-  var pages = [];
+  var pages = []
 
   pages.push({
     render: function(self, incrementer) {
@@ -294,7 +295,7 @@ var Inbox = (function() {
           isBackgroundAudioInited = true
           var backgrondAudio = $('audio')[0]
           backgrondAudio.addEventListener('ended', function() {
-            this.currentTime = 0;
+            this.currentTime = 0
             this.play()
           }, false)
           backgrondAudio.play()
@@ -551,28 +552,28 @@ var Inbox = (function() {
     }
   })
 
-  return pages;
+  return pages
 })(), ".container")
 
 window.ondeviceorientation = function(event) {
   Inbox.post(TASK_NAME_DEVICE_ORIENTATION, event)
   parallax(event)
-};
+}
 
 function parallax(event) {
-  var gamma = Math.round(event.gamma);
-  var beta = Math.round(event.beta);
-  var direction = Math.round(event.alpha);
+  var gamma = Math.round(event.gamma)
+  var beta = Math.round(event.beta)
+  var direction = Math.round(event.alpha)
 
-  $(".parallax").css("margin-top", beta + "px");
-  $(".parallax").css("margin-left", gamma + "px");
+  $(".parallax").css("margin-top", beta + "px")
+  $(".parallax").css("margin-left", gamma + "px")
 
-  $(".parallax.more").css("margin-top", Math.round(beta * 2) + "px");
-  $(".parallax.more").css("margin-left", Math.round(gamma * 2) + "px");
+  $(".parallax.more").css("margin-top", Math.round(beta * 2) + "px")
+  $(".parallax.more").css("margin-left", Math.round(gamma * 2) + "px")
 
-  $(".parallax.less").css("margin-top", Math.round(beta / 2) + "px");
-  $(".parallax.less").css("margin-left", Math.round(gamma / 2) + "px");
+  $(".parallax.less").css("margin-top", Math.round(beta / 2) + "px")
+  $(".parallax.less").css("margin-left", Math.round(gamma / 2) + "px")
 
-  $(".parallax.subtle").css("margin-top", Math.round(beta * 0.2) + "px");
-  $(".parallax.subtle").css("margin-left", Math.round(gamma * 0.2) + "px");
+  $(".parallax.subtle").css("margin-top", Math.round(beta * 0.2) + "px")
+  $(".parallax.subtle").css("margin-left", Math.round(gamma * 0.2) + "px")
 }
