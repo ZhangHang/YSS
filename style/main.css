@@ -67,17 +67,10 @@
     -webkit-transform: scale(1);
   }
 }
-.parallax {
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  transition: all 0.2s;
-}
 .tapArea {
   position: relative;
 }
-.background {
+#parallax_background {
   position: relative;
   width: 130%;
   height: 130%;
@@ -85,6 +78,11 @@
   left: -15%;
   background-image: url(../images/bg.jpg);
   background-repeat: no-repeat;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  transition: all 0.2s;
 }
 .container {
   height: 100vh;

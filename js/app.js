@@ -124,7 +124,7 @@ var Animator = (function() {
       console.assert(node != undefined)
 
       for (var attrname in (defualtOptions || {})) {
-        if(options[attrname] == undefined){
+        if (options[attrname] == undefined) {
           options[attrname] = defualtOptions[attrname]
         }
       }
@@ -340,7 +340,7 @@ var Inbox = (function() {
 
             isDropReady = false
 
-            Animator.fadeIn(self.find(".water_drop"),0, {
+            Animator.fadeIn(self.find(".water_drop"), 0, {
               duration: 0.2
             }).done()
 
@@ -362,7 +362,7 @@ var Inbox = (function() {
         })(self.find(".water_drop"))
 
         self.find(".tapArea").on('click', function() {
-          if(dropController.hasNeverDropAnything){
+          if (dropController.hasNeverDropAnything) {
             isDropperTaped = true
             Animator.shine(self.find(".next-page-arrow"), 1500).done(function() {
               Inbox.post(TASK_NAME_UNLOCK_PAGE)
@@ -557,23 +557,10 @@ var Inbox = (function() {
 
 window.ondeviceorientation = function(event) {
   Inbox.post(TASK_NAME_DEVICE_ORIENTATION, event)
-  parallax(event)
-}
-
-function parallax(event) {
   var gamma = Math.round(event.gamma)
   var beta = Math.round(event.beta)
   var direction = Math.round(event.alpha)
 
-  $(".parallax").css("margin-top", beta + "px")
-  $(".parallax").css("margin-left", gamma + "px")
-
-  $(".parallax.more").css("margin-top", Math.round(beta * 2) + "px")
-  $(".parallax.more").css("margin-left", Math.round(gamma * 2) + "px")
-
-  $(".parallax.less").css("margin-top", Math.round(beta / 2) + "px")
-  $(".parallax.less").css("margin-left", Math.round(gamma / 2) + "px")
-
-  $(".parallax.subtle").css("margin-top", Math.round(beta * 0.2) + "px")
-  $(".parallax.subtle").css("margin-left", Math.round(gamma * 0.2) + "px")
+  $("#parallax_background").css("margin-top", Math.round(beta / 2) + "px")
+  $("#parallax_background").css("margin-left", Math.round(gamma / 2) + "px")
 }
