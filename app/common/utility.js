@@ -44,6 +44,8 @@ var Animator = (function() {
    *   duration: String
    */
   core.animate = function(animationClassName, node, delay, options) {
+    console.assert(animationClassName != undefined)
+    console.assert(node != undefined)
     var _delay = delay || 0
     var _options = (function() {
       var _options = {

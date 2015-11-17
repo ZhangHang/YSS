@@ -175,6 +175,94 @@
     background-image: url(../images/game/vibration.png);
   }
 }
+#another-game-page {
+  #mask-old {
+    background-image: url(../images/another-game/mask_old.png);
+  }
+  #mask-new {
+    background-image: url(../images/another-game/mask_new.png);
+  }
+  #cell-container {
+    .cell {
+      -webkit-transition: all 1s;
+      background-image: url(../images/another-game/cell.png);
+    }
+    .cell:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+    .cell:nth-child(2) {
+      top: 40%;
+      left: 10%;
+    }
+    .cell:nth-child(3) {
+      top: 10%;
+      left: 40%;
+    }
+    .cell:nth-child(4) {
+      top: 40%;
+      left: 40%;
+    }
+    .cell:nth-child(5) {
+      top: 30%;
+      left: 60%;
+    }
+    .cell:nth-child(6) {
+      top: 10%;
+      left: 60%;
+    }
+    .cell:nth-child(7) {
+      top: 30%;
+      left: 80%;
+    }
+    .cell:nth-child(8) {
+      top: 20%;
+      left: 20%;
+    }
+    .cell:nth-child(9) {
+      top: 50%;
+      left: 50%;
+    }
+  }
+  #cell-container.repaire {
+    .cell:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+    .cell:nth-child(2) {
+      top: 30%;
+      left: 0;
+    }
+    .cell:nth-child(3) {
+      top: 60%;
+      left: 0;
+    }
+    .cell:nth-child(4) {
+      top: 0;
+      left: 36%;
+    }
+    .cell:nth-child(5) {
+      top: 30%;
+      left: 36%;
+    }
+    .cell:nth-child(6) {
+      top: 60%;
+      left: 36%;
+    }
+    .cell:nth-child(7) {
+      top: 0;
+      left: 72%;
+    }
+    .cell:nth-child(8) {
+      top: 30%;
+      left: 72%;
+    }
+    .cell:nth-child(9) {
+      top: 60%;
+      left: 72%;
+    }
+  }
+}
 #change-page {
   #hand {
     background-image: url(../images/change/hand.png);
