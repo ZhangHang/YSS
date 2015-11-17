@@ -33,7 +33,7 @@
   display: block;
   border-width: 30px;
   border-style: double;
-  border-color: #ffba98 transparent transparent;
+  border-color: rgb(119,113,165) transparent transparent;
   border-radius: 50%;
 
   -webkit-animation: spin 1s linear infinite;
@@ -52,7 +52,7 @@
   display: block;
   border-width: 10px;
   border-style: solid;
-  border-color: #ffba98 transparent transparent;
+  border-color: rgb(119,113,165) transparent transparent;
   border-radius: 50%;
 }
 

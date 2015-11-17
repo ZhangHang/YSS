@@ -4,11 +4,13 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
+var less = require('gulp-less');
 var del = require('del');
 
 var paths = {
-  scripts: ['js/*.js'],
-  images: ['images/**/*', 'images/*']
+  scripts: ['app/constants.js','app/common/*.js','app/pages/*.js','app/*.js'],
+  images: ['images/**/*', 'images/*'],
+  css: ['style/*.css', 'style/*.less']
 };
 
 // Not all tasks need to use streams
@@ -22,15 +24,16 @@ gulp.task('scripts', ['clean'], function() {
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
   return gulp.src(paths.scripts)
-    .pipe(sourcemaps.init())
-    .pipe(uglify())
-    .pipe(concat('app.js'))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/js'));
+    // .pipe(sourcemaps.init())
+    // .pipe(uglify())
+    .pipe(concat('main.js'))
+    // .pipe(sourcemaps.write())
+    .pipe(gulp.dest('dist/app'));
 });
 
 gulp.task('css', ['clean'], function() {
-  return gulp.src('style/*.css')
+  return gulp.src(paths.css)
+    .pipe(less())
     .pipe(minifyCss())
     .pipe(gulp.dest('dist/style'));
 });
@@ -39,9 +42,9 @@ gulp.task('css', ['clean'], function() {
 gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
     // Pass in options to the task
-    .pipe(imagemin({
-      optimizationLevel: 2,
-    }))
+    // .pipe(imagemin({
+    // optimizationLevel: 2,
+    // }))
     .pipe(gulp.dest('dist/images'));
 });
 
@@ -49,6 +52,7 @@ gulp.task('images', ['clean'], function() {
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
+  gulp.watch(paths.images, ['css']);
 });
 
 // Copy other files
