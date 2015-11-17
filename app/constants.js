@@ -25,5 +25,4 @@ pageStack = new (function() {
   this.get = function(name){
     return map[name]
   }
-
 })()
