@@ -51,22 +51,6 @@
     })
   })
 
-  // MARK: - Register task handler
-  ~(function() {
-    Inbox.on(TASK_NAME_UNLOCK_PAGE, function() {
-      $.fn.fullpage.setAllowScrolling(true, 'down')
-    })
-
-    Inbox.on(TASK_NAME_NAVIGATE_TO_PAGE, function(options) {
-      var anchor = options["anchor"]
-      if (options["silent"]) {
-        $.fn.fullpage.silentMoveTo(anchor, 0)
-      } else {
-        $.fn.fullpage.moveTo(anchor, 0)
-      }
-    })
-  })()
-
 })([
   pageStack.get('intro'),
   pageStack.get('usage'),
@@ -79,7 +63,6 @@
 ], ".container")
 
 window.ondeviceorientation = function(event) {
-  Inbox.post(TASK_NAME_DEVICE_ORIENTATION, event)
   var gamma = Math.round(event.gamma)
   var beta = Math.round(event.beta)
   var direction = Math.round(event.alpha)

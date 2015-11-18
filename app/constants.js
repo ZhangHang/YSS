@@ -12,13 +12,12 @@ $("audio").on('play', function() {
   isBackgroundAudioInited = true
 })
 
-pageStack = new (function() {
-  var map = {}
-  this.set = function(name, object) {
-    map[name] = object
+pageStack = {
+  map: {},
+  set: function(key, value){
+    this.map[key] = value
+  },
+  get: function(key){
+    return this.map[key]
   }
-
-  this.get = function(name){
-    return map[name]
-  }
-})()
+}
