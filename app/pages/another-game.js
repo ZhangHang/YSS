@@ -1,5 +1,5 @@
 pageStack.set('another-game', {
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
     var it = this
     Animator.fadeIn(self.find("#mask-old"), incrementer.next()).done()
     Animator.fadeIn(self.find(".cell"), incrementer.next()).done()
@@ -16,12 +16,13 @@ pageStack.set('another-game', {
         Animator.fadeOut(self.find("#mask-old")).done()
         Animator.shine(self.find("#hand")).done()
         Animator.fadeIn(self.find("#mask-new")).done()
-        it.enterRepaireScene(self, incrementer)
+        it.enterRepaireScene(self, incrementer, pageCompletionHandler)
       })
     })
   },
-  enterRepaireScene: function(self, incrementer) {
+  enterRepaireScene: function(self, incrementer, pageCompletionHandler) {
     incrementer.reset()
     self.find("#cell-container").addClass("repaire")
+    Animator.performAction(pageCompletionHandler, 2000)
   }
 })

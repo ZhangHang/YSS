@@ -1,5 +1,5 @@
 pageStack.set('change', {
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
     Animator.fadeIn(self.find("#head"), incrementer.next()).done()
     Animator.fadeIn(self.find("#hand"), incrementer.next()).done(function() {
       Animator.removeFadeIn(this)
@@ -16,9 +16,7 @@ pageStack.set('change', {
       })
       Animator.fadeOut(self.find("#head")).done()
       Animator.fadeIn(self.find("#scene-1-head"), incrementer.next()).done()
-      Animator.fadeIn(self.find(".next-page-arrow"), incrementer.next()).done(function() {
-        Inbox.post(TASK_NAME_UNLOCK_PAGE)
-      })
+      Animator.fadeIn(self.find(".next-page-arrow"), incrementer.next()).done(pageCompletionHandler)
     })
   }
 })

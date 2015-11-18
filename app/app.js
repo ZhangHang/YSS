@@ -18,7 +18,9 @@
         var loadedSection = $(this).find(containerSelector)
 
         loadedSection.html(pages[indexFromZero].htmlCache)
-        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500))
+        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function(){
+          $.fn.fullpage.setAllowScrolling(true, 'down')
+        })
       },
       onLeave: function(index, nextIndex, direction) {
         if (cleanUpTimeoutIdObject) {

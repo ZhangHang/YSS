@@ -1,7 +1,7 @@
 pageStack.set('usage', {
   currentSceneIndex: 0,
   animating: false,
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
     var it = this
     Animator.fadeIn(self.find("#scroll-container"), incrementer.next()).done()
     Animator.fadeIn(self.find("#scroll-text"), incrementer.next()).done()
@@ -18,16 +18,16 @@ pageStack.set('usage', {
           self.off('click')
           return
         }
-        it.nextScene(self, incrementer)
+        it.nextScene(self, incrementer, it.currentSceneIndex === 2 ? pageCompletionHandler : undefined)
       })
     })
   },
-  nextScene: function(self, incrementer) {
+  nextScene: function(self, incrementer, completionHandler) {
     incrementer.reset()
     var it = this
     it.animating = true
     it.currentSceneIndex++
-    var container = self.find(".scene-" + it.currentSceneIndex)
+      var container = self.find(".scene-" + it.currentSceneIndex)
 
     function dismissScene(index) {
       var container = self.find(".scene-" + index)
@@ -46,6 +46,9 @@ pageStack.set('usage', {
     Animator.fadeIn(container.find(".text"), incrementer.next()).done()
     Animator.fadeIn(container.find(".arrow"), incrementer.next()).done(function() {
       it.animating = false
+      if (completionHandler) {
+        completionHandler()
+      }
     })
   }
 })

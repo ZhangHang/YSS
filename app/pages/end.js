@@ -1,5 +1,7 @@
 pageStack.set('end', {
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
+    pageCompletionHandler()
+    
     Animator.fadeIn(self.find("#logo")).done()
     Animator.fadeIn(self.find("#text_top"), incrementer.next()).done()
     Animator.fadeIn(self.find("#seperator_top"), incrementer.next()).done()

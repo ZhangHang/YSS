@@ -1,7 +1,3 @@
-TASK_NAME_UNLOCK_PAGE = "TASK_NAME_UNLOCK_PAGE"
-TASK_NAME_NAVIGATE_TO_PAGE = "TASK_NAME_NAVIGATE_TO_PAGE"
-TASK_NAME_DEVICE_ORIENTATION = "TASK_NAME_DEVICE_ORIENTATION"
-
 isWeixinWebView = (function() {
   var ua = navigator.userAgent.toLowerCase()
   if (ua.match(/MicroMessenger/i) == "micromessenger") {
