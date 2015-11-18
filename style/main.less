@@ -72,6 +72,7 @@
 }
 #parallax_background {
   position: relative;
+  display: block;
   width: 130%;
   height: 130%;
   top: -15%;
@@ -85,6 +86,7 @@
   transition: all 0.2s;
 }
 .container {
+  position: relative;
   height: 100vh;
   width: 56.3vh;
   margin: auto;
@@ -97,12 +99,14 @@
   overflow: hidden;
   z-index: 1;
 }
+.box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: block;
+}
 .fs {
   position: absolute;
-  /*width: 100vw;
-  height: 177.8vw;
-  max-height: 100vh;
-  max-width: 56.3vh;*/
   height: 100vh;
   width: 56.3vh;
   margin: auto;
@@ -116,4 +120,10 @@
 }
 .next-page-arrow {
   background-image: url(../images/arrow.png);
+}
+.container img {
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  width: auto;
 }
