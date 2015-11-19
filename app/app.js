@@ -1,13 +1,16 @@
 ~(function(pages, containerSelector) {
   Pace.once('done', function() {
     var cleanUpTimeoutIdObject = undefined
+    var getPageContainer = function(parent, index){
+      return $(parent).find(".section").eq(index).find(containerSelector).first()
+    }
+
     $('#fullpage').fullpage({
       afterRender: function() {
-        var containers = $(".section " + containerSelector)
         for (var i = 0; i < pages.length; i++) {
-          pages[i].htmlCache = containers.eq(i).html()
+          pages[i].htmlCache = getPageContainer(i).html()
           if (i != 0) {
-            containers.eq(i).html("")
+            getPageContainer(i).html("")
           }
         }
       },
@@ -15,7 +18,7 @@
         $.fn.fullpage.setAllowScrolling(false, 'down')
 
         var indexFromZero = index - 1
-        var loadedSection = $(this).find(containerSelector)
+        var loadedSection = $(this).find(containerSelector).first()
 
         loadedSection.html(pages[indexFromZero].htmlCache)
         pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function() {
@@ -62,6 +65,23 @@
           id: setTimeout(cleanUp, 1000),
           index: indexFromZero,
           clean: cleanUp
+        }
+      },
+      afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
+        var targetEnterSelector = "enterSlide" + (slideIndex + 1)
+        var page = pages[index - 1]
+        var loadedSection = $("#fullpage").find(".section").eq(index - 1)
+        if (page[targetEnterSelector] != undefined) {
+          page[targetEnterSelector](loadedSection.find(".slide").eq(slideIndex).find(containerSelector), new Incrementer(200, 500))
+        }
+      },
+      onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex) {
+        var targetLeaveSelector = "leaveSlide" + (slideIndex + 1)
+        var page = pages[index - 1]
+        var loadedSection = $("#fullpage").find(".section").eq(index - 1)
+
+        if (page[targetLeaveSelector] != undefined) {
+          page[targetLeaveSelector](loadedSection.find(".slide").eq(slideIndex).find(containerSelector))
         }
       }
     })
