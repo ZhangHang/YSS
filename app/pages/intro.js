@@ -1,5 +1,5 @@
 pageStack.set('intro', {
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
     function introductionScene() {
       Animator.fadeIn(self.find("#logo")).done()
       Animator.fadeIn(self.find("#seperator_top"), incrementer.next()).done()
@@ -87,9 +87,7 @@ pageStack.set('intro', {
       self.find(".tapArea").on('click', function() {
         if (dropController.hasNeverDropAnything) {
           isDropperTaped = true
-          Animator.shine(self.find(".next-page-arrow"), 1500).done(function() {
-            Inbox.post(TASK_NAME_UNLOCK_PAGE)
-          })
+          Animator.shine(self.find(".next-page-arrow"), 1500).done(pageCompletionHandler)
         }
         dropController.drop()
       })

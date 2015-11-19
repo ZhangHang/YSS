@@ -152,31 +152,3 @@ var Animator = (function() {
 
   return core
 })()
-
-var Inbox = (function() {
-  var core = {}
-  var map = {}
-
-  core.on = function(taskName, action) {
-    map[taskName] = action
-  }
-
-  core.off = function(taskName) {
-    // remove all event
-    if (taskName === undefined) {
-      map = {}
-      return
-    }
-
-    map[taskName] = undefined
-  }
-
-  core.post = function(taskName, options) {
-    var action = map[taskName]
-    if (action) {
-      action(options)
-    }
-  }
-
-  return core
-})()

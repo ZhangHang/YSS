@@ -1,11 +1,9 @@
 pageStack.set('power-skin-up', {
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
     var it = this
     it.enterScene1(self, incrementer, function() {
       it.dismissScene1(self, function() {
-        it.enterScene2(self, incrementer, function() {
-
-        })
+        it.enterScene2(self, incrementer, pageCompletionHandler)
       })
     })
   },

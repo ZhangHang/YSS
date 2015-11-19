@@ -1,11 +1,10 @@
 pageStack.set('inside-skin', {
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
     var it = this
     it.enterSence1(self, incrementer, function() {
       it.dismissSence1(self, function() {
         Animator.fadeOut(self.find(".scene-1"))
-        it.enterSence2(self, incrementer, function() {
-        })
+        it.enterSence2(self, incrementer, pageCompletionHandler)
       })
     })
   },

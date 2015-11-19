@@ -1,5 +1,5 @@
 pageStack.set('game', {
-  render: function(self, incrementer) {
+  render: function(self, incrementer, pageCompletionHandler) {
     var game = (function() {
       var x = parseInt(self.width()) * 0.8
       var y = parseInt(self.height()) * 0.6
@@ -21,9 +21,7 @@ pageStack.set('game', {
       game.setGravityEnabled(true)
     }, incrementer.last() + 2000)
 
-    Animator.shine(self.find(".next-page-arrow"), incrementer.next()).done(function() {
-      Inbox.post(TASK_NAME_UNLOCK_PAGE)
-    })
+    Animator.shine(self.find(".next-page-arrow"), incrementer.next()).done(pageCompletionHandler)
   },
   deinit: function() {
     this.game.clear()
