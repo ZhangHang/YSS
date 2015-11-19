@@ -31,6 +31,9 @@ pageStack.set('usage', {
 
     function dismissScene(index) {
       var container = self.find(".scene-" + index)
+      Animator.fadeOut(container).done(function() {
+        this.remove()
+      })
       Animator.fadeOut(container.find(".left-hand")).done()
       Animator.fadeOut(container.find(".right-hand")).done()
       Animator.fadeOut(container.find(".text")).done()
@@ -40,15 +43,21 @@ pageStack.set('usage', {
     if (it.currentSceneIndex > 1) {
       dismissScene(it.currentSceneIndex - 1)
     }
+    var handAnimationOption = {
+      duration: '3s',
+      infinite: true
+    }
 
-    Animator.fadeIn(container.find(".left-hand"), incrementer.next()).done()
-    Animator.fadeIn(container.find(".right-hand"), incrementer.last()).done()
     Animator.fadeIn(container.find(".text"), incrementer.next()).done()
-    Animator.fadeIn(container.find(".arrow"), incrementer.next()).done(function() {
+    Animator.fadeIn(container.find(".arrow"), incrementer.next()).done()
+
+    Animator.animate("usage-type-" + it.currentSceneIndex + "-right", container.find(".right-hand"), incrementer.next(), handAnimationOption).done()
+    Animator.animate("usage-type-" + it.currentSceneIndex + "-left", container.find(".left-hand"), incrementer.last(), handAnimationOption).done(function() {
       it.animating = false
       if (completionHandler) {
         completionHandler()
       }
     })
+
   }
 })
