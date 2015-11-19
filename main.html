@@ -30,7 +30,11 @@
 				<img id='outter_circle' />
 				<img id='text' />
 				<img id='hand' />
-				<img class='next-page-arrow' />
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 				<div style="opacity:1" class="fs">
 					<div class="tapArea"></div>
 				</div>
@@ -61,7 +65,11 @@
 					<img class="left-hand" />
 					<img class="arrow" />
 				</div>
-				<img class='next-page-arrow' />
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 			</div>
 		</div>
 
@@ -70,22 +78,31 @@
 				<div class="scene-1 box">
 					<img class="head" />
 					<img class="arrow" />
-					<img class="magnifier" />
 					<img class="hand" />
+					<img class="magnifier" />
 				</div>
 				<div class="scene-2 box">
 					<img class="cell" />
+					<img class="magnifier-mask" />
 					<img class="arrow" />
 					<img class="hand" />
 					<img class="magnifier" />
-					<img class="magnifier-mask" />
 				</div>
-				<img class='next-page-arrow' />
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 			</div>
 		</div>
 
 		<div class="section" id="power-skin-up-page">
 			<div class="container">
+				<div class="next-arrow-container">
+					<img class="arrow"/>
+					<img class="arrow"/>
+					<img class="arrow"/>
+				</div>
 				<div class="scene-1 box">
 					<img class="cell" />
 					<img class="drop" />
@@ -97,13 +114,16 @@
 					<img class="light" />
 					<img class="text" />
 				</div>
-				<div class='next-page-arrow' />
 			</div>
 		</div>
 
 		<div class="section" id="game-page">
 			<div class="container">
-				<img class='next-page-arrow' />
+				<div class="next-arrow-container">
+					<img class="arrow"/>
+					<img class="arrow"/>
+					<img class="arrow"/>
+				</div>
 				<img id='phone' />
 				<img id='seperator' />
 				<img id='text' />
@@ -111,54 +131,58 @@
 				<img id="ball-container">
 			</div>
 		</div>
-	</div>
 
-	<div class="section" id="another-game-page">
-		<div class="container">
-			<div id="cell-container" class="box">
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-			</div>
-			<img id="mask-old" />
-			<img id="mask-new" />
-			<img id="hand" />
-			<img class='next-page-arrow' />
-		</div>
-	</div>
-
-	<div class="section" id="change-page">
-		<div class="container">
-			<img class='next-page-arrow' />
-			<img id='head' />
-			<img id='arrow' />
-			<img id='sun' />
-			<img id='hand' />
-			<img id='scene-1-head' />
-			<img id='scene-1-sun' />
-			<div style="opacity:1">
-				<div class="tapArea"></div>
+		<div class="section" id="another-game-page">
+			<div class="container">
+				<div class="next-arrow-container">
+					<img class="arrow"/>
+					<img class="arrow"/>
+					<img class="arrow"/>
+				</div>
+				<div id="cell-container" class="box">
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+				</div>
+				<img id="mask-old" />
+				<img id="mask-new" />
+				<img id="hand" />
 			</div>
 		</div>
-	</div>
 
-	<div class="section" id="end-page">
-		<div class="container">
-			<img id='logo' />
-			<img id='seperator_bottom' />
-			<img id='seperator_top' />
-			<img id='text_bottom' />
-			<img id='text_top' />
-			<img id='video_container' />
-			<img id='video_play' />
+		<div class="section" id="change-page">
+			<div class="container">
+				<div class="next-arrow-container">
+					<img class="arrow"/>
+					<img class="arrow"/>
+					<img class="arrow"/>
+				</div>
+				<img id='head' />
+				<img id='light' />
+				<img id='hand' />
+				<div style="opacity:1">
+					<div class="tapArea"></div>
+				</div>
+			</div>
 		</div>
-	</div>
+
+		<div class="section" id="end-page">
+			<div class="container">
+				<img id='logo' />
+				<img id='seperator_bottom' />
+				<img id='seperator_top' />
+				<img id='text_bottom' />
+				<img id='text_top' />
+				<img id='video_container' />
+				<img id='video_play' />
+			</div>
+		</div>
 
 	</div>
 </body>
@@ -176,6 +200,7 @@
 <script type="text/javascript" src="lib/jquery.fullPage.min.js"></script>
 <script type="text/javascript" src="lib/hammer.min.js"></script>
 <script type="text/javascript" src="lib/matter.min.js"></script>
+<script type="text/javascript" src="lib/dragdealer.min.js"></script>
 
 <script type="text/javascript" src="app/main.js"></script>
 

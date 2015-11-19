@@ -14,8 +14,8 @@ pageStack.set('change', {
       Animator.fadeOut(self.find("#hand")).done(function() {
         this.remove()
       })
-      Animator.fadeOut(self.find("#head")).done()
-      Animator.fadeIn(self.find("#scene-1-head"), incrementer.next()).done()
+      self.find("#head").addClass("change")
+      Animator.fadeIn(self.find("#light")).done()
       Animator.fadeIn(self.find(".next-page-arrow"), incrementer.next()).done(pageCompletionHandler)
     })
   }

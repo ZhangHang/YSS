@@ -18,8 +18,24 @@
         var loadedSection = $(this).find(containerSelector)
 
         loadedSection.html(pages[indexFromZero].htmlCache)
-        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function(){
+        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function() {
           $.fn.fullpage.setAllowScrolling(true, 'down')
+
+          var nextPageContainer = loadedSection.find(".next-arrow-container")
+          if (nextPageContainer) {
+            var arrows = nextPageContainer.find(".arrow")
+
+            var options = {
+              infinite: true,
+              duration: "3s"
+            }
+            Animator.animate("guide", arrows.eq(0), 0, options).done()
+            Animator.animate("guide", arrows.eq(1), 750, options).done()
+            Animator.animate("guide", arrows.eq(2), 1500, options).done()
+          } else {
+            console.log("no next page indicator found")
+          }
+
         })
       },
       onLeave: function(index, nextIndex, direction) {

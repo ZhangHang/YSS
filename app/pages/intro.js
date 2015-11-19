@@ -39,10 +39,10 @@ pageStack.set('intro', {
       incrementer.reset()
       Animator.fadeIn(self.find("#drop")).done()
       Animator.fadeIn(self.find("#text"), incrementer.next()).done()
-      Animator.shine(self.find("#inner_circle"), incrementer.next(), {
+      Animator.shine(self.find("#outter_circle"), incrementer.next(), {
         infinite: true
       }).done()
-      Animator.shine(self.find("#outter_circle"), incrementer.next(), {
+      Animator.shine(self.find("#inner_circle"), incrementer.next(), {
         infinite: true
       }).done()
       Animator.fadeIn(self.find("#hand"), incrementer.last()).done(function() {
@@ -64,13 +64,13 @@ pageStack.set('intro', {
           isDropReady = false
 
           Animator.fadeIn(self.find(".water_drop"), 0, {
-            duration: 0.2
+            duration: 800
           }).done()
 
           controller.hasNeverDropAnything = false
 
-          Animator.fadeOutDown(drop, 0.2, {
-            duration: 3
+          Animator.fadeOutDown(drop, 800, {
+            duration: "3s"
           }).done()
 
           Animator.performAction(function() {
@@ -87,7 +87,7 @@ pageStack.set('intro', {
       self.find(".tapArea").on('click', function() {
         if (dropController.hasNeverDropAnything) {
           isDropperTaped = true
-          Animator.shine(self.find(".next-page-arrow"), 1500).done(pageCompletionHandler)
+          Animator.performAction(pageCompletionHandler, 2000)
         }
         dropController.drop()
       })

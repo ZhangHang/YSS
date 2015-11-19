@@ -76,16 +76,16 @@ var Animator = (function() {
 
         $(node).addClass("animated" + timing + animationClassName)
 
-        var duration = 1
+        var duration = "1s"
         if (options["duration"] != undefined) {
           duration = options["duration"]
-          $(node).css("animation-duration", duration + "s")
+          $(node).css("animation-duration", options["duration"])
         }
 
         if (completionHandler) {
           TimeoutActionStore.addAction(function() {
             completionHandler.call($(node))
-          }, duration * 1000)
+          }, parseFloat(duration) * 1000)
         }
 
         afterActions.forEach(function(actionPack) {
@@ -125,16 +125,16 @@ var Animator = (function() {
 
   // MARK: - Custom
   animateActionFactory(core, "fadeIn", {
-    duration: 2
+    duration: "2s"
   })
   animateActionFactory(core, "fadeOut")
   animateActionFactory(core, "fadeOutDown")
   animateActionFactory(core, "flash")
   animateActionFactory(core, "shine", {
-    duration: 4
+    duration: "4s"
   })
   animateActionFactory(core, "float", {
-    duration: 2
+    duration: "2s"
   })
   animateActionFactory(core, "bounceIn")
 
