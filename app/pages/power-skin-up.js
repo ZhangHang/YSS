@@ -11,18 +11,15 @@ pageStack.set('power-skin-up', {
     var container = self.find(".scene-1")
     Animator.fadeIn(container.find(".cell"), incrementer.next()).done()
     Animator.fadeIn(container.find(".drop"), incrementer.next()).done(function() {
-      self.on('click', function() {
-        $(this).off()
-        Animator.fadeOut(container.find(".drop")).done()
-        Animator.fadeIn(container.find(".drop-down")).done(completionHandler)
-      })
+      Animator.fadeOut(container.find(".drop")).done()
+      Animator.fadeIn(container.find(".drop-down")).done(completionHandler)
     })
   },
   dismissScene1: function(self, completionHandler) {
     var container = self.find(".scene-1")
     Animator.fadeOut(container.find(".cell")).done()
     Animator.fadeOut(container.find(".drop-down")).done(function() {
-      container.remove()
+      // container.remove()
       completionHandler()
     })
   },
@@ -30,7 +27,12 @@ pageStack.set('power-skin-up', {
     incrementer.reset()
     var container = self.find(".scene-2")
     Animator.fadeIn(container.find(".cell"), incrementer.next()).done()
-    Animator.fadeIn(container.find(".drop"), incrementer.next()).done()
+    Animator.fadeIn(container.find(".mitochondria"), incrementer.last()).done()
+    Animator.fadeIn(container.find(".drop"), incrementer.last()).done()
+    Animator.performAction(function() {
+      container.find(".mitochondria").removeClass("fadeIn")
+      Animator.bounceIn(container.find(".mitochondria")).done()
+    }, incrementer.next(2000))
     Animator.fadeIn(container.find(".light"), incrementer.next()).done()
     Animator.bounceIn(container.find(".text"), incrementer.next()).done(completionHandler)
   }

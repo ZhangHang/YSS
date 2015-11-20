@@ -24,10 +24,10 @@ var scripts = function() {
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
   return gulp.src(paths.scripts)
-    // .pipe(sourcemaps.init())
-    // .pipe(uglify())
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
     .pipe(concat('main.js'))
-    // .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/app'));
 }
 gulp.task('scripts', ['clean'], scripts);

@@ -1,7 +1,7 @@
 var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
   var delay = 0
   this.next = function(customStepInMilliSecond) {
-    delay += (customStepInMilliSecond === undefined) ? this.stepInMilliSecond : this.stepInMilliSecond
+    delay += customStepInMilliSecond || this.stepInMilliSecond
     return delay
   }
   this.reset = function() {
@@ -76,11 +76,8 @@ var Animator = (function() {
 
         $(node).addClass("animated" + timing + animationClassName)
 
-        var duration = "1s"
-        if (options["duration"] != undefined) {
-          duration = options["duration"]
-          $(node).css("animation-duration", options["duration"])
-        }
+        var duration = options["duration"] || "1s"
+        $(node).css("animation-duration", duration)
 
         if (completionHandler) {
           TimeoutActionStore.addAction(function() {

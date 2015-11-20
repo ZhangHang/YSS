@@ -1,11 +1,13 @@
 ~(function(pages, containerSelector) {
   Pace.once('done', function() {
     var cleanUpTimeoutIdObject = undefined
-    var getPageContainer = function(parent, index){
+    var getPageContainer = function(parent, index) {
       return $(parent).find(".section").eq(index).find(containerSelector).first()
     }
 
     $('#fullpage').fullpage({
+      controlArrows: false,
+      loopHorizontal: false,
       afterRender: function() {
         for (var i = 0; i < pages.length; i++) {
           pages[i].htmlCache = getPageContainer(i).html()
@@ -103,6 +105,6 @@ window.ondeviceorientation = function(event) {
   var beta = Math.round(event.beta)
   var direction = Math.round(event.alpha)
 
-  $("#parallax_background").css("margin-top", Math.round(beta / 2) + "px")
+  // $("#parallax_background").css("margin-top", Math.round(beta / 2) + "px")
   $("#parallax_background").css("margin-left", Math.round(gamma / 2) + "px")
 }

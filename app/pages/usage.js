@@ -63,7 +63,7 @@ pageStack.set('usage', {
 
     Animator.animate("usage-type-" + index + "-right", container.find(".right-hand"), incrementer.next(), handAnimationOption).done()
     Animator.animate("usage-type-" + index + "-left", container.find(".left-hand"), incrementer.last(), handAnimationOption).done(function() {
-      it.animating = false
+      Animator.fadeIn(container.find(".arrow-indicator")).done()
       if (completionHandler) {
         completionHandler()
       }
