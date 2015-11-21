@@ -3,7 +3,6 @@ pageStack.set('inside-skin', {
     var it = this
     it.enterSence1(self, incrementer, function() {
       it.dismissSence1(self, function() {
-        Animator.fadeOut(self.find(".scene-1"))
         it.enterSence2(self, incrementer, pageCompletionHandler)
       })
     })
@@ -16,17 +15,20 @@ pageStack.set('inside-skin', {
     Animator.fadeIn(container.find(".magnifier"), incrementer.next()).done()
     Animator.fadeIn(container.find(".hand"), incrementer.next()).done()
 
-    self.on('click', function() {
-      completionHandler()
-      $(this).off('click')
+    var hammertime = new Hammer(self[0])
+    hammertime.on('tap', function(ev) {
+      hammertime.destroy()
+      console.log("swipe")
+      Animator.fadeOut(container.find(".hand")).done()
+      Animator.fadeOut(container.find(".arrow")).done(function(){
+        container.find(".magnifier").css("left", "-23%")
+        Animator.performAction(completionHandler, 1000)
+      })
     })
   },
   dismissSence1: function(self, completionHandler) {
     var container = self.find(".scene-1")
-    Animator.fadeOut(container.find(".head")).done()
-    Animator.fadeOut(container.find(".arrow")).done()
-    Animator.fadeOut(container.find(".magnifier")).done()
-    Animator.fadeOut(container.find(".hand")).done(function() {
+    Animator.fadeOut(container).done(function(){
       container.remove()
       completionHandler()
     })
@@ -39,11 +41,13 @@ pageStack.set('inside-skin', {
     Animator.fadeIn(container.find(".cell"), incrementer.next()).done()
     Animator.fadeIn(container.find(".hand"), incrementer.next()).done()
     Animator.fadeIn(container.find(".arrow"), incrementer.next()).done(function() {
-      self.on('click', function() {
-        Animator.fadeOut(self.find(".magnifier-mask")).done(completionHandler)
-        Animator.fadeOut(self.find(".hand")).done(completionHandler)
-        Animator.fadeOut(self.find(".arrow")).done(completionHandler)
-        $(this).off('click')
+      var hammertime = new Hammer(self[0])
+      hammertime.on('tap', function(ev) {
+        hammertime.destroy()
+        console.log("swipe")
+        Animator.fadeOut(container.find(".hand")).done()
+        Animator.fadeOut(container.find(".magnifier-mask")).done()
+        Animator.fadeOut(container.find(".arrow")).done(completionHandler)
       })
     })
   }

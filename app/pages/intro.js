@@ -89,6 +89,9 @@ pageStack.set('intro', {
           isDropperTaped = true
           Animator.performAction(pageCompletionHandler, 2000)
         }
+        Animator.performAction(function() {
+          $("audio")[1].play()
+        }, 800)
         dropController.drop()
       })
     }
