@@ -1,27 +1,28 @@
-~(function(pages, containerSelector) {
+~(function(pages, warperSelector, containerSelector) {
   Pace.once('done', function() {
     var cleanUpTimeoutIdObject = undefined
-    var getPageContainer = function(parent, index) {
-      return $(parent).find(".section").eq(index).find(containerSelector).first()
-    }
-
-    $('#fullpage').fullpage({
+    var hasCache = false
+    $(warperSelector).fullpage({
       controlArrows: false,
       loopHorizontal: false,
-      afterRender: function() {
-        for (var i = 0; i < pages.length; i++) {
-          pages[i].htmlCache = getPageContainer(i).html()
-          if (i != 0) {
-            getPageContainer(i).html("")
-          }
-        }
-      },
+
       afterLoad: function(anchorLink, index) {
         $.fn.fullpage.setAllowScrolling(false, 'down')
+        if (!hasCache) {
+          for (var i = 0; i < pages.length; i++) {
+            var currentContainer = $(warperSelector).find(".section").find(containerSelector).eq(i)
+            pages[i].htmlCache = currentContainer.html()
+            if (i != 0) {
+              currentContainer.html("")
+            }
+          }
+          hasCache = true
+          console.log(pages)
+        }
 
         var indexFromZero = index - 1
-        var loadedSection = $(this).find(containerSelector).first()
-
+        var loadedSection = $(this).find(containerSelector)
+        console.log(loadedSection)
         loadedSection.html(pages[indexFromZero].htmlCache)
         pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function() {
           $.fn.fullpage.setAllowScrolling(true, 'down')
@@ -98,7 +99,7 @@
   pageStack.get('another-game'),
   pageStack.get('change'),
   pageStack.get('end')
-], ".container")
+], "#fullpage", ".container")
 
 window.ondeviceorientation = function(event) {
   var gamma = Math.round(event.gamma)
