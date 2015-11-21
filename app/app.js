@@ -17,12 +17,10 @@
             }
           }
           hasCache = true
-          console.log(pages)
         }
 
         var indexFromZero = index - 1
         var loadedSection = $(this).find(containerSelector)
-        console.log(loadedSection)
         loadedSection.html(pages[indexFromZero].htmlCache)
         pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function() {
           $.fn.fullpage.setAllowScrolling(true, 'down')
