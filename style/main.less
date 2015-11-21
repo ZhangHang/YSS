@@ -5,7 +5,7 @@
   padding: 0;
 }
 body{
-  background-image: url(../images/fill.jpg);
+  background-color: black;
 }
 .section {
   position: relative;
@@ -49,8 +49,8 @@ body{
   position: relative;
   display: block;
   width: 130%;
-  height: 100%;
-  // top: -15%;
+  height: 111%;
+  top: -6.5%;
   left: -15%;
   content: url(../images/bg.jpg);
   -webkit-transition: all 0.2s;
@@ -60,6 +60,20 @@ body{
   transition: all 0.2s;
 }
 .container {
+  position: relative;
+  height: 100vh;
+  width: 56.3vh;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  /* vertical center */
+  left: 0;
+  right: 0;
+  /* horizontal center */
+  overflow: hidden;
+  z-index: 1;
+}
+.sub-container {
   position: relative;
   height: 100vh;
   width: 56.3vh;
