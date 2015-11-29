@@ -25,7 +25,7 @@ var scripts = function() {
   // with sourcemaps all the way down
   return gulp.src(paths.scripts)
     // .pipe(sourcemaps.init())
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(concat('main.js'))
     // .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/app'));
@@ -45,9 +45,9 @@ gulp.task('css-watch', css);
 var images = function() {
     return gulp.src(paths.images)
       // Pass in options to the task
-      // .pipe(imagemin({
-        // optimizationLevel: 2,
-      // }))
+      .pipe(imagemin({
+        optimizationLevel: 2,
+      }))
       .pipe(gulp.dest('dist/images'));
   }
   // Copy all static images

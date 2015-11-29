@@ -1,11 +1,6 @@
-* {
+body {
   user-select: none;
   -webkit-user-select: none;
-  font-family: AlrightSans, 'Helvetica Neue', Helvetica, Arial, 'Source Han Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Microsoft JhengHei', sans-serif;
-  margin: 0;
-  padding: 0;
-}
-body{
   background-color: black;
 }
 .section {
@@ -18,12 +13,10 @@ body{
   0% {
     opacity: 0;
   }
-
-  50%{
+  50% {
     opacity: 1;
   }
-
-  100%{
+  100% {
     opacity: 0;
   }
 }
@@ -51,7 +44,6 @@ body{
 .tapArea {
   position: relative;
 }
-
 #parallax_background {
   position: relative;
   display: block;
@@ -65,13 +57,11 @@ body{
   -o-transition: all 0.2s;
   -ms-transition: all 0.2s;
   transition: all 0.2s;
-  z-index: 1000;
+  z-index: 0;
 }
-
-#fullpage{
-  z-index: 3000;
+#fullpage {
+  z-index: 1;
 }
-
 .container {
   position: relative;
   height: 100vh;
