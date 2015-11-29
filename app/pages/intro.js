@@ -21,7 +21,7 @@ pageStack.set('intro', {
         backgrondAudio.addEventListener('ended', function() {
           this.currentTime = 0
           this.play()
-        }, false)
+        })
         backgrondAudio.play()
         introductionScene()
       })
@@ -30,7 +30,6 @@ pageStack.set('intro', {
     function dropperScene() {
 
       ~(function() {
-        console.log($(".pace-inactive"))
         $(".pace-inactive").remove()
       })()
 

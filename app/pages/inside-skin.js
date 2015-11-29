@@ -33,7 +33,7 @@ pageStack.set('inside-skin', {
         it.swipeHandler = undefined;
         Animator.fadeOut(container.find(".hand")).done()
         Animator.fadeOut(container.find(".arrow")).done(function() {
-          container.find(".magnifier").css("left", "-26%")
+          container.find(".magnifier").css("left", "-30%")
           Animator.performAction(completionHandler, 1000)
         })
       }
@@ -57,7 +57,6 @@ pageStack.set('inside-skin', {
     Animator.fadeIn(container.find(".hand"), incrementer.next()).done()
     Animator.fadeIn(container.find(".arrow"), incrementer.next()).done(function() {
       it.swipeHandler = function(ev) {
-        console.log(ev);
         if (ev.direction == Hammer.DIRECTION_LEFT || ev.direction == Hammer.DIRECTION_RIGHT) {
           it.swipeHandler = undefined;
           Animator.fadeOut(container.find(".hand")).done()
