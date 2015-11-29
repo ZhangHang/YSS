@@ -43,7 +43,9 @@ pageStack.set('intro', {
       })()
 
       incrementer.reset()
+      Animator.fadeIn(self.find("#dropper_text")).done()
       Animator.fadeIn(self.find("#drop")).done()
+      Animator.fadeIn(self.find("#inner_drop")).done()
       Animator.fadeIn(self.find("#text"), incrementer.next()).done()
       Animator.shine(self.find("#outter_circle"), incrementer.next(), {
         infinite: true
@@ -58,47 +60,56 @@ pageStack.set('intro', {
         }).done()
       })
 
-      var dropController = (function(drop) {
+      var dropController = (function(outerdrop, innerDrop) {
         var controller = {}
-        var isDropReady = true
+        controller.ready = true
 
         controller.drop = function() {
-          if (!isDropReady) {
+          if (!controller.ready) {
             return
           }
 
-          isDropReady = false
+          controller.ready = false
 
-          Animator.fadeIn(self.find(".water_drop"), 0, {
+          Animator.fadeOut(innerDrop, 0 , {
+            duration: 800
+          }).done()
+
+          Animator.fadeIn(outerdrop, 800, {
             duration: 800
           }).done()
 
           controller.hasNeverDropAnything = false
 
-          Animator.fadeOutDown(drop, 800, {
+          Animator.fadeOutDown(outerdrop, 1600, {
             duration: "3s"
           }).done()
 
           Animator.performAction(function() {
-            drop.removeClass("fadeOutDown fadeIn")
-            isDropReady = true
-          }, 1700)
+            outerdrop.removeClass("fadeOutDown fadeIn")
+            innerDrop.removeClass("fadeOut")
+            Animator.fadeIn(innerDrop).done(function(){
+              controller.ready = true
+            })
+          }, 2500)
         }
 
         controller.hasNeverDropAnything = true
 
         return controller
-      })(self.find(".water_drop"))
+      })(self.find("#water_drop"), self.find("#inner_drop"))
 
       self.find(".tapArea").on('click', function() {
         if (dropController.hasNeverDropAnything) {
           isDropperTaped = true
           Animator.performAction(pageCompletionHandler, 2000)
         }
-        Animator.performAction(function() {
-          $("audio")[1].play()
-        }, 800)
-        dropController.drop()
+        if(dropController.ready){
+          Animator.performAction(function() {
+            $("audio")[1].play()
+          }, 800)
+          dropController.drop()
+        }
       })
     }
   }
