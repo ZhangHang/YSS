@@ -16,11 +16,11 @@ pageStack.set('inside-skin', {
     Animator.fadeIn(container.find(".hand"), incrementer.next()).done()
 
     var hammertime = new Hammer(self[0])
-    hammertime.on('tap', function(ev) {
+    hammertime.on('swipeleft', function(ev) {
       hammertime.destroy()
       console.log("swipe")
       Animator.fadeOut(container.find(".hand")).done()
-      Animator.fadeOut(container.find(".arrow")).done(function(){
+      Animator.fadeOut(container.find(".arrow")).done(function() {
         container.find(".magnifier").css("left", "-23%")
         Animator.performAction(completionHandler, 1000)
       })
@@ -28,7 +28,7 @@ pageStack.set('inside-skin', {
   },
   dismissSence1: function(self, completionHandler) {
     var container = self.find(".scene-1")
-    Animator.fadeOut(container).done(function(){
+    Animator.fadeOut(container).done(function() {
       container.remove()
       completionHandler()
     })
@@ -42,12 +42,14 @@ pageStack.set('inside-skin', {
     Animator.fadeIn(container.find(".hand"), incrementer.next()).done()
     Animator.fadeIn(container.find(".arrow"), incrementer.next()).done(function() {
       var hammertime = new Hammer(self[0])
-      hammertime.on('tap', function(ev) {
-        hammertime.destroy()
-        console.log("swipe")
-        Animator.fadeOut(container.find(".hand")).done()
-        Animator.fadeOut(container.find(".magnifier-mask")).done()
-        Animator.fadeOut(container.find(".arrow")).done(completionHandler)
+      hammertime.on('swipe', function(ev) {
+        if (event.direction == 'right' || event.direction == 'left') {
+          hammertime.destroy()
+          console.log("swipe")
+          Animator.fadeOut(container.find(".hand")).done()
+          Animator.fadeOut(container.find(".magnifier-mask")).done()
+          Animator.fadeOut(container.find(".arrow")).done(completionHandler)
+        }
       })
     })
   }

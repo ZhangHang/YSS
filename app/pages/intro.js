@@ -1,5 +1,6 @@
 pageStack.set('intro', {
   render: function(self, incrementer, pageCompletionHandler) {
+
     function introductionScene() {
       Animator.fadeIn(self.find("#logo")).done()
       Animator.fadeIn(self.find("#seperator_top"), incrementer.next()).done()
@@ -27,6 +28,12 @@ pageStack.set('intro', {
     }
 
     function dropperScene() {
+
+      ~(function() {
+        console.log($(".pace-inactive"))
+        $(".pace-inactive").remove()
+      })()
+
       ~(function() {
         Animator.fadeOut(self.find("#logo")).done()
         Animator.fadeOut(self.find("#seperator_top")).done()

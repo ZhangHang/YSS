@@ -2,6 +2,7 @@
   Pace.once('done', function() {
     var cleanUpTimeoutIdObject = undefined
     var hasCache = false
+
     $(warperSelector).fullpage({
       controlArrows: false,
       loopHorizontal: false,
@@ -73,7 +74,7 @@
         var page = pages[index - 1]
         var loadedSection = $("#fullpage").find(".section").eq(index - 1)
         if (page[targetEnterSelector] != undefined) {
-          page[targetEnterSelector](loadedSection.find(".slide").eq(slideIndex).find(containerSelector), new Incrementer(200, 500))
+          page[targetEnterSelector](loadedSection.find(".slide").eq(slideIndex).find(".sub-container"), new Incrementer(200, 500))
         }
       },
       onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex) {
@@ -82,7 +83,7 @@
         var loadedSection = $("#fullpage").find(".section").eq(index - 1)
 
         if (page[targetLeaveSelector] != undefined) {
-          page[targetLeaveSelector](loadedSection.find(".slide").eq(slideIndex).find(containerSelector))
+          page[targetLeaveSelector](loadedSection.find(".slide").eq(slideIndex).find(".sub-container"))
         }
       }
     })

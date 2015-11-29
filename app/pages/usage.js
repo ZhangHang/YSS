@@ -12,7 +12,7 @@ pageStack.set('usage', {
     Animator.fadeIn(self.find("#mask"), incrementer.next()).done()
     Animator.fadeIn(self.find("#face"), incrementer.next()).done(function() {
       incrementer.reset()
-      it.enterSlide1(self.find(".slide").eq(0).find(".container"), incrementer)
+      it.enterSlide1(self.find(".slide").eq(0).find(".sub-container"), incrementer)
     })
   },
   cacheAllSlide: function() {
@@ -23,7 +23,7 @@ pageStack.set('usage', {
     }
   },
   slideContainer: function(index) {
-    return this.self.find(".slide").eq(index).find(".container")
+    return this.self.find(".slide").eq(index).find(".sub-container")
   },
   enterSlide1: function(container, incrementer) {
     this.enterScene(1, container, incrementer)

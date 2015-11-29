@@ -17,17 +17,17 @@ var paths = {
 // A gulpfile is just another node program and you can use any package available on npm
 gulp.task('clean', function() {
   // You can use multiple globbing patterns as you would with `gulp.src`
-  return del(['dist']);
+  return del(['dist/*']);
 });
 
 var scripts = function() {
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
   return gulp.src(paths.scripts)
-    .pipe(sourcemaps.init())
-    .pipe(uglify())
+    // .pipe(sourcemaps.init())
+    // .pipe(uglify())
     .pipe(concat('main.js'))
-    .pipe(sourcemaps.write())
+    // .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/app'));
 }
 gulp.task('scripts', ['clean'], scripts);
@@ -45,9 +45,9 @@ gulp.task('css-watch', css);
 var images = function() {
     return gulp.src(paths.images)
       // Pass in options to the task
-      .pipe(imagemin({
-        optimizationLevel: 2,
-      }))
+      // .pipe(imagemin({
+        // optimizationLevel: 2,
+      // }))
       .pipe(gulp.dest('dist/images'));
   }
   // Copy all static images
@@ -56,7 +56,7 @@ gulp.task('images-watch', images);
 
 
 var copy = function() {
-    gulp.src(['*lib/*', 'main.html', '*audio/*'])
+    gulp.src(['*lib/*', '*main.html*', '*audio/*'])
       .pipe(gulp.dest('dist'))
   }
   // Copy other files
