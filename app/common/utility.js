@@ -128,7 +128,8 @@ var Animator = (function() {
   animateActionFactory(core, "fadeOutDown")
   animateActionFactory(core, "flash")
   animateActionFactory(core, "shine", {
-    duration: "4s"
+    duration: "3s",
+    infinite: true
   })
   animateActionFactory(core, "float", {
     duration: "2s"
@@ -147,5 +148,12 @@ var Animator = (function() {
     TimeoutActionStore.removeAllActions()
   }
 
+
+  core.removeFadeIn = function(node) {
+    $(node).removeClass("animated")
+    $(node).removeClass("fadeIn")
+    $(node).css("opacity", 1)
+    console.log("yeah")
+  }
   return core
 })()

@@ -30,13 +30,9 @@
           if (nextPageContainer) {
             var arrows = nextPageContainer.find(".arrow")
 
-            var options = {
-              infinite: true,
-              duration: "3s"
-            }
-            Animator.animate("guide", arrows.eq(0), 0, options).done()
-            Animator.animate("guide", arrows.eq(1), 750, options).done()
-            Animator.animate("guide", arrows.eq(2), 1500, options).done()
+            Animator.shine(arrows.eq(0), 0).done()
+            Animator.shine(arrows.eq(1), 750).done()
+            Animator.shine(arrows.eq(2), 1500).done()
           } else {
             console.log("no next page indicator found")
           }
@@ -105,6 +101,6 @@ window.ondeviceorientation = function(event) {
   var beta = Math.round(event.beta)
   var direction = Math.round(event.alpha)
 
-  $("#parallax_background").css("margin-top", Math.round(beta / 4) + "px")
-  $("#parallax_background").css("margin-left", Math.round(gamma / 4) + "px")
+  $("#parallax_background").css("margin-top", "-" + Math.round(beta / 4) + "px")
+  $("#parallax_background").css("margin-left", "-" + Math.round(gamma / 4) + "px")
 }
