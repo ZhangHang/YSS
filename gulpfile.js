@@ -1,8 +1,19 @@
+/**
+ * Make sure Graphicsmagick is installed on your system
+ * osx: brew install graphicsmagick
+ *
+ * Install these gulp plugins
+ * glup, gulp-image-resize, gulp-imagemin and imagemin-png
+ * 
+ **/
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
+var imageresize = require('gulp-image-resize');
+var pngquant = require('imagemin-pngquant');
 var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
 var del = require('del');
@@ -44,9 +55,15 @@ gulp.task('css-watch', css);
 
 var images = function() {
     return gulp.src(paths.images)
-      // Pass in options to the task
+      .pipe(imageresize({
+        width: 480,
+        crop: false,
+        // never increase image dimensions
+        upscale: false
+      }))
       .pipe(imagemin({
         optimizationLevel: 2,
+        use: [pngquant()]
       }))
       .pipe(gulp.dest('dist/images'));
   }

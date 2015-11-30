@@ -153,7 +153,6 @@ var Animator = (function() {
     $(node).removeClass("animated")
     $(node).removeClass("fadeIn")
     $(node).css("opacity", 1)
-    console.log("yeah")
   }
   return core
 })()
