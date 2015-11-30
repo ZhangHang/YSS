@@ -1,70 +1,44 @@
-* {
+body {
+  user-select: none;
   -webkit-user-select: none;
-  font-family: AlrightSans, 'Helvetica Neue', Helvetica, Arial, 'Source Han Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Microsoft JhengHei', sans-serif;
-  margin: 0;
-  padding: 0;
+  background-color: black;
 }
 .section {
   position: relative;
 }
 .shine {
-  -webkit-animation-name: flash;
-  animation-name: flash;
-}
-@-webkit-keyframes shine {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  animation-name: shine;
 }
 @keyframes shine {
-  from {
+  0% {
     opacity: 0;
   }
-  to {
+  50% {
     opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 .float {
-  -webkit-animation-name: float;
   animation-name: float;
-}
-@-webkit-keyframes float {
-  0% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-  33.3% {
-    opacity: 0.6;
-    -webkit-transform: scale(0.9);
-  }
-  66.6% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
 }
 @keyframes float {
   0% {
     opacity: 1;
-    -webkit-transform: scale(1);
+    transform: scale(1);
   }
   33.3% {
     opacity: 0.6;
-    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
   }
   66.6% {
     opacity: 1;
-    -webkit-transform: scale(1);
+    transform: scale(1);
   }
   100% {
     opacity: 1;
-    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 .tapArea {
@@ -74,18 +48,35 @@
   position: relative;
   display: block;
   width: 130%;
-  height: 130%;
-  top: -15%;
+  height: 111%;
+  top: -6.5%;
   left: -15%;
-  background-image: url(../images/bg.jpg);
-  background-repeat: no-repeat;
+  content: url(../images/bg.jpg);
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
   -ms-transition: all 0.2s;
   transition: all 0.2s;
+  z-index: 0;
+}
+#fullpage {
+  z-index: 1;
 }
 .container {
+  position: relative;
+  height: 100vh;
+  width: 56.3vh;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  /* vertical center */
+  left: 0;
+  right: 0;
+  /* horizontal center */
+  overflow: hidden;
+  z-index: 1;
+}
+.sub-container {
   position: relative;
   height: 100vh;
   width: 56.3vh;
@@ -118,8 +109,26 @@
   background-size: contain;
   opacity: 0;
 }
-.next-page-arrow {
-  background-image: url(../images/arrow.png);
+.next-arrow-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: block;
+  .arrow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: url(../images/arrow.png);
+  }
+  .arrow:nth-child(1n+1) {
+    top: 0;
+  }
+  .arrow:nth-child(1n+2) {
+    top: -1.5%;
+  }
+  .arrow:nth-child(1n+3) {
+    top: -3%;
+  }
 }
 .container img {
   opacity: 0;

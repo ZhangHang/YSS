@@ -1,25 +1,42 @@
-~(function(pages, containerSelector) {
+~(function(pages, warperSelector, containerSelector) {
   Pace.once('done', function() {
     var cleanUpTimeoutIdObject = undefined
-    $('#fullpage').fullpage({
-      afterRender: function() {
-        var containers = $(".section " + containerSelector)
-        for (var i = 0; i < pages.length; i++) {
-          pages[i].htmlCache = containers.eq(i).html()
-          if (i != 0) {
-            containers.eq(i).html("")
-          }
-        }
-      },
+    var hasCache = false
+
+    $(warperSelector).fullpage({
+      controlArrows: false,
+      loopHorizontal: false,
+
       afterLoad: function(anchorLink, index) {
         $.fn.fullpage.setAllowScrolling(false, 'down')
+        if (!hasCache) {
+          for (var i = 0; i < pages.length; i++) {
+            var currentContainer = $(warperSelector).find(".section").find(containerSelector).eq(i)
+            pages[i].htmlCache = currentContainer.html()
+            if (i != 0) {
+              currentContainer.html("")
+            }
+          }
+          hasCache = true
+        }
 
         var indexFromZero = index - 1
         var loadedSection = $(this).find(containerSelector)
-
         loadedSection.html(pages[indexFromZero].htmlCache)
-        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function(){
+        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function() {
           $.fn.fullpage.setAllowScrolling(true, 'down')
+
+          var nextPageContainer = loadedSection.find(".next-arrow-container")
+          if (nextPageContainer) {
+            var arrows = nextPageContainer.find(".arrow")
+
+            Animator.shine(arrows.eq(0), 0).done()
+            Animator.shine(arrows.eq(1), 750).done()
+            Animator.shine(arrows.eq(2), 1500).done()
+          } else {
+            console.log("no next page indicator found")
+          }
+
         })
       },
       onLeave: function(index, nextIndex, direction) {
@@ -47,6 +64,23 @@
           index: indexFromZero,
           clean: cleanUp
         }
+      },
+      afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
+        var targetEnterSelector = "enterSlide" + (slideIndex + 1)
+        var page = pages[index - 1]
+        var loadedSection = $("#fullpage").find(".section").eq(index - 1)
+        if (page[targetEnterSelector] != undefined) {
+          page[targetEnterSelector](loadedSection.find(".slide").eq(slideIndex).find(".sub-container"), new Incrementer(200, 500))
+        }
+      },
+      onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex) {
+        var targetLeaveSelector = "leaveSlide" + (slideIndex + 1)
+        var page = pages[index - 1]
+        var loadedSection = $("#fullpage").find(".section").eq(index - 1)
+
+        if (page[targetLeaveSelector] != undefined) {
+          page[targetLeaveSelector](loadedSection.find(".slide").eq(slideIndex).find(".sub-container"))
+        }
       }
     })
   })
@@ -60,13 +94,13 @@
   pageStack.get('another-game'),
   pageStack.get('change'),
   pageStack.get('end')
-], ".container")
+], "#fullpage", ".container")
 
 window.ondeviceorientation = function(event) {
   var gamma = Math.round(event.gamma)
   var beta = Math.round(event.beta)
   var direction = Math.round(event.alpha)
 
-  $("#parallax_background").css("margin-top", Math.round(beta / 2) + "px")
-  $("#parallax_background").css("margin-left", Math.round(gamma / 2) + "px")
+  $("#parallax_background").css("margin-top", "-" + Math.round(beta / 4) + "px")
+  $("#parallax_background").css("margin-left", "-" + Math.round(gamma / 4) + "px")
 }

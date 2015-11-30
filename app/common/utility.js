@@ -1,7 +1,7 @@
 var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
   var delay = 0
   this.next = function(customStepInMilliSecond) {
-    delay += (customStepInMilliSecond === undefined) ? this.stepInMilliSecond : this.stepInMilliSecond
+    delay += customStepInMilliSecond || this.stepInMilliSecond
     return delay
   }
   this.reset = function() {
@@ -76,16 +76,13 @@ var Animator = (function() {
 
         $(node).addClass("animated" + timing + animationClassName)
 
-        var duration = 1
-        if (options["duration"] != undefined) {
-          duration = options["duration"]
-          $(node).css("animation-duration", duration + "s")
-        }
+        var duration = options["duration"] || "1s"
+        $(node).css("animation-duration", duration)
 
         if (completionHandler) {
           TimeoutActionStore.addAction(function() {
             completionHandler.call($(node))
-          }, duration * 1000)
+          }, parseFloat(duration) * 1000)
         }
 
         afterActions.forEach(function(actionPack) {
@@ -125,16 +122,17 @@ var Animator = (function() {
 
   // MARK: - Custom
   animateActionFactory(core, "fadeIn", {
-    duration: 2
+    duration: "2s"
   })
   animateActionFactory(core, "fadeOut")
   animateActionFactory(core, "fadeOutDown")
   animateActionFactory(core, "flash")
   animateActionFactory(core, "shine", {
-    duration: 4
+    duration: "3s",
+    infinite: true
   })
   animateActionFactory(core, "float", {
-    duration: 2
+    duration: "2s"
   })
   animateActionFactory(core, "bounceIn")
 
@@ -150,5 +148,11 @@ var Animator = (function() {
     TimeoutActionStore.removeAllActions()
   }
 
+
+  core.removeFadeIn = function(node) {
+    $(node).removeClass("animated")
+    $(node).removeClass("fadeIn")
+    $(node).css("opacity", 1)
+  }
   return core
 })()

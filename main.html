@@ -4,15 +4,16 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<script src="lib/pace.js"></script>
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+	<script  data-pace-options='{ "ajax": false }'  src="lib/pace.js"></script>
 	<link href="style/pace.css" rel="stylesheet" />
 </head>
 
 <body>
 	<div class="fs" style="opacity:1;position:absolute;overflow:hidden">
-		<div id="parallax_background"></div>
+		<img id="parallax_background" />
 	</div>
+
 	<div id="fullpage">
 
 		<div class="section" id="intro-page">
@@ -25,12 +26,18 @@
 				<img id="text_bottom" />
 
 				<img id='drop' />
-				<img class='water_drop' />
+				<img id="dropper_text" />
+				<img id="inner_drop" />
+				<img id='water_drop' />
 				<img id='inner_circle' />
 				<img id='outter_circle' />
 				<img id='text' />
 				<img id='hand' />
-				<img class='next-page-arrow' />
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 				<div style="opacity:1" class="fs">
 					<div class="tapArea"></div>
 				</div>
@@ -38,31 +45,48 @@
 		</div>
 
 		<div class="section" id="usage-page">
-			<div class="container">
+			<section class="container">
+
 				<img id="scroll-container" />
 				<img id="scroll-text" />
 				<img id="mask" />
 				<img id="face" />
-				<div class="scene-1 box">
-					<img class="text" />
-					<img class="right-hand" />
-					<img class="left-hand" />
+
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
 					<img class="arrow" />
 				</div>
-				<div class="scene-2 box">
-					<img class="text" />
-					<img class="right-hand" />
-					<img class="left-hand" />
-					<img class="arrow" />
+
+				<div class="slide">
+					<div class="sub-container scene-1">
+						<img class="text" />
+						<img class="right-hand" />
+						<img class="left-hand" />
+						<img class="arrow" />
+						<img class="arrow-next arrow-indicator" />
+					</div>
 				</div>
-				<div class="scene-3 box">
-					<img class="text" />
-					<img class="right-hand" />
-					<img class="left-hand" />
-					<img class="arrow" />
+				<div class="slide">
+					<div class="sub-container scene-2">
+						<img class="text" />
+						<img class="right-hand" />
+						<img class="left-hand" />
+						<img class="arrow" />
+						<img class="arrow-next arrow-indicator" />
+						<img class="arrow-prev arrow-indicator" />
+					</div>
 				</div>
-				<img class='next-page-arrow' />
-			</div>
+				<div class="slide">
+					<div class="sub-container scene-3">
+						<img class="text" />
+						<img class="right-hand" />
+						<img class="left-hand" />
+						<img class="arrow" />
+						<img class="arrow-prev arrow-indicator" />
+					</div>
+				</div>
+			</section>
 		</div>
 
 		<div class="section" id="inside-skin-page">
@@ -75,17 +99,26 @@
 				</div>
 				<div class="scene-2 box">
 					<img class="cell" />
+					<img class="magnifier-mask" />
 					<img class="arrow" />
 					<img class="hand" />
 					<img class="magnifier" />
-					<img class="magnifier-mask" />
 				</div>
-				<img class='next-page-arrow' />
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 			</div>
 		</div>
 
 		<div class="section" id="power-skin-up-page">
 			<div class="container">
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 				<div class="scene-1 box">
 					<img class="cell" />
 					<img class="drop" />
@@ -93,78 +126,94 @@
 				</div>
 				<div class="scene-2 box">
 					<img class="cell" />
+					<img class="mitochondria" />
 					<img class="drop" />
 					<img class="light" />
 					<img class="text" />
 				</div>
-				<div class='next-page-arrow' />
 			</div>
 		</div>
 
 		<div class="section" id="game-page">
 			<div class="container">
-				<img class='next-page-arrow' />
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 				<img id='phone' />
 				<img id='seperator' />
 				<img id='text' />
 				<img id='vibration' />
-				<img id="ball-container">
+				<div id="ball-container" class="box"></div>
 			</div>
 		</div>
-	</div>
 
-	<div class="section" id="another-game-page">
-		<div class="container">
-			<div id="cell-container" class="box">
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-				<img class="cell" />
-			</div>
-			<img id="mask-old" />
-			<img id="mask-new" />
-			<img id="hand" />
-			<img class='next-page-arrow' />
-		</div>
-	</div>
-
-	<div class="section" id="change-page">
-		<div class="container">
-			<img class='next-page-arrow' />
-			<img id='head' />
-			<img id='arrow' />
-			<img id='sun' />
-			<img id='hand' />
-			<img id='scene-1-head' />
-			<img id='scene-1-sun' />
-			<div style="opacity:1">
-				<div class="tapArea"></div>
+		<div class="section" id="another-game-page">
+			<div class="container">
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
+				<div id="cell-container" class="box">
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+					<img class="cell" />
+				</div>
+				<img id="mask-old" />
+				<img id="mask-new" />
+				<img id="hand" />
 			</div>
 		</div>
-	</div>
 
-	<div class="section" id="end-page">
-		<div class="container">
-			<img id='logo' />
-			<img id='seperator_bottom' />
-			<img id='seperator_top' />
-			<img id='text_bottom' />
-			<img id='text_top' />
-			<img id='video_container' />
-			<img id='video_play' />
+		<div class="section" id="change-page">
+			<div class="container">
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
+				<img id='head' />
+				<img class="light" src="images/change/light/1.png">
+				<img class="light" src="images/change/light/2.png">
+				<img class="light" src="images/change/light/3.png">
+				<img class="light" src="images/change/light/4.png">
+				<img class="light" src="images/change/light/5.png">
+				<img class="light" src="images/change/light/6.png">
+				<img id='hand' />
+				<div style="opacity:1">
+					<div class="tapArea"></div>
+				</div>
+			</div>
 		</div>
-	</div>
+
+		<div class="section" id="end-page">
+			<div class="container">
+				<img id='logo' />
+				<img id='seperator_bottom' />
+				<img id='seperator_top' />
+				<img id='text_bottom' />
+				<img id='text_top' />
+				<img id='video_container' />
+				<img id='video_play' />
+			</div>
+		</div>
 
 	</div>
 </body>
 
 <audio loop autoplay>
 	<source src="audio/bg.mp3" />
+</audio>
+<audio>
+	<source src="audio/drop.mp3" />
 </audio>
 
 <link rel="stylesheet" type="text/css" href="lib/jquery.fullPage.css">
