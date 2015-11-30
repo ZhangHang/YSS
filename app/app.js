@@ -20,11 +20,12 @@
           hasCache = true
         }
 
-        var indexFromZero = index - 1
         var loadedSection = $(this).find(containerSelector)
-        loadedSection.html(pages[indexFromZero].htmlCache)
-        pages[indexFromZero].render(loadedSection, new Incrementer(200, 500), function() {
+        var currentPageObject = pages[index - 1];
+        loadedSection.html(currentPageObject.htmlCache)
+        currentPageObject.render(loadedSection, new Incrementer(200, 500), function() {
           $.fn.fullpage.setAllowScrolling(true, 'down')
+          $.fn.fullpage.setAllowScrolling(true, 'up')
 
           var nextPageContainer = loadedSection.find(".next-arrow-container")
           if (nextPageContainer) {
@@ -36,8 +37,13 @@
           } else {
             console.log("no next page indicator found")
           }
-
         })
+
+        //addtional options
+        if(currentPageObject.disableScrollingUp){
+            $.fn.fullpage.setAllowScrolling(false, 'up')
+        }
+
       },
       onLeave: function(index, nextIndex, direction) {
         if (cleanUpTimeoutIdObject) {

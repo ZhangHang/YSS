@@ -1,4 +1,5 @@
 pageStack.set('inside-skin', {
+  disableScrollingUp: true,
   render: function(self, incrementer, pageCompletionHandler) {
     var it = this
 

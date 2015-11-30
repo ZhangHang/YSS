@@ -59,15 +59,11 @@ pageStack.set('usage', {
     }
 
     Animator.fadeIn(container.find(".text"), incrementer.next()).done()
-    Animator.fadeIn(container.find(".arrow"), incrementer.next()).done()
+    Animator.fadeIn(container.find(".arrow-indicator"), incrementer.last()).done()
+    Animator.fadeIn(container.find(".arrow"), incrementer.last()).done()
 
     Animator.animate("usage-type-" + index + "-right", container.find(".right-hand"), incrementer.next(), handAnimationOption).done()
-    Animator.animate("usage-type-" + index + "-left", container.find(".left-hand"), incrementer.last(), handAnimationOption).done(function() {
-      Animator.fadeIn(container.find(".arrow-indicator")).done()
-      if (completionHandler) {
-        completionHandler()
-      }
-    })
+    Animator.animate("usage-type-" + index + "-left", container.find(".left-hand"), incrementer.last(), handAnimationOption).done(completionHandler)
 
   }
 })
