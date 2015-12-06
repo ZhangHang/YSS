@@ -121,10 +121,12 @@
     .hand {
       content: url(../images/inside-skin/1/hand.png);
     }
-    .magnifier {
+    #scene-1-magnifier {
       content: url(../images/inside-skin/1/magnifier.png);
-      transition: all 0.8s;
-      left: 0;
+      z-index: 1000;
+    }
+    .animated_magnifier{
+      transition: all 1s;
     }
     .head {
       content: url(../images/inside-skin/1/head.png);
