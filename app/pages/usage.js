@@ -11,9 +11,11 @@ pageStack.set('usage', {
     Animator.fadeIn(self.find("#scroll-text"), incrementer.next()).done()
     Animator.fadeIn(self.find("#mask"), incrementer.next()).done()
     Animator.fadeIn(self.find("#face"), incrementer.next()).done(function() {
+    })
+    Animator.performAction(function(){
       incrementer.reset()
       it.enterSlide1(self.find(".slide").eq(0).find(".sub-container"), incrementer)
-    })
+    },incrementer.last())
   },
   cacheAllSlide: function() {
     for (var i = 0; i < 3; i++) {

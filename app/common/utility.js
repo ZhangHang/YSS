@@ -122,7 +122,7 @@ var Animator = (function() {
 
   // MARK: - Custom
   animateActionFactory(core, "fadeIn", {
-    duration: "2s"
+    duration: "1.4s"
   })
   animateActionFactory(core, "fadeOut")
   animateActionFactory(core, "fadeOutDown")

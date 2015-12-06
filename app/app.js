@@ -23,7 +23,7 @@
         var loadedSection = $(this).find(containerSelector)
         var currentPageObject = pages[index - 1];
         loadedSection.html(currentPageObject.htmlCache)
-        currentPageObject.render(loadedSection, new Incrementer(200, 500), function() {
+        currentPageObject.render(loadedSection, new Incrementer(200, 400), function() {
           $.fn.fullpage.setAllowScrolling(true, 'down')
           $.fn.fullpage.setAllowScrolling(true, 'up')
 
