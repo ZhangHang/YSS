@@ -4,7 +4,7 @@
  *
  * Install these gulp plugins
  * glup, gulp-image-resize, gulp-imagemin and imagemin-png
- * 
+ *
  **/
 
 var gulp = require('gulp');
@@ -56,7 +56,7 @@ gulp.task('css-watch', css);
 var images = function() {
     return gulp.src(paths.images)
       .pipe(imageresize({
-        width: 480,
+        width: 640,
         crop: false,
         // never increase image dimensions
         upscale: false

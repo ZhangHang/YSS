@@ -20,7 +20,7 @@
   #drop {
     content: url(../images/intro/drop.png);
   }
-  #dropper_text{
+  #dropper_text {
     content: url(../images/intro/dropper_text.png);
   }
   #inner_drop {
@@ -124,7 +124,7 @@
     .magnifier {
       content: url(../images/inside-skin/1/magnifier.png);
       transition: all 0.8s;
-      left: 0%;
+      left: 0;
     }
     .head {
       content: url(../images/inside-skin/1/head.png);
@@ -145,6 +145,19 @@
     }
     .magnifier-mask {
       content: url(../images/inside-skin/2/magnifier_mask.png);
+    }
+    #scratch {
+      top: 23.8%;
+      left: 7.4%;
+      width: 48vh;
+      height: 48vh;
+      border-radius: 50%;
+      -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+      /* this fixes the overflow:hidden in Chrome/Opera */
+    }
+    #card {
+      width: 100%;
+      height: 100%;
     }
   }
 }
@@ -293,12 +306,12 @@
   #head {
     content: url(../images/change/head.png);
     -webkit-filter: grayscale(0.6);
-    filter: grayscale(0.6);
+    filter:grayscale(0.6);
     transition: 1s -webkit-filter linear,1s filter linear;
   }
   .change {
     -webkit-filter: grayscale(0) !important;
-    filter: grayscale(0) !important;
+    filter:grayscale(0) !important;
   }
   .tapArea {
     margin-left: 60%;

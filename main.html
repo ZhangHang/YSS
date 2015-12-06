@@ -5,7 +5,7 @@
 	<title></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-	<script  data-pace-options='{ "ajax": false }'  src="lib/pace.js"></script>
+	<script data-pace-options='{ "ajax": false }' src="lib/pace.js"></script>
 	<link href="style/pace.css" rel="stylesheet" />
 </head>
 
@@ -91,6 +91,11 @@
 
 		<div class="section" id="inside-skin-page">
 			<div class="container">
+				<div class="next-arrow-container">
+					<img class="arrow" />
+					<img class="arrow" />
+					<img class="arrow" />
+				</div>
 				<div class="scene-1 box">
 					<img class="head" />
 					<img class="arrow" />
@@ -99,15 +104,12 @@
 				</div>
 				<div class="scene-2 box">
 					<img class="cell" />
-					<img class="magnifier-mask" />
 					<img class="arrow" />
 					<img class="hand" />
 					<img class="magnifier" />
-				</div>
-				<div class="next-arrow-container">
-					<img class="arrow" />
-					<img class="arrow" />
-					<img class="arrow" />
+					<div id="scratch" style="opacity:0;">
+						<div id="card"></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -216,15 +218,17 @@
 	<source src="audio/drop.mp3" />
 </audio>
 
-<link rel="stylesheet" type="text/css" href="lib/jquery.fullPage.css">
+<link rel="stylesheet" type="text/css" href="style/jquery.fullPage.css">
+<link rel="stylesheet" type="text/css" href="style/lucky-card.css">
 <link rel="stylesheet" type="text/css" href="style/main.css">
 <link rel="stylesheet" type="text/css" href="style/pages.css">
 <link rel="stylesheet" type="text/css" href="style/animate.css">
 
-<script type="text/javascript" src="lib/jquery.min.js"></script>
-<script type="text/javascript" src="lib/jquery.fullPage.min.js"></script>
-<script type="text/javascript" src="lib/hammer.min.js"></script>
-<script type="text/javascript" src="lib/matter.min.js"></script>
+<script type="text/javascript" src="lib/jquery.js"></script>
+<script type="text/javascript" src="lib/jquery.fullPage.js"></script>
+<script type="text/javascript" src="lib/lucky-card.js"></script>
+<script type="text/javascript" src="lib/hammer.js"></script>
+<script type="text/javascript" src="lib/matter.js"></script>
 
 <script type="text/javascript" src="app/main.js"></script>
 
