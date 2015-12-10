@@ -54,7 +54,7 @@ pageStack.set('intro', {
         infinite: true
       }).done()
       Animator.fadeIn(self.find("#hand"), incrementer.last()).done(function() {
-        Animator.removeFadeIn(this)
+        Animator.removeFadeIn(this, true)
         Animator.float(this, 0, {
           infinite: true
         }).done()

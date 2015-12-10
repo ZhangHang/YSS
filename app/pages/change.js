@@ -2,7 +2,7 @@ pageStack.set('change', {
   render: function(self, incrementer, pageCompletionHandler) {
     Animator.fadeIn(self.find("#head"), incrementer.next()).done()
     Animator.fadeIn(self.find("#hand"), incrementer.next()).done(function() {
-      Animator.removeFadeIn(this)
+      Animator.removeFadeIn(this, true)
       Animator.float(this, 0, {
         infinite: true
       }).done()
@@ -28,6 +28,7 @@ pageStack.set('change', {
           }
         })
       }
+
       var delay = 250
       lightAnimation(self.find(".light").eq(0), incrementer.next(delay), true)
       lightAnimation(self.find(".light").eq(1), incrementer.next(delay), true)
@@ -40,6 +41,7 @@ pageStack.set('change', {
         Animator.fadeIn(self.find(".next-page-arrow")).done(pageCompletionHandler)
         self.find("#head").addClass("change")
       }, incrementer.next() - delay * 4)
+
     })
   }
 })

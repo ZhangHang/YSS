@@ -1,3 +1,36 @@
+var _ = {
+  extend: function(obj, source) {
+    console.assert(obj != undefined)
+    console.assert(source != undefined)
+    for (var prop in source) {
+      obj[prop] = source[prop]
+    }
+    return obj
+  }
+}
+
+_.extend(_, {
+  merge: function(obj, source){
+    var _obj = {}
+    console.assert(obj != undefined)
+    console.assert(source != undefined)
+    for (var prop in obj) {
+      _obj[prop] = obj[prop]
+    }
+    for (var prop in source) {
+      _obj[prop] = source[prop]
+    }
+    return _obj
+  }
+})
+
+_.extend(_, {
+  capitalizeFirstLetter: function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+})
+
+
 var Incrementer = function(baseDelayInMilliSecond, stepInMilliSecond) {
   var delay = 0
   this.next = function(customStepInMilliSecond) {
@@ -47,34 +80,15 @@ var Animator = (function() {
     console.assert(animationClassName != undefined)
     console.assert(node != undefined)
     var _delay = delay || 0
-    var _options = (function() {
-      var _options = {
-        infinite: false,
-      }
-      for (var attrname in options || {}) {
-        _options[attrname] = options[attrname]
-      }
-      return _options
-    })()
+    var _options = _.merge({ infinite: false }, options || {})
 
     var core = {}
-    var afterTimeOffset = 0
-    var afterActions = []
-
-    core.after = function(__action, __delay) {
-      afterActions.push({
-        delay: afterTimeOffset + __delay,
-        action: __action
-      })
-      afterTimeOffset += __delay
-      return core
-    }
 
     core.done = function(completionHandler) {
       TimeoutActionStore.addAction(function() {
-        var timing = (_options.infinite ? " infinite" : "") + " "
+        var timing = _options.infinite ? "infinite" : ""
 
-        $(node).addClass("animated" + timing + animationClassName)
+        $(node).addClass("animated " + timing + " " + animationClassName)
 
         var duration = options["duration"] || "1s"
         $(node).css("animation-duration", duration)
@@ -85,56 +99,52 @@ var Animator = (function() {
           }, parseFloat(duration) * 1000)
         }
 
-        afterActions.forEach(function(actionPack) {
-          TimeoutActionStore.addAction(actionPack.action, actionPack.delay)
-        })
       }, _delay)
     }
     return core
   }
 
   /*
-   * This function binds `@animationName` function and `remove@AnimationName` function to @bindingObject
+   * This function binds `@animationName` function and `remove@AnimationName` function to `core`
    */
-  animateActionFactory = function(bindingObject, animationClassName, defualtOptions) {
-    bindingObject[animationClassName] = function() {
-      var node = arguments[0]
-      var delay = arguments[1]
-      var options = arguments[2] || {}
+  attachAnimation = function(animationClassName, defualtOptions) {
+    console.assert(typeof animationClassName === 'string')
+
+    var appendAnimationFunctionName = animationClassName
+    var removeAnimationFunctionName = "remove" + _.capitalizeFirstLetter(animationClassName)
+
+    core[appendAnimationFunctionName] = function(node, delay, options) {
       console.assert(node != undefined)
-
-      for (var attrname in (defualtOptions || {})) {
-        if (options[attrname] == undefined) {
-          options[attrname] = defualtOptions[attrname]
-        }
-      }
-      return core.animate(animationClassName, node, delay, options)
+      return core.animate(animationClassName, node, delay, _.merge(defualtOptions || {}, options || {}))
     }
-    bindingObject["remove" + capitalizeFirstLetter(animationClassName)] = function(node) {
-      node.removeClass("animate")
+
+    core[removeAnimationFunctionName] = function(node, visible) {
+      console.assert(node)
+      node.removeClass("animated")
       node.removeClass(animationClassName)
-    }
-
-    function capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
+      if (visible) {
+        node.css("opacity", 1)
+      }
     }
   }
 
   // MARK: - Custom
-  animateActionFactory(core, "fadeIn", {
-    duration: "1.4s"
-  })
-  animateActionFactory(core, "fadeOut")
-  animateActionFactory(core, "fadeOutDown")
-  animateActionFactory(core, "flash")
-  animateActionFactory(core, "shine", {
-    duration: "3s",
-    infinite: true
-  })
-  animateActionFactory(core, "float", {
-    duration: "2s"
-  })
-  animateActionFactory(core, "bounceIn")
+  ~(function() {
+    attachAnimation("fadeIn", {
+      duration: "1.4s"
+    })
+    attachAnimation("fadeOut")
+    attachAnimation("fadeOutDown")
+    attachAnimation("flash")
+    attachAnimation("shine", {
+      duration: "3s",
+      infinite: true
+    })
+    attachAnimation("float", {
+      duration: "2s"
+    })
+    attachAnimation("bounceIn")
+  })()
 
   // MARK: -
   core.performAction = function(action, delay) {
@@ -148,11 +158,5 @@ var Animator = (function() {
     TimeoutActionStore.removeAllActions()
   }
 
-
-  core.removeFadeIn = function(node) {
-    $(node).removeClass("animated")
-    $(node).removeClass("fadeIn")
-    $(node).css("opacity", 1)
-  }
   return core
 })()

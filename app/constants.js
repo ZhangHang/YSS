@@ -14,10 +14,10 @@ $("audio").on('play', function() {
 
 pageStack = {
   map: {},
-  set: function(key, value){
+  set: function(key, value) {
     this.map[key] = value
   },
-  get: function(key){
+  get: function(key) {
     return this.map[key]
   }
 }

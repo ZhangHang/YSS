@@ -4,7 +4,7 @@ pageStack.set('another-game', {
     Animator.fadeIn(self.find("#mask-old"), incrementer.next()).done()
     Animator.fadeIn(self.find(".cell"), incrementer.next()).done()
     Animator.fadeIn(self.find("#hand"), incrementer.next()).done(function() {
-      Animator.removeFadeIn(this)
+      Animator.removeFadeIn(this, true)
       Animator.float(this, 0, {
         infinite: true
       }).done()
