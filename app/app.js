@@ -2,7 +2,7 @@
   var cleanUpTimeoutIdObject = undefined
   var hasCache = false
 
-  Pace.once('done', function(){
+  Pace.once('done', function() {
     $(warperSelector).fullpage({
       controlArrows: false,
       loopHorizontal: false,
@@ -13,16 +13,18 @@
     })
   });
 
+  var BACKGROUND_HTML_STRING = "<img class='parallax-background' >"
+
   // MARK FullPage event handlers
 
-  function afterLoad (anchorLink, index) {
+  function afterLoad(anchorLink, index) {
     $.fn.fullpage.setAllowScrolling(false, 'down')
     if (!hasCache) {
       for (var i = 0; i < pages.length; i++) {
         var currentContainer = $(warperSelector).find(".section").find(containerSelector).eq(i)
         pages[i].htmlCache = currentContainer.html()
         if (i != 0) {
-          currentContainer.html("")
+          currentContainer.html(BACKGROUND_HTML_STRING)
         }
       }
       hasCache = true
@@ -30,7 +32,8 @@
 
     var loadedSection = $(this).find(containerSelector)
     var currentPageObject = pages[index - 1];
-    loadedSection.html(currentPageObject.htmlCache)
+    loadedSection.html(currentPageObject.htmlCache + BACKGROUND_HTML_STRING)
+
     currentPageObject.render(loadedSection, new Incrementer(200, 400), function() {
       $.fn.fullpage.setAllowScrolling(true, 'down')
       $.fn.fullpage.setAllowScrolling(true, 'up')
@@ -40,8 +43,8 @@
         var arrows = nextPageContainer.find(".arrow")
 
         Animator.shine(arrows.eq(0), 0).done()
-        Animator.shine(arrows.eq(1), 750).done()
-        Animator.shine(arrows.eq(2), 1500).done()
+        Animator.shine(arrows.eq(1), 600).done()
+        Animator.shine(arrows.eq(2), 1200).done()
       } else {
         console.log("no next page indicator found")
       }
@@ -68,7 +71,7 @@
     var indexFromZero = index - 1
 
     function cleanUp() {
-      leavingSection.html("")
+      leavingSection.html(BACKGROUND_HTML_STRING)
       if (pages[indexFromZero].deinit) {
         pages[indexFromZero].deinit()
       }
@@ -81,7 +84,7 @@
     }
   }
 
-  function afterSlideLoad (anchorLink, index, slideAnchor, slideIndex) {
+  function afterSlideLoad(anchorLink, index, slideAnchor, slideIndex) {
     var targetEnterSelector = "enterSlide" + (slideIndex + 1)
     var page = pages[index - 1]
     var loadedSection = $("#fullpage").find(".section").eq(index - 1)

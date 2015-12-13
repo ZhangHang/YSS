@@ -44,21 +44,6 @@ body {
 .tapArea {
   position: relative;
 }
-#parallax_background {
-  position: relative;
-  display: block;
-  width: 130%;
-  height: 111%;
-  top: -6.5%;
-  left: -15%;
-  content: url(../images/bg.jpg);
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  transition: all 0.2s;
-  z-index: 0;
-}
 #fullpage {
   z-index: 1;
 }
@@ -75,6 +60,22 @@ body {
   /* horizontal center */
   overflow: hidden;
   z-index: 1;
+
+  .parallax-background {
+    position: absolute;
+    display: block;
+    opacity: 1;
+    width: 130% !important;
+    height: 100% !important;
+    left: -15%;
+    top: 0;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+    z-index: 0;
+  }
 }
 .sub-container {
   position: relative;
@@ -95,19 +96,6 @@ body {
   height: 100%;
   position: absolute;
   display: block;
-}
-.fs {
-  position: absolute;
-  height: 100vh;
-  width: 56.3vh;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0;
 }
 .next-arrow-container {
   width: 100%;
@@ -135,4 +123,5 @@ body {
   position: absolute;
   height: 100%;
   width: auto;
+  z-index: 1;
 }
