@@ -21,7 +21,7 @@ var del = require('del');
 var paths = {
   scripts: ['app/constants.js', 'app/common/*.js', 'app/pages/*.js', 'app/*.js'],
   images: ['images/**/*', 'images/*'],
-  css: ['style/*.css', 'style/*.less']
+  css: ['style/*.less','style/*.css', 'style/**/*.less']
 };
 
 // Not all tasks need to use streams
@@ -48,6 +48,7 @@ var css = function() {
   return gulp.src(paths.css)
     .pipe(less())
     .pipe(minifyCss())
+    .pipe(concat('main.css'))
     .pipe(gulp.dest('dist/style'));
 }
 gulp.task('css', ['clean'], css);
@@ -55,16 +56,16 @@ gulp.task('css-watch', css);
 
 var images = function() {
     return gulp.src(paths.images)
-      .pipe(imageresize({
-        width: 640,
-        crop: false,
-        // never increase image dimensions
-        upscale: false
-      }))
-      .pipe(imagemin({
-        optimizationLevel: 2,
-        use: [pngquant()]
-      }))
+      // .pipe(imageresize({
+      //   width: 640,
+      //   crop: false,
+      //   // never increase image dimensions
+      //   upscale: false
+      // }))
+      // .pipe(imagemin({
+      //   optimizationLevel: 2,
+      //   use: [pngquant()]
+      // }))
       .pipe(gulp.dest('dist/images'));
   }
   // Copy all static images

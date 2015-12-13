@@ -15,6 +15,12 @@
 
   var BACKGROUND_HTML_STRING = "<img class='parallax-background' >"
 
+  var NEXT_PAGE_ARROW_HTML_STRING = "<div class='next-arrow-container'>\
+          <img class='arrow' />\
+          <img class='arrow' />\
+          <img class='arrow' />\
+        </div>"
+
   // MARK FullPage event handlers
 
   function afterLoad(anchorLink, index) {
@@ -106,6 +112,7 @@
 
 })([
   pageStack.get('intro'),
+  pageStack.get('chart'),
   pageStack.get('usage'),
   pageStack.get('inside-skin'),
   pageStack.get('power-skin-up'),
