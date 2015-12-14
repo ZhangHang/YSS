@@ -10,7 +10,7 @@ var _ = {
 }
 
 _.extend(_, {
-  merge: function(obj, source){
+  merge: function(obj, source) {
     var _obj = {}
     console.assert(obj != undefined)
     console.assert(source != undefined)
@@ -74,17 +74,36 @@ var Animator = (function() {
    * @delay   : millisecond
    * @options :
    *   infinite: Bool
-   *   duration: String
+   *   duration: String,
+   *   remove: Bool
    */
-  core.animate = function(animationClassName, node, delay, options) {
+  core.animate = function(animationClassName, node, delay, options, customCompletionHandler) {
     console.assert(animationClassName != undefined)
     console.assert(node != undefined)
     var _delay = delay || 0
-    var _options = _.merge({ infinite: false }, options || {})
+    var _options = _.merge({
+      infinite: false,
+      remove: false
+    }, options || {})
 
     var core = {}
 
     core.done = function(completionHandler) {
+      if (completionHandler) {
+        if (typeof completionHandler != 'function') {
+          console.log(completionHandler)
+        }
+        console.assert(typeof completionHandler === 'function')
+      }
+
+      if (customCompletionHandler) {
+        customCompletionHandler.call($(node))
+      }
+      
+      if (_options.remove) {
+        $(node).remove()
+      }
+
       TimeoutActionStore.addAction(function() {
         var timing = _options.infinite ? "infinite" : ""
 
@@ -133,8 +152,11 @@ var Animator = (function() {
     attachAnimation("fadeIn", {
       duration: "1.4s"
     })
-    attachAnimation("fadeOut")
-    attachAnimation("fadeOutDown")
+    attachAnimation("fadeInUp", {
+      duration: "1.4s"
+    })
+    attachAnimation("fadeOut", {remove: true})
+    attachAnimation("fadeOutDown", {remove: true})
     attachAnimation("flash")
     attachAnimation("shine", {
       duration: "3s",

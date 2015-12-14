@@ -113,12 +113,7 @@
 })([
   pageStack.get('intro'),
   pageStack.get('chart'),
-  pageStack.get('usage'),
-  pageStack.get('inside-skin'),
-  pageStack.get('power-skin-up'),
-  pageStack.get('game'),
-  pageStack.get('another-game'),
-  pageStack.get('change'),
+  pageStack.get('power'),
   pageStack.get('end')
 ], "#fullpage", ".container")
 
