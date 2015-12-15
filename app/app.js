@@ -114,6 +114,7 @@
   pageStack.get('intro'),
   pageStack.get('chart'),
   pageStack.get('power'),
+  pageStack.get('bounce'),
   pageStack.get('end')
 ], "#fullpage", ".container")
 

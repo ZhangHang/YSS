@@ -1,0 +1,75 @@
+#bounce-page {
+  img.parallax-background {
+    content: url(../images/backgrounds/1.jpg);
+  }
+  #ball {
+    content: url(../images/bounce/ball.png);
+    -webkit-transform: scaleY(0.70);
+    transform: scaleY(0.70);
+  }
+  #chart-body-bottom {
+    content: url(../images/bounce/chart_body_bottom.png);
+  }
+  #chart-body {
+    content: url(../images/bounce/chart_body.png);
+  }
+  #chart-text {
+    content: url(../images/bounce/chart_text.png);
+  }
+  #guide {
+    content: url(../images/bounce/guide.png);
+  }
+  #text {
+    content: url(../images/bounce/text.png);
+  }
+  #hand {
+    content: url(../images/bounce/hand.png);
+  }
+  #text_bottom {
+    content: url(../images/bounce/text_bottom.png);
+  }
+}
+.skin-bounce{
+    -webkit-animation-name: skin-bounce;
+    animation-name: skin-bounce;
+}
+@-webkit-keyframes skin-bounce {
+  100% {
+    -webkit-transform: scaleY(0.9);
+    opacity: 1;
+  }
+  80% {
+    -webkit-transform: scaleY(1.2);
+    opacity: 0.7;
+  }
+  60% {
+    -webkit-transform: scaleY(0.6);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scaleY(0.95);
+  }
+  0% {
+    -webkit-transform: scaleY(0.7);
+  }
+}
+@keyframes skin-bounce {
+  100% {
+    -webkit-transform: scaleY(0.9);
+    opacity: 1;
+  }
+  80% {
+    -webkit-transform: scaleY(1.2);
+    opacity: 0.7;
+  }
+  60% {
+    -webkit-transform: scaleY(0.6);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scaleY(0.95);
+  }
+  0% {
+    -webkit-transform: scaleY(0.7);
+  }
+}
