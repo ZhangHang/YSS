@@ -109,6 +109,7 @@
   pageStack.get('power'),
   pageStack.get('bounce'),
   pageStack.get('game'),
+  pageStack.get('change'),
   pageStack.get('end')
 ], "#fullpage", ".container")
 
