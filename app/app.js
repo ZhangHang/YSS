@@ -14,13 +14,6 @@
   });
 
   var BACKGROUND_HTML_STRING = "<img class='parallax-background' >"
-
-  var NEXT_PAGE_ARROW_HTML_STRING = "<div class='next-arrow-container'>\
-          <img class='arrow' />\
-          <img class='arrow' />\
-          <img class='arrow' />\
-        </div>"
-
   // MARK FullPage event handlers
 
   function afterLoad(anchorLink, index) {
@@ -38,7 +31,7 @@
 
     var loadedSection = $(this).find(containerSelector)
     var currentPageObject = pages[index - 1];
-    loadedSection.html(currentPageObject.htmlCache + BACKGROUND_HTML_STRING)
+    loadedSection.html(BACKGROUND_HTML_STRING + currentPageObject.htmlCache)
 
     currentPageObject.render(loadedSection, new Incrementer(200, 400), function() {
       $.fn.fullpage.setAllowScrolling(true, 'down')
@@ -115,6 +108,7 @@
   pageStack.get('chart'),
   pageStack.get('power'),
   pageStack.get('bounce'),
+  pageStack.get('game'),
   pageStack.get('end')
 ], "#fullpage", ".container")
 
