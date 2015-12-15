@@ -2,34 +2,35 @@ pageStack.set("power", {
   render: function(self, incrementer, pageCompletionHandler) {
     var it = this;
 
+
+    var textIndex = 0
+
     function fadeInText(completionHandler) {
-      incrementer.reset()
-      Animator.fadeInUp(self.find(".text-right").eq(0), incrementer.next()).done()
-      Animator.fadeInUp(self.find(".text-left").eq(0), incrementer.next()).done(completionHandler)
+      var index = textIndex + 0
+      textIndex += 1
+      Animator.fadeIn(self.find(".text-right").eq(index)).done()
+      Animator.fadeIn(self.find(".text-left").eq(index), 200).done(completionHandler)
     }
 
     function fadeLatestOutText(completionHandler) {
-      function first(queryResult) {
-        if (queryResult['length'] != undefined) {
-          return queryResult.eq(0)
-        } else {
-          return queryResult
-        }
-      }
-      Animator.fadeOut(first(self.find(".text-left"))).done()
-      Animator.fadeOut(first(self.find(".text-right"))).done(function() {
-        if (completionHandler) {
-          completionHandler()
-        }
-      })
+      var index = textIndex - 1
+      Animator.fadeOut(self.find(".text-left").eq(index)).done()
+      Animator.fadeOut(self.find(".text-right").eq(index)).done(completionHandler)
     }
 
     function introSecen(completionHandler) {
-      fadeInText(function() {
-        fadeLatestOutText(function() {
-          fadeInText(completionHandler)
+      Animator.fadeIn(self.find(".small-logo"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#bad-cell"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#bad-factory"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#factory-line"), incrementer.next()).done()
+
+      Animator.performAction(function() {
+        fadeInText(function() {
+          fadeLatestOutText(function() {
+            fadeInText(completionHandler)
+          })
         })
-      })
+      }, incrementer.next())
     }
 
     function dropSecen(completionHandler) {
@@ -65,11 +66,6 @@ pageStack.set("power", {
       })
     }
 
-    Animator.fadeIn(self.find(".small-logo"), incrementer.next()).done()
-    Animator.fadeIn(self.find("#bad-cell"), incrementer.next()).done()
-    Animator.fadeIn(self.find("#bad-factory"), incrementer.next()).done()
-    Animator.fadeIn(self.find("#factory-line"), incrementer.next()).done()
-
     function setupDrop(completionHandler) {
       var firstMove = true
       var offset = $(self).height() * 0.06
@@ -91,15 +87,11 @@ pageStack.set("power", {
       })
     }
 
-    Animator.performAction(function() {
-      introSecen(function() {
-        dropSecen(function() {
-          finalSecen(function() {
-
-          })
-        })
+    introSecen(function() {
+      dropSecen(function() {
+        finalSecen(pageCompletionHandler)
       })
-    }, incrementer.next())
+    })
 
   }
 })

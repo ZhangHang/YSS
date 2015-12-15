@@ -77,7 +77,7 @@ var Animator = (function() {
    *   duration: String,
    *   remove: Bool
    */
-  core.animate = function(animationClassName, node, delay, options, customCompletionHandler) {
+  core.animate = function(animationClassName, node, delay, options) {
     console.assert(animationClassName != undefined)
     console.assert(node != undefined)
     var _delay = delay || 0
@@ -96,14 +96,6 @@ var Animator = (function() {
         console.assert(typeof completionHandler === 'function')
       }
 
-      if (customCompletionHandler) {
-        customCompletionHandler.call($(node))
-      }
-      
-      if (_options.remove) {
-        $(node).remove()
-      }
-
       TimeoutActionStore.addAction(function() {
         var timing = _options.infinite ? "infinite" : ""
 
@@ -112,11 +104,15 @@ var Animator = (function() {
         var duration = options["duration"] || "1s"
         $(node).css("animation-duration", duration)
 
-        if (completionHandler) {
-          TimeoutActionStore.addAction(function() {
+        TimeoutActionStore.addAction(function() {
+          if (completionHandler) {
             completionHandler.call($(node))
-          }, parseFloat(duration) * 1000)
-        }
+          }
+
+          if (_options.remove) {
+            $(node).remove()
+          }
+        }, parseFloat(duration) * 1000)
 
       }, _delay)
     }
@@ -155,8 +151,8 @@ var Animator = (function() {
     attachAnimation("fadeInUp", {
       duration: "1.4s"
     })
-    attachAnimation("fadeOut", {remove: true})
-    attachAnimation("fadeOutDown", {remove: true})
+    attachAnimation("fadeOut")
+    attachAnimation("fadeOutDown")
     attachAnimation("flash")
     attachAnimation("shine", {
       duration: "3s",
@@ -166,6 +162,15 @@ var Animator = (function() {
       duration: "2s"
     })
     attachAnimation("bounceIn")
+    attachAnimation("zoomIn", {
+      duration: "1.4s"
+    })
+    attachAnimation("zoomInRight")
+    attachAnimation("zoomInLeft")
+    attachAnimation("zoomInDown")
+    attachAnimation("zoomOutLeft", {
+      duration: "1.4s"
+    })
   })()
 
   // MARK: -

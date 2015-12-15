@@ -7,6 +7,12 @@
     -webkit-transform: scaleY(0.70);
     transform: scaleY(0.70);
   }
+  #ball.bounced {
+    -webkit-transform: scale(1,1);
+    transform: scale(1,1);
+    -webkit-animation: skin-bounce-keep 10s infinite !important;
+    animation: skin-bounce-keep 10s infinite !important;
+  }
   #chart-body-bottom {
     content: url(../images/bounce/chart_body_bottom.png);
   }
@@ -29,9 +35,9 @@
     content: url(../images/bounce/text_bottom.png);
   }
 }
-.skin-bounce{
-    -webkit-animation-name: skin-bounce;
-    animation-name: skin-bounce;
+.skin-bounce {
+  -webkit-animation-name: skin-bounce;
+  animation-name: skin-bounce;
 }
 @-webkit-keyframes skin-bounce {
   100% {
@@ -62,14 +68,51 @@
     -webkit-transform: scaleY(1.2);
     opacity: 0.7;
   }
-  60% {
-    -webkit-transform: scaleY(0.6);
+@-webkit-keyframes skin-bounce-keep {
+  100% {
+    -webkit-transform: none;
     opacity: 1;
   }
-  50% {
-    -webkit-transform: scaleY(0.95);
+  70% {
+    -webkit-transform: scale(0.98, 1.05);
+    opacity: 0.9;
+  }
+  40%,
+  50%,
+  60% {
+    -webkit-keyframes: rotate(180deg);
+    opacity: 1;
+  }
+  30% {
+    -webkit-transform: scale(1.05, 0.98);
+    opacity: 0.9;
   }
   0% {
-    -webkit-transform: scaleY(0.7);
+    -webkit-transform: none;
+    opacity: 1;
+  }
+}
+@keyframes skin-bounce-keep {
+  100% {
+    -webkit-transform: none;
+    opacity: 1;
+  }
+  70% {
+    -webkit-transform: scale(0.98, 1.05);
+    opacity: 0.9;
+  }
+  40%,
+  50%,
+  60% {
+    -webkit-keyframes: rotate(180deg);
+    opacity: 1;
+  }
+  30% {
+    -webkit-transform: scale(1.05, 0.98);
+    opacity: 0.9;
+  }
+  0% {
+    -webkit-transform: none;
+    opacity: 1;
   }
 }

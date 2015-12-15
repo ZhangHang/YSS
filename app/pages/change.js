@@ -2,14 +2,15 @@ pageStack.set("change", {
   render: function(self, incrementer, pageCompletionHandler) {
 
     Animator.fadeIn(self.find(".small-logo"), incrementer.next()).done();
+
+    Animator.fadeIn(self.find("#scratch"), incrementer.next()).done()
+    Animator.fadeIn(self.find("#picture"), incrementer.last()).done()
+
     Animator.fadeIn(self.find("#chart-body"), incrementer.next()).done();
     Animator.fadeIn(self.find("#chart-text"), incrementer.next()).done();
 
     Animator.fadeIn(self.find("#hand"), incrementer.next()).done();
     Animator.fadeIn(self.find("#line"), incrementer.next()).done();
-
-    Animator.fadeIn(self.find("#scratch"), incrementer.next()).done()
-    Animator.fadeIn(self.find("#picture"), incrementer.last()).done()
 
     Animator.fadeIn(self.find("#guide-text"), incrementer.next()).done();
 
