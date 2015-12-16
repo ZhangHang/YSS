@@ -135,11 +135,11 @@ var Animator = (function() {
 
     core[removeAnimationFunctionName] = function(node, visible) {
       console.assert(node)
-      node.removeClass("animated")
-      node.removeClass(animationClassName)
       if (visible) {
         node.css("opacity", 1)
       }
+      node.removeClass("animated")
+      node.removeClass(animationClassName)
     }
   }
 

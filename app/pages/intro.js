@@ -26,5 +26,8 @@ pageStack.set('intro', {
         introductionScene()
       })
     }
+  },
+  deinit: function(self){
+    self.off('click')
   }
 })

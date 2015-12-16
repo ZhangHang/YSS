@@ -4,10 +4,13 @@
   }
   #ball {
     content: url(../images/bounce/ball.png);
+  }
+  #ball.compressed{
+    -webkit-transition: all 1s;
     -webkit-transform: scale(1.25,0.70);
     transform: scaleY(1.25, 0.70);
   }
-  #ball.bounced {
+  #ball.stay-bounce {
     -webkit-transform: scale(1, 1);
     transform: scale(1, 1);
     -webkit-animation: skin-bounce-keep 10s infinite !important;

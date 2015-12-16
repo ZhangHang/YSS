@@ -29,7 +29,7 @@ function BallGame(container, ballTexturePath, radius, x, y) {
           background: 'rbga(0,0,0,0)'
         }
       },
-      timeScale: 1.3
+      timeScale: 0.8
     });
 
 

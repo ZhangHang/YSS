@@ -67,7 +67,7 @@
     function cleanUp() {
       leavingSection.html(BACKGROUND_HTML_STRING)
       if (pages[indexFromZero].deinit) {
-        pages[indexFromZero].deinit()
+        pages[indexFromZero].deinit(leavingSection)
       }
     }
 

@@ -48,9 +48,9 @@ pageStack.set("power", {
           Animator.fadeOut(self.find("#factory-line")).done()
           Animator.fadeIn(self.find("#drop-after"), 400).done()
           Animator.fadeIn(self.find("#drop-after-bottom"), 600).done()
-          Animator.fadeIn(self.find("#light"), 1000).done(function(){
+          Animator.fadeIn(self.find("#light"), 1000).done(function() {
             fadeLatestOutText(function() {
-              fadeInText(function(){
+              fadeInText(function() {
                 fadeLatestOutText(completionHandler)
               })
             })
@@ -64,27 +64,35 @@ pageStack.set("power", {
       Animator.fadeOut(self.find("#bad-cell")).done()
       Animator.fadeOut(self.find("#drop-after")).done()
       Animator.fadeIn(self.find("#chart-body")).done()
-      Animator.fadeIn(self.find("#chart-text")).done(function(){
+      Animator.fadeIn(self.find("#chart-text")).done(function() {
         fadeInText(pageCompletionHandler)
       })
     }
 
     function setupDrop(completionHandler) {
-      var firstMove = true
-      var offset = $(self).height() * 0.06
-      var HIDE_GUIDE_CONTROL_DISTANCE = $(self).height() * 0.01
+      var hasFadeHands = false
+      var offset = parseInt($(self).height() * 0.06)
+      var HIDE_GUIDE_CONTROL_DISTANCE = parseInt(offset * 0.5)
+
+      function fadeOutHands() {
+        Animator.fadeOut(self.find("#hand")).done()
+        Animator.fadeOut(self.find("#droper-line")).done()
+      }
+
       var controller = dropControllerFactory(self[0], self.find("#droper")[0], {
         targetOffsetY: offset,
-        minOffsetY: 0,
+        minOffsetY: HIDE_GUIDE_CONTROL_DISTANCE,
         maxOffsetY: offset,
         onUpdate: function(y) {
-          if (Math.abs(y) >= HIDE_GUIDE_CONTROL_DISTANCE) {
-            firstMove = false;
-            Animator.fadeOut(self.find("#hand")).done()
-            Animator.fadeOut(self.find("#droper-line")).done()
+          if (Math.abs(y) >= HIDE_GUIDE_CONTROL_DISTANCE && !hasFadeHands) {
+            hasFadeHands = true
+            fadeOutHands()
           }
         },
         completionHandler: function() {
+          if (!hasFadeHands) {
+            fadeOutHands()
+          }
           Animator.performAction(completionHandler, 1000)
         }
       })
@@ -143,16 +151,13 @@ function dropControllerFactory(sourceNode, targetNode, options) {
   var destroy = false;
 
   function updateElementTransform() {
-    var translateY = Math.min(Math.max(minOffsetY, transform.translate.y), maxOffsetY)
-
-    if (translateY === targetOffsetY) {
+    if (parseInt(transform.translate.y) === parseInt(targetOffsetY)) {
       completionHandler.call(el)
       mc.destroy();
-      return;
     }
 
     var value = [
-      'translate3d(0px, ' + translateY + 'px, 0)'
+      'translate3d(0px, ' + transform.translate.y + 'px, 0)'
     ];
 
     value = value.join(" ");
@@ -161,7 +166,7 @@ function dropControllerFactory(sourceNode, targetNode, options) {
     el.style.transform = value;
     ticking = false;
 
-    onUpdate.call(el, translateY)
+    onUpdate.call(el, transform.translate.y)
   }
 
   function requestElementUpdate() {
