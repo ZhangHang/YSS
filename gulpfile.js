@@ -14,14 +14,13 @@ var minifyCss = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
 var imageresize = require('gulp-image-resize');
 var pngquant = require('imagemin-pngquant');
-var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
 var del = require('del');
 
 var paths = {
   scripts: ['app/constants.js', 'app/common/*.js', 'app/pages/*.js', 'app/*.js'],
   images: ['images/**/*', 'images/*'],
-  css: ['style/*.less','style/*.css', 'style/**/*.less']
+  css: ['style/*.less', 'style/*.css', 'style/**/*.less']
 };
 
 // Not all tasks need to use streams
@@ -33,12 +32,9 @@ gulp.task('clean', function() {
 
 var scripts = function() {
   // Minify and copy all JavaScript (except vendor scripts)
-  // with sourcemaps all the way down
   return gulp.src(paths.scripts)
-    // .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(concat('main.js'))
-    // .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/app'));
 }
 gulp.task('scripts', ['clean'], scripts);
@@ -56,16 +52,16 @@ gulp.task('css-watch', css);
 
 var images = function() {
     return gulp.src(paths.images)
-      // .pipe(imageresize({
-      //   width: 640,
-      //   crop: false,
-      //   // never increase image dimensions
-      //   upscale: false
-      // }))
-      // .pipe(imagemin({
-      //   optimizationLevel: 2,
-      //   use: [pngquant()]
-      // }))
+      .pipe(imageresize({
+        width: 640,
+        crop: false,
+        // never increase image dimensions
+        upscale: false
+      }))
+      .pipe(imagemin({
+        optimizationLevel: 2,
+        use: [pngquant()]
+      }))
       .pipe(gulp.dest('dist/images'));
   }
   // Copy all static images

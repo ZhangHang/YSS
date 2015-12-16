@@ -14,10 +14,11 @@
   });
 
   var BACKGROUND_HTML_STRING = "<img class='parallax-background' >"
-  // MARK FullPage event handlers
+    // MARK FullPage event handlers
 
   function afterLoad(anchorLink, index) {
     $.fn.fullpage.setAllowScrolling(false, 'down')
+    $.fn.fullpage.setAllowScrolling(false, 'up')
     if (!hasCache) {
       for (var i = 0; i < pages.length; i++) {
         var currentContainer = $(warperSelector).find(".section").find(containerSelector).eq(i)
@@ -33,7 +34,7 @@
     var currentPageObject = pages[index - 1];
     loadedSection.html(BACKGROUND_HTML_STRING + currentPageObject.htmlCache)
 
-    currentPageObject.render(loadedSection, new Incrementer(200, 400), function() {
+    currentPageObject.render(loadedSection, new Incrementer(200, 300), function() {
       $.fn.fullpage.setAllowScrolling(true, 'down')
       $.fn.fullpage.setAllowScrolling(true, 'up')
 
@@ -48,12 +49,6 @@
         console.log("no next page indicator found")
       }
     })
-
-    //addtional options
-    if (currentPageObject.disableScrollingUp) {
-      $.fn.fullpage.setAllowScrolling(false, 'up')
-    }
-
   }
 
   function onLeave(index, nextIndex, direction) {
@@ -118,6 +113,6 @@ window.ondeviceorientation = function(event) {
   var beta = Math.round(event.beta)
   var direction = Math.round(event.alpha)
 
-  $("#parallax_background").css("margin-top", "-" + Math.round(beta / 4) + "px")
-  $("#parallax_background").css("margin-left", "-" + Math.round(gamma / 4) + "px")
+  // $(".parallax-background").css("margin-top", "-" + Math.round(beta / 4) + "px")
+  $(".parallax-background").css("margin-left", "-" + Math.round(gamma / 4) + "px")
 }

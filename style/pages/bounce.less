@@ -4,12 +4,12 @@
   }
   #ball {
     content: url(../images/bounce/ball.png);
-    -webkit-transform: scaleY(0.70);
-    transform: scaleY(0.70);
+    -webkit-transform: scale(1.25,0.70);
+    transform: scaleY(1.25, 0.70);
   }
   #ball.bounced {
-    -webkit-transform: scale(1,1);
-    transform: scale(1,1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
     -webkit-animation: skin-bounce-keep 10s infinite !important;
     animation: skin-bounce-keep 10s infinite !important;
   }
@@ -41,33 +41,72 @@
 }
 @-webkit-keyframes skin-bounce {
   100% {
-    -webkit-transform: scaleY(0.9);
+    -webkit-transform: scale(1,1);
+    opacity: 1;
+  }
+  90% {
     opacity: 1;
   }
   80% {
-    -webkit-transform: scaleY(1.2);
-    opacity: 0.7;
+    -webkit-transform: scale(0.9,1.1);
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 1;
   }
   60% {
-    -webkit-transform: scaleY(0.6);
+    -webkit-transform: scale(1.3,0.6);
+    opacity: 0.7;
+  }
+  55% {
     opacity: 1;
   }
   50% {
-    -webkit-transform: scaleY(0.95);
+    -webkit-transform: scale(0.8,1.2);
+    opacity: 0.8;
+  }
+  25% {
+    opacity: 1;
   }
   0% {
-    -webkit-transform: scaleY(0.7);
+    -webkit-transform: scale(1.25,0.7);
+    opacity: 0.8;
   }
 }
 @keyframes skin-bounce {
   100% {
-    -webkit-transform: scaleY(0.9);
+    -webkit-transform: scale(1,1);
+    opacity: 1;
+  }
+  90% {
     opacity: 1;
   }
   80% {
-    -webkit-transform: scaleY(1.2);
+    -webkit-transform: scale(0.9,1.1);
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 1;
+  }
+  60% {
+    -webkit-transform: scale(1.3,0.6);
     opacity: 0.7;
   }
+  55% {
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(0.8,1.2);
+    opacity: 0.8;
+  }
+  25% {
+    opacity: 1;
+  }
+  0% {
+    -webkit-transform: scale(1.25,0.7);
+    opacity: 0.8;
+  }
+}
 @-webkit-keyframes skin-bounce-keep {
   100% {
     -webkit-transform: none;
@@ -80,7 +119,6 @@
   40%,
   50%,
   60% {
-    -webkit-keyframes: rotate(180deg);
     opacity: 1;
   }
   30% {
@@ -104,7 +142,6 @@
   40%,
   50%,
   60% {
-    -webkit-keyframes: rotate(180deg);
     opacity: 1;
   }
   30% {

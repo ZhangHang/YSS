@@ -12,15 +12,18 @@ pageStack.set("power", {
       Animator.fadeIn(self.find(".text-left").eq(index), 200).done(completionHandler)
     }
 
-    function fadeLatestOutText(completionHandler) {
-      var index = textIndex - 1
-      Animator.fadeOut(self.find(".text-left").eq(index)).done()
-      Animator.fadeOut(self.find(".text-right").eq(index)).done(completionHandler)
+    function fadeLatestOutText(completionHandler, delay) {
+      var _delay = delay || 0
+      Animator.performAction(function() {
+        var index = textIndex - 1
+        Animator.fadeOut(self.find(".text-left").eq(index)).done()
+        Animator.fadeOut(self.find(".text-right").eq(index)).done(completionHandler)
+      }, _delay)
     }
 
     function introSecen(completionHandler) {
       Animator.fadeIn(self.find(".small-logo"), incrementer.next()).done()
-      Animator.fadeIn(self.find("#bad-cell"), incrementer.next()).done()
+      Animator.fadeIn(self.find("#bad-cell"), incrementer.next(1000)).done()
       Animator.fadeIn(self.find("#bad-factory"), incrementer.next()).done()
       Animator.fadeIn(self.find("#factory-line"), incrementer.next()).done()
 
@@ -28,31 +31,32 @@ pageStack.set("power", {
         fadeInText(function() {
           fadeLatestOutText(function() {
             fadeInText(completionHandler)
-          })
+          }, 1000)
         })
       }, incrementer.next())
     }
 
     function dropSecen(completionHandler) {
       fadeLatestOutText(function() {
-        fadeInText(function() {
-          incrementer.reset()
-          Animator.fadeIn(self.find("#droper"), incrementer.next()).done()
-          Animator.fadeIn(self.find("#hand"), incrementer.next()).done()
-          Animator.fadeIn(self.find("#droper-line"), incrementer.next()).done(function() {
-            setupDrop(function() {
-              Animator.fadeOut(self.find("#droper")).done()
-              Animator.fadeOut(self.find("#factory-line")).done()
-              fadeLatestOutText(function() {
-                fadeInText()
+        fadeInText()
+        incrementer.reset()
+        Animator.fadeIn(self.find("#droper"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#hand"), incrementer.next()).done()
+        Animator.fadeIn(self.find("#droper-line"), incrementer.next()).done()
+        setupDrop(function() {
+          Animator.fadeOut(self.find("#droper")).done()
+          Animator.fadeOut(self.find("#factory-line")).done()
+          Animator.fadeIn(self.find("#drop-after"), 400).done()
+          Animator.fadeIn(self.find("#drop-after-bottom"), 600).done()
+          Animator.fadeIn(self.find("#light"), 1000).done(function(){
+            fadeLatestOutText(function() {
+              fadeInText(function(){
+                fadeLatestOutText(completionHandler)
               })
-              Animator.fadeIn(self.find("#drop-after"), 400).done()
-              Animator.fadeIn(self.find("#drop-after-bottom"), 600).done()
-              Animator.fadeIn(self.find("#light"), 1000).done(completionHandler)
             })
           })
         })
-      })
+      }, 1000)
     }
 
     function finalSecen(completionHandler) {
@@ -60,8 +64,7 @@ pageStack.set("power", {
       Animator.fadeOut(self.find("#bad-cell")).done()
       Animator.fadeOut(self.find("#drop-after")).done()
       Animator.fadeIn(self.find("#chart-body")).done()
-      Animator.fadeIn(self.find("#chart-text")).done()
-      fadeLatestOutText(function() {
+      Animator.fadeIn(self.find("#chart-text")).done(function(){
         fadeInText(pageCompletionHandler)
       })
     }
@@ -145,6 +148,7 @@ function dropControllerFactory(sourceNode, targetNode, options) {
     if (translateY === targetOffsetY) {
       completionHandler.call(el)
       mc.destroy();
+      return;
     }
 
     var value = [
